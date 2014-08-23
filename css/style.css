@@ -1,0 +1,192 @@
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+
+@media screen and (min-width: 769px){
+
+/** * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/) * http://cssreset.com */
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, 
+pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, 
+samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset,
+ form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, 
+ details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, 
+ summary,time, mark, audio, video 
+		{	margin: 0;	padding: 0;	border: 0;	font-size: 100%;	
+		font: inherit;	vertical-align: top; font-family: 'Times New Roman';}
+		
+
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {	display: block;}
+body {	line-height: 1;}
+
+ol, ul 		{	list-style: none;}
+
+blockquote, q {	quotes: none;}
+
+blockquote:before, blockquote:after,q:before, q:after {	content: '';	content: none;}
+
+table {	border-collapse: collapse;	border-spacing: 0;}
+
+/***********start writing own code***********/
+/**********************************************/
+
+/*******styles for divs******/
+#profile_header	{width: 100%;
+				height: 50px;
+				right: 0;
+				left: 0;
+				background-color: #333333;
+				position: fixed;
+				clear: both;
+				display:block;
+				z-index:1;}
+
+#app_name	{display: inline-block;
+			width: 100px;
+			height: 50px;
+			margin-left: 40px;
+			float:left;}
+
+#account_nav	{display: inline-block;
+				width: 300px;
+				height: 50px;
+				float: right;
+				color:white;}
+
+#contents	{display:block;
+			width: 1100px;
+			height: 800px;
+			top: 60px;
+			margin-left: auto;
+			margin-right: auto;
+			position: relative;}
+
+#left		{display:inline-block;
+			width: 200px;
+			height: 500px;
+			overflow: hidden;}
+				
+#icon	{width: 200px;
+		height: 200px;}
+		
+#navigation		{width: 200px;
+				height: 300px;
+				background-color: inherit;
+				border-style: inset;
+				border-width: 2px;
+				border-color: #BBBBBB}
+
+#main	{display:inline-block;
+		width: 850px;
+		height: 700px;
+		margin: 0px 0px 0px 0px;
+		overflow: hidden;
+		border-style: solid;
+		border-width: 2px;
+		border-color: #BBBBBB}
+		
+/*******end of styles for divs******/
+
+/*******styles with class******/
+
+/*top navigation bar*/
+a.name	{vertical-align: middle;
+		font-family: 'Lobster', cursive;
+		color: #00AA00;
+		font-size: 35px; 
+		text-decoration: none;}
+
+a.name:hover	{vertical-align: middle;
+				font-family: 'Lobster', cursive;
+				color: #00FF00;
+				font-size: 35px; 
+				text-decoration: none;}
+
+ul.account_nav			{margin-bottom: 0px;
+						vertical-align: middle;
+						height: 50px}
+
+li.account_nav	{display: inline-block;
+				vertical-align: middle;
+				margin:7.5px 15px 15px 7.5px;
+				font-size: 20px;}
+
+a.account	{vertical-align: middle;
+			font-family: 'Times New Roman';
+			color: #999999;
+			font-size: 20px; 
+			text-decoration: none;}
+
+a.account:hover	{vertical-align: middle;
+				font-family: 'Times New Roman';
+				color: #FFFFFF;
+				font-size: 20px; 
+				text-decoration: none;}
+/*End top navigation bar*/
+
+/*side navigation bar*/
+ul.navigation		{margin-bottom: 0px;
+					vertical-align: middle;}
+
+li.navigation	{display: block;
+				height: 80px
+				vertical-align: middle;
+				background-color: #888888;
+				color: white;
+				margin-top: 0px;
+				margin-bottom: 0px
+				margin-right: auto;
+				margin-left: auto;
+				font-size: 20px;}
+
+ul.sub_navigation	{padding-bottom: 10px;
+					padding-top: 10px;
+					background-color: #333333;
+					list-style-type: circle;
+					color:white;}
+
+li.sub_navigation	{margin-top: 5px;
+					margin-bottom: 5px;}
+
+p.nav_man	{display:block;
+			margin:0;
+			margin-left: 30px;}
+
+p.sub_nav_man	{display:block;
+				margin:0;
+				margin-left: 45px;}
+
+/*END side navigation bar*/
+
+/*homepage posts of recent and future */
+div.post	{height: 252px;
+			width:inherit
+			display:block;
+			border-top: ridge;
+			border-bottom: ridge;
+			border-color: #BBBBBB;
+			border-width:1px;}
+
+div.information	{display: inline-block; 
+				width:580px;
+				height: inherit;
+				float:left;
+				margin-left: 10px;}
+
+div.chart		{display: inline-block;
+				border-left: solid;
+				border-color: #BBBBBB;
+				border-width:1px;
+				width: 250px;
+				height: 250px;
+				float:right;}
+
+/* END homepage posts of recent and future */
+
+img.logo	{height: 200px;
+			width: 200px;}
+
+/*styles without any class*/
+h2	{margin-left: 20px;
+	font-size: 25px;}
+
+}

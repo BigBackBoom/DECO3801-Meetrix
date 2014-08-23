@@ -1,0 +1,154 @@
+body{
+	height: 100%;
+	width:100%;
+	background: url('../img/bg.jpg') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.Container{
+	width:1300px;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+h1{
+	font-family: 'Open Sans', sans-serif;
+}
+
+h3{
+	font-family: 'Open Sans', sans-serif;
+}
+
+td{
+	vertical-align:text-top;
+}
+
+.content{
+	width: 1300px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.heading{
+	width: 800px;
+}
+
+
+.login_register{
+	border:1px;
+}
+
+.tab-pane{
+	background-color: white;
+	margin:0px auto;
+	padding:15px;
+	border-radius: 0px 4px 4px 4px;
+}
+
+.nav > li{
+	background-color: rgb(192,252,211);
+	border-radius: 4px 4px 0px 0px;
+}
+
+.tab-content{
+	height:300px;
+}
+
+.footer{
+	width:200px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+
+/*******styles for divs******/
+#profile_header	{width: 100%;
+				height: 50px;
+				right: 0;
+				left: 0;
+				background-color: #333333;
+				clear: both;
+				display:block;
+				z-index:1;}
+
+#app_name	{display: inline-block;
+			width: 100px;
+			height: 50px;
+			float:left;}
+
+#account_nav	{display: inline-block;
+				height: 50px;
+				float: right;
+				color:white;}
+
+/*top navigation bar*/
+a.name	{vertical-align: middle;
+		font-family: 'Lobster', cursive;
+		color: #00AA00;
+		font-size: 35px; 
+		text-decoration: none;}
+
+a.name:hover	{vertical-align: middle;
+				font-family: 'Lobster', cursive;
+				color: #00FF00;
+				font-size: 35px; 
+				text-decoration: none;}
+
+ul.account_nav			{margin-bottom: 0px;
+						vertical-align: middle;
+						height: 50px}
+
+li.account_nav	{display: inline-block;
+				vertical-align: middle;
+				margin:7.5px 15px 15px 7.5px;
+				font-size: 20px;}
+
+a.account	{vertical-align: middle;
+			color: #999999;
+			font-size: 20px; 
+			text-decoration: none;}
+
+a.account:hover	{vertical-align: middle;
+				color: #FFFFFF;
+				font-size: 20px; 
+				text-decoration: none;}
+/*End top navigation bar*/
+
+/*side navigation bar*/
+ul.navigation		{margin-bottom: 0px;
+					vertical-align: middle;}
+
+li.navigation	{display: block;
+				height: 80px
+				vertical-align: middle;
+				background-color: #888888;
+				color: white;
+				margin-top: 0px;
+				margin-bottom: 0px
+				margin-right: auto;
+				margin-left: auto;
+				font-size: 20px;}
+
+ul.sub_navigation	{padding-bottom: 10px;
+					padding-top: 10px;
+					background-color: #333333;
+					list-style-type: circle;
+					color:white;}
+
+li.sub_navigation	{margin-top: 5px;
+					margin-bottom: 5px;}
+
+p.nav_man	{display:block;
+			margin:0;
+			margin-left: 30px;}
+
+p.sub_nav_man	{display:block;
+				margin:0;
+				margin-left: 45px;}
+
+/*END side navigation bar*/
