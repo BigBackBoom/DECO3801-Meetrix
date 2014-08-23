@@ -21,10 +21,9 @@
     	<title>Meetrix "Meeting Management System"</title>
     	<!-- Bootstrap -->
     	<link href="css/bootstrap.min.css" rel="stylesheet">
-    	<!--jQuery-->
-    	<script src='js/jquery-1.10.2.min.js'></script>
-    	<!--functions related to calendar-->
+		<!--jQuery-->
     	<script src='js/scheduler.js'></script>
+
 
     	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,11 +34,13 @@
     	
     	<!-- Calendar app create by MIT-->
     	<link rel='stylesheet' href='css/fullcalendar/fullcalendar.css' />
+    	<!--jQuery-->
+    	<script src='js/jquery-1.10.2.min.js'></script>
 		<script src='js/fullcalendar/lib/jquery-ui.custom.min.js'></script>
 		<script src='js/fullcalendar/lib/moment.min.js'></script>
 		<script src='js/fullcalendar/fullcalendar.js'></script>
 		<script>
-			$(document).ready(init_cal());
+			$(document).ready(init_cal);
 		</script>
   	</head>
 	<body onload="drawChart_at_home()">
