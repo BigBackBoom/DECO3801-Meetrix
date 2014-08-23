@@ -13,7 +13,8 @@
       	</script>
    		<meta charset="utf-8">
     	<!-- default css -->
-    	<link rel="stylesheet" media="all" type="text/css" href="css/style.css" />
+    	<!--test-->
+	<link rel="stylesheet" media="all" type="text/css" href="css/style.css" />
     	<!-- tablest css -->
     	<link rel="stylesheet" media="all" type="text/css" href="css/tablet.css" />
     	<!-- smartphones css -->
