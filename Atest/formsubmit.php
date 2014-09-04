@@ -24,7 +24,7 @@ if(empty($name) || empty($members)
         
     } 
 else{ 
-$sql="INSERT INTO `group`(`name`, `members`) VALUES 
+$sql="INSERT INTO `group`(`group_name`, `members`) VALUES 
 ('$_POST[name]' ,'$_POST[options[]]')"; 
 if (!mysqli_query($conn,$sql)) 
   { 

@@ -9,6 +9,7 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/template.css">
+	<link rel="stylesheet" type="text/css" href="css/accordion.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -73,59 +74,52 @@
                         </div>
                     </td>
 					<td width="82%">
-					  <h3 id="viewGroup">View Groups</h3><br/><br/>
-                           <style>
-						    h3#viewGroup {
-							margin-left:30%;
-							}
-					         tr:hover { 
-							 }
-                             td a { 
-                               display: block; 
-                             }
-                             table,th,td {
-                               border:1px solid black;
-                               border-collapse:collapse;
-                               align:center;
-                             }
-							 table#group {
-							   margin-left:20%;
-							   }
-                             th,td {
-                               padding:7px;
-                             }
-                           </style>
-</head>
-<body>
-
-<table id="group" style="width:400px">
-<tr>
-  <th>Groups</th>
-  <th>Leader</th>		
-  <th>Members</th>
-</tr>
-<tr>
-  <td><a href="">Group 1</a></td>
-  <td>Smith</td>		
-  <td>Jason, Jim and 5 others</td>
-</tr>
-<tr>
-  <td><a href="">Group 2</a></td>
-  <td>Jackson</td>		
-  <td>Michael, Zoe and 10 others</td>
-</tr>
-<tr>
-  <td><a href="">Group 3</a></td>
-  <td>Doe</td>		
-  <td>Nancy, Wendy and 7 others</td>
-</tr>
-<tr>
-  <td><a href="">Group 4</a></td>
-  <td>Duncan</td>		
-  <td>Mike, Andrew and 11 others</td>
-</tr>
-</table>
-
+					
+					
+					 <!--start of accordion-->
+					  <div class="accordion vertical">
+    <ul>
+        <li>
+            <input type="radio" id="radio-1" name="radio-accordion" checked="checked">
+            <label for="radio-1">Group&nbsp;One</label>
+            <div class="content">
+                <h3>Group for Project #1</h3>
+                <p></p>
+                <p></p>
+            </div>
+        </li>
+        <li>
+            <input type="radio" id="radio-2" name="radio-accordion">
+            <label for="radio-2">Group&nbsp;Two</label>
+            <div class="content">
+                <h3>Group for Project #2</h3>
+                <p></p>
+                <p></p>
+            </div>
+        </li>
+        <li>
+            <input type="radio" id="radio-3" name="radio-accordion">
+            <label for="radio-3">Group&nbsp;Three</label>
+            <div class="content">
+                <h3>Group for Project #3</h3>
+                <p></p>
+                <p></p>
+            </div>
+        </li>
+        <li>
+            <input type="radio" id="radio-4" name="radio-accordion">
+            <label for="radio-4">Group&nbsp;Four</label>
+            <div class="content">
+                <h3>Group for Project #4</h3>
+                <p></p>
+                <p></p>
+            </div>
+        </li>
+    </ul>
+</div>
+                 <!--end of accordion-->
+				 
+				 
                  
                 </tr>
             </table>

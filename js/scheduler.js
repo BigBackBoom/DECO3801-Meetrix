@@ -1,8 +1,6 @@
 function clicked_event(event){
-	if(event.title){
-		alert('Event: ' + event.description);
-		event.start = '2014-08-02';
-	}
+	
+	window.open("meetingPopup.php", "meetingPopup", "height=600,width=800");
 	/*update event after changing value*/
 	$('#calendar').fullCalendar('updateEvent', event);
 }
@@ -18,13 +16,15 @@ function init_cal(){
        		right: 'month,agendaWeek,agendaDay'
        	},
        	editable: true,
-       	events: [
-			{
-				title: 'All Day Event',
-				start: '2014-08-01',
-				description: 'You have got an virus. You have to turn off your computer immidiately'
-			}
-		],
+       	events: 
+		{
+			url: 'init_viewMeeting.php',
+        	type: 'POST',
+        	data: {'userId': "1"},
+        	error: function() {
+            	alert('there was an error while fetching events!');
+        	}
+    	},
 		eventClick: clicked_event
    	})
 

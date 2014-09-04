@@ -51,7 +51,7 @@
 			<div id ="left">
 				<!--icon img-->
 				<div id="icon">
-					<img class="logo" src="img/logo.png"/>
+					<img class="logo" src="img/testlogo2.png"/>
 				</div>
 				<!--navigation bars-->
 				<div id="navigation">
