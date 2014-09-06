@@ -1,8 +1,56 @@
 function clicked_event(event){
-	
-	window.open("meetingPopup.php", "meetingPopup", "height=600,width=800");
+	var link = "php/viewCalendarRelated/meetingPopup.php?id=" + event.id + "&title=" + event.title + 
+				"&department=" + event.department + "&supervisor_id=" + event.supervisor_id + 
+				"&start=" + event.start + "&end=" + event.end + "&description=" + event.description + 
+				"&voting_id=" + event.voting_id + "&group_id=" + event.group_id + "&room_id=" + event.room_id;
+	window.open(link, "meetingPopup.php", "height=600,width=800");
 	/*update event after changing value*/
 	$('#calendar').fullCalendar('updateEvent', event);
+}
+
+function dropped(event, delta, revertFunc){
+	if (!confirm("Are you sure about this change?")) {
+            revertFunc();
+            return;
+    }
+	
+ 	 if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    	xmlhttp=new XMLHttpRequest();
+  	} else { // code for IE6, IE5
+    	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  	}
+  	xmlhttp.onreadystatechange=function() {
+    	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+    		alert("Data was stored Successfully!");
+    	}
+  	}
+  	var link = "php/viewCalendarRelated/dropCal.php?id="+ event.id + "&start="+ event.start + "&end="+ event.end + "&test=abcd";
+ 	xmlhttp.open("GET",link,true);
+ 	xmlhttp.send();
+}
+
+function resized(event, delta, revertFunc){
+	if (!confirm("Are you sure about this change?")) {
+            revertFunc();
+            return;
+    }
+	
+ 	 if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    	xmlhttp=new XMLHttpRequest();
+  	} else { // code for IE6, IE5
+    	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  	}
+  	xmlhttp.onreadystatechange=function() {
+    	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+    		alert("Data was stored Successfully!");
+    	}
+  	}
+  	var link = "php/viewCalendarRelated/dropCal.php?id="+ event.id + "&start="+ event.start + "&end="+ event.end + "&test=abcd";
+ 	xmlhttp.open("GET",link,true);
+ 	xmlhttp.send();
+
 }
 
 function init_cal(){
@@ -18,14 +66,16 @@ function init_cal(){
        	editable: true,
        	events: 
 		{
-			url: 'init_viewMeeting.php',
+			url: 'php/viewCalendarRelated/init_viewMeeting.php',
         	type: 'POST',
         	data: {'userId': "1"},
         	error: function() {
             	alert('there was an error while fetching events!');
         	}
     	},
-		eventClick: clicked_event
+		eventClick: clicked_event,
+		eventDrop: dropped,
+		eventResize: resized
    	})
 
 }
