@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html>
+	<?php 
+		if(strpos($_SERVER['HTTP_USER_AGENT'], "iPhone") || strpos($_SERVER['HTTP_USER_AGENT'], "Android")){
+			header( 'Location: sp/index.php' ) ;
+		}
+	?>
 	<head>
 		<!--Load the AJAX API-->
     	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -21,7 +26,6 @@
     	<title>Meetrix "Meeting Management System"</title>
     	<!-- Bootstrap -->
     	<link href="css/bootstrap.min.css" rel="stylesheet">
-
     	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     	<!--[if lt IE 9]>

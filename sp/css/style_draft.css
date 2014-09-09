@@ -1,0 +1,114 @@
+﻿@media screen and (max-width: 480px){
+/** * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/) * http://cssreset.com */
+html, body, div, span, applet, object, iframe,h1, h2, h4, h5, h6, p, blockquote, 
+pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, 
+samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset,
+ form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, 
+ details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, 
+ summary,time, mark, audio, video, tr, td 
+		{	margin: 0;	padding: 0;	border: 0;	font-size: 100%;	
+		font: inherit;	vertical-align: top; font-family: 'Times New Roman';}
+		
+
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {	display: block;}
+body {	line-height: 2;
+margin-bottom:110px;
+
+}
+
+ol, ul 		{	list-style: none;}
+
+blockquote, q {	quotes: none;}
+
+blockquote:before, blockquote:after,q:before, q:after {	content: '';	content: none;}
+
+table {	border-collapse: collapse;	border-spacing: 0;}
+
+/*starting my own code*/
+
+/*divs id*/
+#logo	{display: inline-block;
+		margin-right: auto;
+		margin-left: auto;
+		height: 100%;
+		width: 100%;
+		
+	
+		}
+		
+#new meeting  	{display: block;
+			    margin-top: 10px;
+			    margin-bottom: 10px;
+			    height: 30px;
+			    width:100%;}
+			
+#previous meeting	{display: block;
+					margin-top: 10px;
+					margin-bottom: 10px;
+					height: 30px;
+					width:100%;}
+
+
+#table				{display: block;
+					margin-top: auto;
+					margin-bottom: auto;
+					margin-right: auto;
+					margin-left: auto;
+					height: 100px;
+					width:100%;
+					display:inline-block;
+					white-space:nowrap;
+					table-layout:auto;}
+
+
+
+
+#group		{display: block;
+			margin-right: auto;
+			margin-left: auto;
+			height: 30px;
+			width:100%;}
+
+#footer_nav		{display: block;
+				position:fixed;
+				bottom: 0;
+				background-color: #333333;
+				margin-right: auto;
+				margin-left: auto;
+				height: 50px;
+				width:100%;}		
+
+/*class*/
+img.logo	{display:block;
+			margin-right: auto;
+			margin-left: auto;}
+
+button.home	{vertical-align: middle;
+			display:block;
+			margin-right: auto;
+			margin-left: auto;
+			background-color: rgba(0, 233, 0, 0.4);
+			border-color: #005500;
+			border-width: 1px;
+			border-style: solid;
+    		border-radius: 25px;
+			height: 30px;
+			width:200px;}
+
+ul.account_nav	{display:block;
+				width: 300px;
+				margin-left: auto;
+				margin-right: auto;}
+				
+li.account_nav	{display:inline-block;
+				margin-left: 10px;
+				margin-right: 10px;
+				border-color: #555555;
+				border-width: 1px;
+				border-style: solid;
+				border-top: none;
+				border-bottom: none;}
+
+}

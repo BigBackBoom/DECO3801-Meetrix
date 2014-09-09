@@ -78,7 +78,7 @@
 			<!--Main contents comes in side here please edit or enter contents in here-->
 			<div id="main">
 				<h2>Create Meeting</h2>
-				<form action="createMeeting.php" method="post">
+				<form action="createMeeting1.php" method="post">
 				
 				<table>
 				
@@ -113,10 +113,10 @@
                 
             ?>
     
-        </select><br><br>
-        </td></tr>				
+        </select>
+		</td></tr>				
 			
-		<tr><td></td><td align="right"><input type="submit" value="Create" name="submit"/><input type="reset" value="Reset"/></td></tr>
+		<tr><td><br/><br/></td><td align="right"><input type="submit" value="Create" name="submit"/><input type="reset" value="Reset"/></td></tr>
 
 
                         </table>

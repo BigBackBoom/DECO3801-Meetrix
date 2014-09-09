@@ -1,14 +1,20 @@
+
 <!DOCTYPE html>
 <html>
 	<head>
+	
 		<!--Load the AJAX API-->
     	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
     	<script type="text/javascript" src="js/google-chart.js"></script>
     	<script type="text/javascript">
+
       		// Load the Visualization API and the piechart package.
+
       		google.load('visualization', '1.0', {'packages':['corechart']});
 
+
       		// Set a callback to run when the Google Visualization API is loaded.
+
       		google.setOnLoadCallback(drawChart_at_home);
       	</script>
    		<meta charset="utf-8">
@@ -31,8 +37,10 @@
       		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     	<![endif]-->
+    	    	  	
+
+
   	</head>
-  	
 	<body onload="drawChart_at_home()">
 		<!--Header on top of the page where all user account setting navigation should be done-->
 		<div id ="profile_header">
@@ -46,7 +54,7 @@
 					<li class="account_nav"><a href="#" class="account">Profile</a></li>
 					<li class="account_nav"><a href="#" class="account">Setting</a></li>
 					<li class="account_nav"><a href="#" class="account">Help</a></li>
-				</ul>
+				<ul>
 			</div>
 		</div>
 		<!--main contents comes inside here-->
@@ -76,19 +84,16 @@
 				</div>
 			</div>
 			<!--Main contents comes in side here please edit or enter contents in here-->
-			<div id="main">
-				<h2>Create Meeting</h2>
-				<form action="createMeeting.php" method="post">
-				
-				<table>
-				
-                        <tr><td>Meeting Name :</td><td><input type="text" name="name"/></td></tr>
-                        <tr><td>Meeting Description :</td><td>
-							<textarea name="description" maxlength="400" style="width: 384px; height: 135px" ></textarea></td></tr>
-                        <tr><td>Meeting Date :</td><td><input type="date" name="date"/></td></tr>
-                        <tr><td>Meeting Time :</td><td><input type="time" name="duration"/></td></tr>
-                      
-                        <tr><td>Group : </td><td><select data-placeholder="Choose a Group..." name="group" class="chosen-select" multiple style="width:350px;" tabindex="4">
+			<div id="main" >
+			<h3>Create Groups</h3>
+			<form action="createGroup13.php" method="post">
+
+			<br /> <table>
+			
+		
+						<tr><td>Group Name: </td><td><input type="text" name="group_name" size="30" /></td></tr>
+									
+						<tr><td>Group Members:</td><td><select name="members"class="chosen-select" multiple style="width:350px;" tabindex="4">
                  
             <?php
             
@@ -100,11 +105,11 @@
             $dbname = 'meetrix_database';
             mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
             
-            $cdquery="SELECT `group_name` FROM `group`";
+            $cdquery="SELECT `first_name` FROM employee";
             $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
             
             while ($cdrow=mysql_fetch_array($cdresult)) {
-            $cdTitle=$cdrow["group_name"];
+            $cdTitle=$cdrow["first_name"];
                 echo "<option>
                     $cdTitle
                 </option>";
@@ -112,72 +117,64 @@
             }
                 
             ?>
+
     
-        </select><br><br>
-        </td></tr>				
-			
-		<tr><td></td><td align="right"><input type="submit" value="Create" name="submit"/><input type="reset" value="Reset"/></td></tr>
+        </select></td></tr> 
+        <tr><td>Meeting Description :</td><td><textarea name="description" maxlength="400" style="width: 384px; height: 135px" ></textarea></td></tr>
+        
+							
+					<tr><td></td><td align="right"><input type="submit" value="Create" name="submit"/><input type="reset" value="Reset"/></td></tr>
+						
+	</table>
 
-
-                        </table>
-                        </form>
-                          	<?php 
+        </form>
+        
+        <?php 
 			$conn=mysqli_connect('localhost','root','Menu6Rainy*guilt') or die('Not connected'); 
 				  
-			$database=mysqli_select_db($conn,'meetrix_database') or die('Database Not connected'); 
-			if(isset($_POST['submit'])) 
-			{ 
-			      
-			    $name=$_POST['name']; 
-			    $date=$_POST['date']; 
-			    $duration=$_POST['duration'];
-			    $description=$_POST['description'];
-			    $group=$_POST['group'];  
-			      
-			if(empty($name) || empty($date) || empty($duration) || empty($description) || empty($group)) 
-			    { 
-			          
-			        if(empty($name)) 
-			        { 
-			            echo "<font color='red'>Name field is empty.</font><br/>"; 
-			        } 
-			        if(empty($date)) 
-			        { 
-			            echo "<font color='red'>Date field is empty.</font><br/>"; 
-			        } 
-			        if(empty($duration)) 
-			        { 
-			            echo "<font color='red'>Time field is empty.</font><br/>"; 
-			        } 
-			        if(empty($description)) 
-			        { 
-			            echo "<font color='red'>Description field is empty.</font><br/>"; 
-			        } 
-			        if(empty($group)) 
-			        { 
-			            echo "<font color='red'>Group field is empty.</font><br/>"; 
-			        } 
-			
-			    } 
-			else{ 
-			$sql="INSERT INTO `meeting`(`name`, `date`, `duration`, `description`, `group`) VALUES 
-			('$_POST[name]', '$_POST[date]', '$_POST[duration]', '$_POST[description]', '$_POST[group]')"; 
-			if (!mysqli_query($conn,$sql)) 
-			  { 
-			  die('Error: ' . mysqli_error($conn)); 
-			  } 
-			echo "<font color='green'> New Meeting is created!</font>"; 
-			  
-			mysqli_close($conn); 
-			} 
-			} 
-			?>
+			$database=mysqli_select_db($conn,'meetrix_database') or die('Database Not connected');
+			if (isset($_POST['submit']))
+{
+	$group_name = $_POST['group_name'];
+	$members = $_POST['members'];
+	$description = $_POST['description'];
+	
+		if (empty($group_name) || empty($members) || empty($description))
+	{
+		if (empty($group_name))
+		{
+			echo "<font color='red'>Please enter a group name.</font><br/>";
+		}
 
-							</div>
-			<!--Main contents ends here-->
-		</div>
-		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+		if (empty($members))
+		{
+			echo "<font color='red'>Please select members.</font><br/>";
+		}
+		if (empty($description))
+		{
+			echo "<font color='red'>Please enter a description.</font><br/>";
+		}
+
+	}
+	else
+	{
+		$sql = "INSERT INTO `group`(`group_name`, `members`,`description`) VALUES 
+('$_POST[group_name]', '$_POST[members]', '$_POST[description]')";
+		if (!mysqli_query($conn, $sql))
+		{
+			die('Error: ' . mysqli_error($conn));
+		}
+
+		echo "<font color='green'> New Group is created!</font>";
+		mysqli_close($conn);
+		}
+		}
+?>
+
+			</div>
+			</div>
+					
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
   <script src="chosen.jquery.js" type="text/javascript"></script>
   <script src="prism.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript">
@@ -192,6 +189,5 @@
       $(selector).chosen(config[selector]);
     }
   </script>
-
 	</body>
 </html>

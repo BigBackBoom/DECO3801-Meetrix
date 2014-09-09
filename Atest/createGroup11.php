@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html>
-<?php 
-include_once ('formsubmit.php');
-?>
 <head>
 <!--Load the AJAX API-->
 <script src="https://www.google.com/jsapi" type="text/javascript"></script>
@@ -95,7 +92,7 @@ include_once ('formsubmit.php');
 	<!--Main contents comes in side here please edit or enter contents in here-->
 	<div id="main">
 		<h3>Create Groups</h3>
-		<form class="form-horizontal" role="form" action="formsubmit.php" method="post">
+		<form class="form-horizontal" role="form">
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="grpName">Group Name:
 				</label>
@@ -115,10 +112,10 @@ include_once ('formsubmit.php');
             $mysqlpassword="Menu6Rainy*guilt";
             $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
             
-            $dbname = 'test';
+            $dbname = 'meetrix_database';
             mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
             
-            $cdquery="SELECT empFname FROM testtable";
+            $cdquery="SELECT empFname FROM group";
             $cdresult=mysql_query($cdquery) or die ("Query to get data from testtable failed: ".mysql_error());
             
             while ($cdrow=mysql_fetch_array($cdresult)) {

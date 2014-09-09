@@ -32,7 +32,6 @@
 						INNER JOIN `group` ON `meeting`.group_id=`group`.group_id
 						INNER JOIN `room` ON `meeting`.room_id=`room`.room_id
 						INNER JOIN `department` ON `meeting`.department_id=`department`.department_id
-						INNER JOIN `supervisor` ON `meeting`.supervisor_id=`supervisor`.supervisor_id
 						WHERE `meeting`.meeting_id=". $_GET["id"] . ";");
 						
 		$st2 = $pdo->query("SELECT `department`.*
@@ -53,9 +52,10 @@
 	<body>
 		<!--Main contents comes in side here please edit or enter contents in here-->
 		<div id="meetingPopUp">
-			<form action="demo_form.asp" id="form1">
+			<form action="editMeeting.php" id="edit" method="post">
 				<?php
-  				echo "<label for='meeting_title'>Meeting Title</label><input type='text' name='meeting_name' id='title' value='". $_GET["title"] ."'>";
+				echo "<label for='meeting_title'>Meeting ID</label><input type='text' name='id' value='". $_GET["id"] ."'>";
+  				echo "<label for='meeting_title'>Meeting Title</label><input type='text' name='meeting_name' value='". $_GET["title"] ."'>";
 				echo "<label for='department'>Department</label>";
 				echo "<select name='department'>";
 					foreach($posts2 as $post){
@@ -67,11 +67,11 @@
 					}
 				echo "</select>";
 				echo "<label>Supervisor</label>";
-				echo "<input type='text' name='super_visor' value='". $_GET["title"]. "'>";
+				echo "<input type='text' name='super_visor' value='". $_GET["supervisor_id"]. "'>";
 				echo "<label>Start</label>";
 				echo "<input type='text' name='date' value='". $start->format('Y-m-d H:i:s') ."'>";
 				echo "<label>Duration</label>";
-				echo "<input type='text' name='date' value='". $duration ."'>";
+				echo "<input type='text' name='duration' value='". $duration ."'>";
 				echo "<label>Description</label>";
 				echo "<input type='text' name='description' value='". $_GET["description"] ."'>";
 				echo "<label>Group</label>";
