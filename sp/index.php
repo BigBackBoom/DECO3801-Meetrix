@@ -34,7 +34,7 @@
 				<li class="account_nav"><a href="#" class="account"><img class="logo" src="img/icons/agendaicon.png" height="50px" width="50px" alt="meeting"></a></li>
 				<li class="account_nav"><a href="#" class="account"><img class="logo" src="img/icons/user_p.png" height="50px" width="50px" alt="group"></a></li>
 				<li class="account_nav"><a href="#" class="account"><img class="logo" src="img/icons/profileicon.png" height="50px" width="50px" alt="setting"></a></li>
-			<ul>
+			</ul>
 		</div>
 	</body>
 </html>

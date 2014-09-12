@@ -24,11 +24,14 @@
 	//$start = $_GET['start']/1000;
 	//$start = new DateTime("@$start");
 	//$start = $start->format('Y-m-d H:i:s');
+	
+	/*search group from group name and supervisor_id*/
 	$posts1 = $pdo->query("SELECT `group`.*
 					FROM `group`
 					WHERE `group`.supervisor_id=$super_visor AND
 					`group`.group_name = '$group'");
 	
+	/*search room from room name*/
 	$posts2 = $pdo->query("SELECT `room`.*
 					FROM `room`
 					WHERE `room`.room_name ='$room'");
@@ -38,7 +41,7 @@
 	/*if(sizeof($posts1) == 0 && sizeof($posts2) == 0){
 		echo("You do not have group called, $group or room called, $room");
 	}*/
-	
+	/*edit data*/
 	$posts3 = $pdo->query("UPDATE `meeting` 
 						SET `name`='". $name ."', `department_id`='". $department ."', 
 						`supervisor_id`='". $super_visor ."', `date`='". $date ."',

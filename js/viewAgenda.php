@@ -10,7 +10,7 @@
       #container { width: 1020px; }
       #container h4 { text-align: center; margin: 0; margin-bottom: 5px; }
       .main-header {margin-left: 15px;}
-      .resizable { width: 800px; height: 100px; background:#99CCFF;}
+      .resizable { background-position: top left; width: 1000px; height: 100px; background:#99CCFF;}
       #resizable,#resizable1,#resizable2,#resizable3, #container { padding: 0.5em; margin-left: auto; margin-right: auto;}
     </style>
     <script>
@@ -46,7 +46,7 @@
     </script>
     <!--Resizable-->
     <style>
-      .resizable { width: 800px; height: 150px; padding: 5px; }
+      .resizable { width: 1000px; height: 150px; padding: 5px; }
       .resizable h3 { text-align: center; margin: 0; }
     </style>
     <script>
@@ -97,14 +97,14 @@
           <ul class="navigation">
             <li class="navigation"><p class="nav_man">Meetings</p></li>
               <ul class="sub_navigation">
-                <li class="sub_navigation"><p class="sub_nav_man"><a href="viewMeeting.php">View Meetings</a></p></li>
-                <li class="sub_navigation"><p class="sub_nav_man"><a href="createMeeting.php">Create Meeting</a></p></li>
+                <li class="sub_navigation"><p class="sub_nav_man">View Meetings</p></li>
+                <li class="sub_navigation"><p class="sub_nav_man">Create Meeting</p></li>
                 <li class="sub_navigation"><p class="sub_nav_man">Delete Meeting</p></li>
               </ul>
             <li class="navigation"><p class="nav_man">Groups</p></li>
               <ul class="sub_navigation">
-                <li class="sub_navigation"><p class="sub_nav_man"><a href="viewGroups.php">View Groups</a></p></li>
-                <li class="sub_navigation"><p class="sub_nav_man"><a href="createGroup.php">Create Group</a></p></li>
+                <li class="sub_navigation"><p class="sub_nav_man">View Groups</p></li>
+                <li class="sub_navigation"><p class="sub_nav_man">Create Group</p></li>
                 <li class="sub_navigation"><p class="sub_nav_man">Delete Group</p></li>
               </ul>
           </ul>

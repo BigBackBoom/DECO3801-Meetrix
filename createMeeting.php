@@ -21,8 +21,8 @@
     	<title>Meetrix "Meeting Management System"</title>
     	<!-- Bootstrap -->
     	<link href="css/bootstrap.min.css" rel="stylesheet">
-    	<link rel="stylesheet" media="all" type="text/css" href="chosen.css" />
-    	<link rel="stylesheet" media="all" type="text/css" href="chosen.min.css" />
+    	<link rel="stylesheet" media="all" type="text/css" href="css/chosen.css" />
+    	<link rel="stylesheet" media="all" type="text/css" href="css/chosen.min.css" />
 
 
     	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -55,21 +55,21 @@
 			<div id ="left">
 				<!--icon img-->
 				<div id="icon">
-					<img class="logo" src="img/logo.png"/>
+					<img class="logo" src="img/testlogo2.png"/>
 				</div>
 				<!--navigation bars-->
 				<div id="navigation">
 					<ul class="navigation">
 						<li class="navigation"><p class="nav_man">Meetings</p></li>
 							<ul class="sub_navigation">
-								<li class="sub_navigation"><p class="sub_nav_man">View Meetings</p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Create Meeting</p></li>
+								<li class="sub_navigation"><p class="sub_nav_man"><a href="viewMeeting.php">View Meetings</a></p></li>
+								<li class="sub_navigation"><p class="sub_nav_man"><a href="createMeeting.php">Create Meeting</a></p></li>
 								<li class="sub_navigation"><p class="sub_nav_man">Delete Meeting</p></li>
 							</ul>
 						<li class="navigation"><p class="nav_man">Groups</p></li>
 							<ul class="sub_navigation">
 								<li class="sub_navigation"><p class="sub_nav_man">View Groups</p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Create Group</p></li>
+								<li class="sub_navigation"><p class="sub_nav_man"><a href="createGroup.php">Create Group</a></p></li>
 								<li class="sub_navigation"><p class="sub_nav_man">Delete Group</p></li>
 							</ul>
 					</ul>
@@ -113,10 +113,10 @@
                 
             ?>
     
-        </select><br><br>
-        </td></tr>				
+        </select>
+		</td></tr>				
 			
-		<tr><td></td><td align="right"><input type="submit" value="Create" name="submit"/><input type="reset" value="Reset"/></td></tr>
+		<tr><td><br/><br/></td><td align="right"><input type="submit" value="Create" name="submit"/><input type="reset" value="Reset"/></td></tr>
 
 
                         </table>
@@ -178,8 +178,8 @@
 		</div>
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
-  <script src="chosen.jquery.js" type="text/javascript"></script>
-  <script src="prism.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/chosen.jquery.js" type="text/javascript"></script>
+  <script src="js/prism.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript">
     var config = {
       '.chosen-select'           : {},

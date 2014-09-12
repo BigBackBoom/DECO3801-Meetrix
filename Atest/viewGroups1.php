@@ -21,6 +21,8 @@
     	<link rel="stylesheet" media="all" type="text/css" href="css/style.css" />
     	<!-- tablest css -->
     	<link rel="stylesheet" media="all" type="text/css" href="css/tablet.css" />
+		<!-- accordion css -->
+    	<link rel="stylesheet" media="all" type="text/css" href="css/accordion.css" />
     	<!-- smartphones css -->
     	<link rel="stylesheet" media="all" type="text/css" href="css/smart.css" />
     	<title>Meetrix "Meeting Management System"</title>
@@ -46,8 +48,6 @@
 					<li class="account_nav"><a href="#" class="account">Profile</a></li>
 					<li class="account_nav"><a href="#" class="account">Setting</a></li>
 					<li class="account_nav"><a href="#" class="account">Help</a></li>
-					<li class="account_nav"><a href="logout.php" class="account">Logout</a></li>
-					
 				<ul>
 			</div>
 		</div>
@@ -64,66 +64,62 @@
 					<ul class="navigation">
 						<li class="navigation"><p class="nav_man">Meetings</p></li>
 							<ul class="sub_navigation">
-								<li class="sub_navigation"><p class="sub_nav_man">View Meetings</p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Create Meeting</p></li>
+								<li class="sub_navigation"><p class="sub_nav_man"><a href="viewMeeting.php">View Meetings</a></p></li>
+								<li class="sub_navigation"><p class="sub_nav_man"><a href="createMeeting.php">Create Meeting</a></p></li>
 								<li class="sub_navigation"><p class="sub_nav_man">Delete Meeting</p></li>
 							</ul>
 						<li class="navigation"><p class="nav_man">Groups</p></li>
 							<ul class="sub_navigation">
 								<li class="sub_navigation"><p class="sub_nav_man">View Groups</p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Create Group</p></li>
+								<li class="sub_navigation"><p class="sub_nav_man"><a href="createGroup.php">Create Group</a></p></li>
 								<li class="sub_navigation"><p class="sub_nav_man">Delete Group</p></li>
 							</ul>
 					</ul>
 				</div>
 			</div>
-			<!--Main contents comes in side here please edit or enter contents in here-->
-			<div id="main">
-				<h2>Recent Meeting</h2>
-				<hr>
-				<div class="post">
-					<div class="information">
-						<h3>Meetin Trick Studio Meeting 1</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						 Proin mattis porttitor pellentesque. Donec aliquam porta suscipit. 
-						 Proin eu nibh mauris. Aenean quis odio varius, venenatis sem ac, 
-						 rutrum magna. Donec rutrum lectus odio. Donec tempus faucibus nibh 
-						 sit amet volutpat. Sed porta sollicitudin nibh, sed venenatis mauris 
-						 imperdiet et. Nulla lacinia, nisl eget aliquet rutrum, lorem arcu aliquam 
-						 libero, eget auctor enim erat nec nibh. Quisque gravida erat ut nulla dapibus, 
-						 sit amet pretium risus luctus. Nam lacus mi, aliquam scelerisque sagittis sodales, 
-						 ultrices a nisi. Sed quis imperdiet augue. Vestibulum venenatis, mi ut fermentum aliquet, 
-						 odio erat consequat purus, id scelerisque massa tellus eget lacus. Quisque posuere magna 
-						 accumsan pretium egestas. Integer sit amet volutpat diam. Class aptent taciti sociosqu ad 
-						 litora torquent per conubia nostra, per inceptos himenaeos.</p>
-					</div>
-					<div id="recent" class="chart">
-					</div>
-				</div>
-				<h2>Future Meeting</h2>
-				<hr>
-				<div class="post">
-					<div class="information">
-						<h3>Meetin Trick Studio Meeting 2</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						 Proin mattis porttitor pellentesque. Donec aliquam porta suscipit. 
-						 Proin eu nibh mauris. Aenean quis odio varius, venenatis sem ac, 
-						 rutrum magna. Donec rutrum lectus odio. Donec tempus faucibus nibh 
-						 sit amet volutpat. Sed porta sollicitudin nibh, sed venenatis mauris 
-						 imperdiet et. Nulla lacinia, nisl eget aliquet rutrum, lorem arcu aliquam 
-						 libero, eget auctor enim erat nec nibh. Quisque gravida erat ut nulla dapibus, 
-						 sit amet pretium risus luctus. Nam lacus mi, aliquam scelerisque sagittis sodales, 
-						 ultrices a nisi. Sed quis imperdiet augue. Vestibulum venenatis, mi ut fermentum aliquet, 
-						 odio erat consequat purus, id scelerisque massa tellus eget lacus. Quisque posuere magna 
-						 accumsan pretium egestas. Integer sit amet volutpat diam. Class aptent taciti sociosqu ad 
-						 litora torquent per conubia nostra, per inceptos himenaeos.</p>
-					</div>
-					<div id="future" class="chart">
-						<img src="img/Placeholder.jpg" alt="future graph" height="250px" width="250px"/>
-					</div>
-				</div>
-			</div>
-			<!--Main contents ends here-->
-		</div>
+					
+					
+					 <!--start of accordion-->
+	
+                 <!--end of accordion-->
+                 <div id="main">
+		 <div class="accordion vertical">
+    <ul>		 
+		<?php            
+            $mysqlserver="localhost";
+            $mysqlusername="root";
+            $mysqlpassword="Menu6Rainy*guilt";
+            $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+            $int = 1;
+            $dbname = 'meetrix_database';
+            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+            
+            $cdquery="SELECT * FROM `group`";
+            $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
+            
+            while ($cdrow=mysql_fetch_array($cdresult)) {
+              $Title=$cdrow["group_name"];
+              			  
+
+			echo "<li>";
+           echo "<input type=\"radio\" id=$int name=\"radio-accordion\">";
+            echo "<label for=$int>$Title</label>";
+            echo "<div class=\"content\">";
+            echo "<p>Department: Information Technology</p>";
+           	echo "<p>Employees: Jacob,John,Joseph,Gerald,Mary</p>";
+			echo "<p>Description: This is team 5 of the IT department. Aims to resolve the issues of company system </p>"
+			echo "</div>";
+			echo "</li>";
+			$int = $int +1;
+			  
+            }
+                
+          ?>
+          
+		  </ul>
+		  </div>
+				 </div>
+				 
+               </div>
 	</body>
 </html>

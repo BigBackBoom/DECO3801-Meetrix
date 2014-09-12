@@ -76,18 +76,11 @@ header("Location:index.php");
             <div class="heading">
             <h1><img width="100px" src="img/logo1.png" /> Welcome to Meetrix</h1>
             <br />
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-             Proin mattis porttitor pellentesque. Donec aliquam porta suscipit. 
-             Proin eu nibh mauris. Aenean quis odio varius, venenatis sem ac, 
-             rutrum magna. Donec rutrum lectus odio. Donec tempus faucibus nibh 
-             sit amet volutpat. Sed porta sollicitudin nibh, sed venenatis mauris 
-             imperdiet et. Nulla lacinia, nisl eget aliquet rutrum, lorem arcu aliquam 
-             libero, eget auctor enim erat nec nibh. Quisque gravida erat ut nulla dapibus, 
-             sit amet pretium risus luctus. Nam lacus mi, aliquam scelerisque sagittis sodales, 
-             ultrices a nisi. Sed quis imperdiet augue. Vestibulum venenatis, mi ut fermentum aliquet, 
-             odio erat consequat purus, id scelerisque massa tellus eget lacus. Quisque posuere magna 
-             accumsan pretium egestas. Integer sit amet volutpat diam. Class aptent taciti sociosqu ad 
-             litora torquent per conubia nostra, per inceptos himenaeos.</p>
+            <p>Meetrix is an web application which helps to manage meetings in an organized flow,
+            allows efficient time management in meetings as well as promoting an interactive platform
+            for users. It is also available on mobile web application as some users may prefer mobile base web
+            application compared to desktop web application.  
+             </p>
             </div>
             <br />
             <br />
@@ -125,7 +118,9 @@ header("Location:index.php");
                 <!--start of login form-->
                 <div class="tab-pane active" id="login">
                   <form role="form" name="form1" method="post" action="">
-                    <div class="form-group">
+                    
+			<?php if($message!="") { echo $message; } ?>
+		    <div class="form-group">
                       <label for="username">Username</label>
                       <input type="text" name="user_name" class="form-control" id="exampleInputUsername1" placeholder="Enter username">
                     </div>

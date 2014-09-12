@@ -18,15 +18,18 @@
 	$tbl_name='meeting'; // Table name 
 	$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
 	$userId = $_POST['userId'];
-	// get the q parameter from URL
-				
+	
+	/*temporary only searching meeting where employee id 1 is in*/			
 	$st = $pdo->query("SELECT `meeting`.*
 					FROM `meeting`
 					INNER JOIN `group` ON `meeting`.group_id=`group`.group_id
-					WHERE `group`.employee_id=1;");
+					INNER JOIN `group_employee` ON `group`.group_id=`group_employee`.group_id
+					WHERE `group_employee`.employee_id=1;");
+	/*feth all data*/
 	$posts = $st->fetchAll();
 	$arr = array();
 	
+	/*insert all fetched data into calendar*/
 	for($i=0; $i<sizeof($posts); $i++){
 		$end = endDate($posts[$i]['date'], $posts[$i]['duration']);
 		$arr[] = array('id' => $posts[$i]['meeting_id'], 'title' => $posts[$i]['name'],

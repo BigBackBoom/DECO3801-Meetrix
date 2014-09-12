@@ -27,8 +27,9 @@
     	<title>Meetrix "Meeting Management System"</title>
     	<!-- Bootstrap -->
     	<link href="css/bootstrap.min.css" rel="stylesheet">
-    	<link rel="stylesheet" media="all" type="text/css" href="chosen.css" />
-    	<link rel="stylesheet" media="all" type="text/css" href="chosen.min.css" />
+    	<!-- Chosen -->
+    	<link rel="stylesheet" media="all" type="text/css" href="css/chosen.css" />
+    	<link rel="stylesheet" media="all" type="text/css" href="css/chosen.min.css" />
 
 
     	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -86,12 +87,13 @@
 			<!--Main contents comes in side here please edit or enter contents in here-->
 			<div id="main" >
 			<h3>Create Groups</h3>
-			<form action="createGroup13.php" method="post">
+			<form action="createGroup.php" method="post">
 
 			<br /> <table>
 			
 		
 						<tr><td>Group Name: </td><td><input type="text" name="group_name" size="30" /></td></tr>
+						<tr><td></td></tr>
 									
 						<tr><td>Group Members:</td><td><select name="members"class="chosen-select" multiple style="width:350px;" tabindex="4">
                  
@@ -100,18 +102,18 @@
             $mysqlserver="localhost";
             $mysqlusername="root";
             $mysqlpassword="Menu6Rainy*guilt";
-            $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+            $conn=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
             
             $dbname = 'meetrix_database';
-            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+            mysql_select_db($dbname, $conn) or die ("Error selecting specified database on mysql server: ".mysql_error());
             
-            $cdquery="SELECT `employee_id`, `first_name` FROM employee";
-            $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
+            $query="SELECT `first_name` FROM employee";
+            $result=mysql_query($query) or die ("Query to get data from firsttable failed: ".mysql_error());
             
-            while ($cdrow=mysql_fetch_array($cdresult)) {
-            $cdTitle=$cdrow["first_name"];
-                echo "<option value='employee_id'>
-                    $cdTitle
+            while ($row=mysql_fetch_array($result)) {
+            $Title=$row["first_name"];
+                echo "<option>
+                    $Title
                 </option>";
             
             }
@@ -120,10 +122,11 @@
 
     
         </select></td></tr> 
+        
         <tr><td>Meeting Description :</td><td><textarea name="description" maxlength="400" style="width: 384px; height: 135px" ></textarea></td></tr>
         
 							
-					<tr><td></td><td align="right"><input type="submit" value="Create" name="submit"/><input type="reset" value="Reset"/></td></tr>
+		<tr><td></td><td align="right"><input type="submit" value="Create" name="submit"/><input type="reset" value="Reset"/></td></tr>
 						
 	</table>
 
@@ -158,22 +161,13 @@
 	}
 	else
 	{
-		$sql = "INSERT INTO `group`(`group_name`,`description`) VALUES 
-('$_POST[group_name]', '$_POST[description]')";
-
+		$sql = "INSERT INTO `group`(`group_name`, `members`,`description`) VALUES 
+('$_POST[group_name]', '$_POST[members]', '$_POST[description]')";
 		if (!mysqli_query($conn, $sql))
 		{
 			die('Error: ' . mysqli_error($conn));
 		}
-		$sql1 = "INSERT INTO `group_employee`(`employee_id`, `group_id`) VALUES 
-		('$_POST[member]', '2')";
 
-		if (!mysqli_query($conn, $sql1))
-		{
-			die('Error: ' . mysqli_error($conn));
-		}
-
-		
 		echo "<font color='green'> New Group is created!</font>";
 		mysqli_close($conn);
 		}
@@ -184,8 +178,8 @@
 			</div>
 					
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
-  <script src="chosen.jquery.js" type="text/javascript"></script>
-  <script src="prism.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/chosen.jquery.js" type="text/javascript"></script>
+  <script src="js/prism.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript">
     var config = {
       '.chosen-select'           : {},

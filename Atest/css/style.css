@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lobster);
+﻿@import url(http://fonts.googleapis.com/css?family=Lobster);
 
 @media screen and (min-width: 769px){
 
@@ -47,7 +47,7 @@ table {	border-collapse: collapse;	border-spacing: 0;}
 			float:left;}
 
 #account_nav	{display: inline-block;
-				width: 300px;
+				width: 350px;
 				height: 50px;
 				float: right;
 				color:white;}

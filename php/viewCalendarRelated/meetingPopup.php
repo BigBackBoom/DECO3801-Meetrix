@@ -25,15 +25,16 @@
 		$tbl_name='meeting'; // Table name 
 		$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
 		$userId = $_POST['userId'];
-		// get the q parameter from URL
-					
+		
+		/*get all room name, group name and department name from database using corresponding id*/
 		$st1 = $pdo->query("SELECT `room`.room_name, `group`.group_name, `department`.department_name
 						FROM `meeting`
 						INNER JOIN `group` ON `meeting`.group_id=`group`.group_id
 						INNER JOIN `room` ON `meeting`.room_id=`room`.room_id
 						INNER JOIN `department` ON `meeting`.department_id=`department`.department_id
 						WHERE `meeting`.meeting_id=". $_GET["id"] . ";");
-						
+		
+		/*get all deparment name*/				
 		$st2 = $pdo->query("SELECT `department`.*
 						FROM `department` 
 						WHERE 1");
@@ -46,7 +47,6 @@
 		$duration = date('H:i:s', $duration);
 		$start = $_GET["start"]/1000;
 		$start = new DateTime("@$start");
-		//echo $start->format('Y-m-d H:i:s');
   	?>
   	
 	<body>
