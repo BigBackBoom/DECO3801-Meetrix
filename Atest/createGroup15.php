@@ -87,7 +87,7 @@
 			<!--Main contents comes in side here please edit or enter contents in here-->
 			<div id="main" >
 			<h3>Create Groups</h3>
-			<form action="createGroup.php" method="post">
+			<form action="createGroup15.php" method="post">
 
 			<br /> <table>
 			
@@ -112,8 +112,7 @@
             
             while ($row=mysql_fetch_array($result)) {
             $fname=$row["first_name"];
-            $empid=$row["employee_id"];
-                     echo "<option value=$empid>$fname </options>";       
+                     echo "<option value='" . $row['employee_id'] . "'>" . $row['first_name'] . "</option>";       
                     
                            
             }

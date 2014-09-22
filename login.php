@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-session_start();
-$message="";
-if(count($_POST)>0) {
-$conn = mysql_connect("localhost","root","Menu6Rainy*guilt");
-mysql_select_db("test",$conn);
-$result = mysql_query("SELECT * FROM testtable WHERE user_name='" . $_POST["user_name"] . "' and password = '". $_POST["password"]."'");
-$row  = mysql_fetch_array($result);
-if(is_array($row)) {
-$_SESSION["user_name"] = $row[user_name];
-} else {
-$message = "Invalid Username or Password!";
-}
-}
-if(isset($_SESSION["user_name"])) {
-header("Location:index.php");
-}
+	session_start();
+	$message="";
+	
+	if(count($_POST)>0) {
+		$conn = mysql_connect("localhost","root","Menu6Rainy*guilt");
+		mysql_select_db("meetrix_database",$conn);
+		$result = mysql_query("SELECT * 
+							FROM employee 
+							WHERE employee_id='" . $_POST["user_name"] . "' and passwordHash = '". md5($_POST["password"])."'");			
+		$row  = mysql_fetch_array($result);
+		
+		if(is_array($row)) {
+			$_SESSION["user_id"] = $row['employee_id'];
+			$_SESSION["admin_level"] = $row['admin_group'];
+		} else {
+			$message = "Invalid Username or Password!";
+		}
+	}
+	if(isset($_SESSION["user_id"])) {
+		header("Location:index.php");
+	}
 ?>
 
   <head>
@@ -76,18 +81,11 @@ header("Location:index.php");
             <div class="heading">
             <h1><img width="100px" src="img/logo1.png" /> Welcome to Meetrix</h1>
             <br />
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-             Proin mattis porttitor pellentesque. Donec aliquam porta suscipit. 
-             Proin eu nibh mauris. Aenean quis odio varius, venenatis sem ac, 
-             rutrum magna. Donec rutrum lectus odio. Donec tempus faucibus nibh 
-             sit amet volutpat. Sed porta sollicitudin nibh, sed venenatis mauris 
-             imperdiet et. Nulla lacinia, nisl eget aliquet rutrum, lorem arcu aliquam 
-             libero, eget auctor enim erat nec nibh. Quisque gravida erat ut nulla dapibus, 
-             sit amet pretium risus luctus. Nam lacus mi, aliquam scelerisque sagittis sodales, 
-             ultrices a nisi. Sed quis imperdiet augue. Vestibulum venenatis, mi ut fermentum aliquet, 
-             odio erat consequat purus, id scelerisque massa tellus eget lacus. Quisque posuere magna 
-             accumsan pretium egestas. Integer sit amet volutpat diam. Class aptent taciti sociosqu ad 
-             litora torquent per conubia nostra, per inceptos himenaeos.</p>
+            <p>Meetrix is an web application which helps to manage meetings in an organized flow,
+            allows efficient time management in meetings as well as promoting an interactive platform
+            for users. It is also available on mobile web application as some users may prefer mobile base web
+            application compared to desktop web application.  
+             </p>
             </div>
             <br />
             <br />
@@ -125,7 +123,9 @@ header("Location:index.php");
                 <!--start of login form-->
                 <div class="tab-pane active" id="login">
                   <form role="form" name="form1" method="post" action="">
-                    <div class="form-group">
+                    
+			<?php if($message!="") { echo $message; } ?>
+		    <div class="form-group">
                       <label for="username">Username</label>
                       <input type="text" name="user_name" class="form-control" id="exampleInputUsername1" placeholder="Enter username">
                     </div>

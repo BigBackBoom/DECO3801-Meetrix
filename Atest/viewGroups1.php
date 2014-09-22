@@ -99,15 +99,19 @@
             
             while ($cdrow=mysql_fetch_array($cdresult)) {
               $Title=$cdrow["group_name"];
-              			  
+              $Supervisor=$cdrow["supervisor_id"];
+			  $Employee=$cdrow["employee_id"];
+			  $Email=$cdrow["supervisor_id"];
+			  $Description=$cdrow["description"];
+			  
 
 			echo "<li>";
            echo "<input type=\"radio\" id=$int name=\"radio-accordion\">";
             echo "<label for=$int>$Title</label>";
             echo "<div class=\"content\">";
-            echo "<p>Department: Information Technology</p>";
-           	echo "<p>Employees: Jacob,John,Joseph,Gerald,Mary</p>";
-			echo "<p>Description: This is team 5 of the IT department. Aims to resolve the issues of company system </p>"
+			echo "<h3>Department: Information Technology </h3>";
+			echo "<p>Employees: John,Joseph,Mary,Gerald</p>";
+			echo "<p>Description: This is Group 5 of the IT department. This group aims to resolve issues of the company's system </p>";
 			echo "</div>";
 			echo "</li>";
 			$int = $int +1;
@@ -115,11 +119,10 @@
             }
                 
           ?>
-          
 		  </ul>
 		  </div>
-				 </div>
 				 
+				</div> 
                </div>
 	</body>
 </html>

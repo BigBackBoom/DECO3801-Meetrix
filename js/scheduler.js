@@ -53,6 +53,21 @@ function resized(event, delta, revertFunc){
 
 }
 
+function redirect_delete(meetind_id){
+	var r = confirm("Are you sure you want to delete this meeting?");
+	if (r == true) {
+    	var link = "php/manageMeeting/deleteMeeting.php?id=" + meetind_id;
+		window.open(link, "deleteMeeting");	
+	} else {
+		
+	}
+}
+
+function redirect_edit(meetind_id){
+	var link = "php/manageMeeting/manageMeetingPopup.php?id=" + meetind_id;
+	window.open(link, "editMeeting", "height=600,width=800");	
+}
+
 function init_cal(){
 	// page is now ready, initialize the calendar...
 

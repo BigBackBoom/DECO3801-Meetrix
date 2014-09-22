@@ -10,7 +10,10 @@
       #container { width: 1020px; }
       #container h4 { text-align: center; margin: 0; margin-bottom: 5px; }
       .main-header {margin-left: 15px;}
-      .resizable { width: 800px; height: 100px; background:#99CCFF;}
+      .resizable { background-position: top left; width: 1000px; height: 100px; background:#99CCFF;}
+      #resizable1 { background-position: top left; width: 1000px; height: 180px; background:#FF99FF;}
+      #resizable2 { background-position: top left; width: 1000px; height: 200px; background:#99FF99; }
+      #resizable3 { background-position: top left; width: 1000px; height: 150px; background:#FFCC66; }
       #resizable,#resizable1,#resizable2,#resizable3, #container { padding: 0.5em; margin-left: auto; margin-right: auto;}
     </style>
     <script>
@@ -39,14 +42,24 @@
       #sortable li span { position: absolute; }
     </style>
     <script>
-      $(function() {
-        $( "#sortable" ).sortable();
-        $( "#sortable" ).disableSelection();
-      });
+      $('#element').sortable({
+    axis: 'y',
+    update: function (event, ui) {
+        var data = $(this).sortable('serialize');
+
+        // POST to server using $.post or $.ajax
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: 'changePosition.php'
+        });
+    }
+});
     </script>
+
     <!--Resizable-->
     <style>
-      .resizable { width: 800px; height: 150px; padding: 5px; }
+      .resizable { width: 1000px; height: 150px; padding: 5px; }
       .resizable h3 { text-align: center; margin: 0; }
     </style>
     <script>
@@ -97,14 +110,14 @@
           <ul class="navigation">
             <li class="navigation"><p class="nav_man">Meetings</p></li>
               <ul class="sub_navigation">
-                <li class="sub_navigation"><p class="sub_nav_man"><a href="viewMeeting.php">View Meetings</a></p></li>
-                <li class="sub_navigation"><p class="sub_nav_man"><a href="createMeeting.php">Create Meeting</a></p></li>
+                <li class="sub_navigation"><p class="sub_nav_man">View Meetings</p></li>
+                <li class="sub_navigation"><p class="sub_nav_man">Create Meeting</p></li>
                 <li class="sub_navigation"><p class="sub_nav_man">Delete Meeting</p></li>
               </ul>
             <li class="navigation"><p class="nav_man">Groups</p></li>
               <ul class="sub_navigation">
-                <li class="sub_navigation"><p class="sub_nav_man"><a href="viewGroups.php">View Groups</a></p></li>
-                <li class="sub_navigation"><p class="sub_nav_man"><a href="createGroup.php">Create Group</a></p></li>
+                <li class="sub_navigation"><p class="sub_nav_man">View Groups</p></li>
+                <li class="sub_navigation"><p class="sub_nav_man">Create Group</p></li>
                 <li class="sub_navigation"><p class="sub_nav_man">Delete Group</p></li>
               </ul>
           </ul>
@@ -129,7 +142,9 @@
             while ($cdrow=mysql_fetch_array($cdresult)) {
               $Title=$cdrow["title"];
               $Contents=$cdrow["content"];
-              echo "<li>";
+              $Order=$cdrow["agenda_order"];
+              $it= 'item-'.$Order;
+              echo "<li id=\"$it\">";
               echo "<div class=\"resizable\">";
               echo "<h4>$Title</h4>";
               echo "$Contents";

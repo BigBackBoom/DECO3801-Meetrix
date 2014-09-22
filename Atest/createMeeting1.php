@@ -100,12 +100,13 @@
             $dbname = 'meetrix_database';
             mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
             
-            $cdquery="SELECT `group_name` FROM `group`";
+            $cdquery="SELECT `group_name`,`group_ID` FROM `group`";
             $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
             
             while ($cdrow=mysql_fetch_array($cdresult)) {
             $cdTitle=$cdrow["group_name"];
-                echo "<option>
+            $cdReference=$cdrow["group_ID"];
+                echo "<option value=\"$cdReference\">
                     $cdTitle
                 </option>";
             
@@ -160,7 +161,7 @@
 			
 			    } 
 			else{ 
-			$sql="INSERT INTO `meeting`(`name`, `date`, `duration`, `description`, `group`) VALUES 
+			$sql="INSERT INTO `meeting`(`name`, `date`, `duration`, `description`, `group_ID`) VALUES 
 			('$_POST[name]', '$_POST[date]', '$_POST[duration]', '$_POST[description]', '$_POST[group]')"; 
 			if (!mysqli_query($conn,$sql)) 
 			  { 

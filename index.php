@@ -64,7 +64,7 @@
 							<ul class="sub_navigation">
 								<li class="sub_navigation"><p class="sub_nav_man"><a href="viewMeeting.php">View Meetings</a></p></li>
 								<li class="sub_navigation"><p class="sub_nav_man"><a href="createMeeting.php">Create Meeting</a></p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Delete Meeting</p></li>
+								<li class="sub_navigation"><p class="sub_nav_man"><a href="manageMeeting.php">Manage Meeting</a></1></p></li>
 							</ul>
 						<li class="navigation"><p class="nav_man">Groups</p></li>
 							<ul class="sub_navigation">
