@@ -9,7 +9,7 @@
 		mysql_select_db("meetrix_database",$conn);
 		$result = mysql_query("SELECT * 
 							FROM employee 
-							WHERE employee_id='" . $_POST["user_name"] . "' and passwordHash = '". md5($_POST["password"])."'");			
+							WHERE username='" . $_POST["user_name"] . "' and passwordHash = '". md5($_POST["password"])."'");			
 		$row  = mysql_fetch_array($result);
 		
 		if(is_array($row)) {
@@ -115,16 +115,35 @@
             <div class="login_register">
               <!-- Nav tabs -->
               <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#login" role="tab" data-toggle="tab">Login</a></li>
-                <li><a href="#register" role="tab" data-toggle="tab">Register</a></li>
+                <?php 
+                	if(isset($_SESSION["error_message"])){
+                		echo "<li>";
+					} else {
+						echo "<li class='active'>";
+					}
+                ?>
+                <a href="#login" role="tab" data-toggle="tab">Login</a></li>
+                <?php 
+                	if(isset($_SESSION["error_message"])){
+                		echo "<li class='active'>";
+					} else {
+						echo "<li>";
+					}
+                ?>
+                <a href="#register" role="tab" data-toggle="tab">Register</a></li>
               </ul>
               <!-- Tab panes -->
               <div class="tab-content">
                 <!--start of login form-->
-                <div class="tab-pane active" id="login">
+                <?php 
+                	if(isset($_SESSION["error_message"])){
+                		echo "<div class='tab-pane' id='login'>";
+					} else {
+						echo "<div class='tab-pane active' id='login'>";
+					}
+                ?>
                   <form role="form" name="form1" method="post" action="">
                     
-			<?php if($message!="") { echo $message; } ?>
 		    <div class="form-group">
                       <label for="username">Username</label>
                       <input type="text" name="user_name" class="form-control" id="exampleInputUsername1" placeholder="Enter username">
@@ -138,31 +157,37 @@
                 <!--end of login form-->
                 </div>
                 <!--start of register form-->
-                <div class="tab-pane" id="register">
-                  <form role="form">
-                    <div class="form-group">
-                      <label for="username">First Name</label>
-                      <input type="text" class="form-control" placeholder="Enter first name">
-                    </div>
-                    <div class="form-group">
-                      <label for="username">Last Name</label>
-                      <input type="text" class="form-control" placeholder="Enter last name">
+                <?php 
+                	if(isset($_SESSION["error_message"])){
+                		echo "<div class='tab-pane active' id='register'>";
+					} else {
+						echo "<div class='tab-pane' id='register'>";
+					}
+                ?>
+                  <?php 
+                  	if(isset($_SESSION["error_message"])) {
+                  		echo "<span style='color: red;'>";
+                  		echo $_SESSION["error_message"]; 
+						echo "</span>";
+						unset($_SESSION["error_message"]);
+				  	} 
+                  ?>
+                  <form role="form" action="php/register.php" method="post">
+                  	<div class="form-group">
+                      <label for="username">User ID</label>
+                      <input type="text" class="form-control" name="userId" placeholder="Enter userID">
                     </div>
                     <div class="form-group">
                       <label for="username">Username</label>
-                      <input type="text" class="form-control" placeholder="Enter username">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                      <input type="text" class="form-control" name="username" placeholder="Enter username">
                     </div>
                     <div class="form-group">
                       <label for="password">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                      <input type="password" class="form-control" name="password" placeholder="Password">
                     </div>
                     <div class="form-group">
                       <label for="password">Confirmed Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirmed Password">
+                      <input type="password" class="form-control" name="c_password" placeholder="Confirmed Password">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                   </form>

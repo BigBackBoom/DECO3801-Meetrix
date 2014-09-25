@@ -87,7 +87,7 @@
 			<!--Main contents comes in side here please edit or enter contents in here-->
 			<div id="main" >
 			<h3>Create Groups</h3>
-			<form action="createGroup.php" method="post">
+			<form action="createGroup2.php" method="post">
 
 			<br /> <table>
 			
@@ -99,25 +99,24 @@
                  
             <?php
             
-            $mysqlserver="localhost";
-            $mysqlusername="root";
-            $mysqlpassword="Menu6Rainy*guilt";
-            $conn=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
-            
-            $dbname = 'meetrix_database';
-            mysql_select_db($dbname, $conn) or die ("Error selecting specified database on mysql server: ".mysql_error());
-            
-            $query="SELECT `first_name`, `employee_id` FROM employee";
-            $result=mysql_query($query) or die ("Query to get data from firsttable failed: ".mysql_error());
-            
-            while ($row=mysql_fetch_array($result)) {
-            $fname=$row["first_name"];
-            $empid=$row["employee_id"];
-                     echo "<option value=$empid>$fname </options>";       
+	            $mysqlserver="localhost";
+	            $mysqlusername="root";
+	            $mysqlpassword="Menu6Rainy*guilt";
+	            $conn=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+	            
+	            $dbname = 'meetrix_database';
+	            mysql_select_db($dbname, $conn) or die ("Error selecting specified database on mysql server: ".mysql_error());
+	            
+	            $query="SELECT `first_name`, `employee_id` FROM employee";
+	            $result=mysql_query($query) or die ("Query to get data from firsttable failed: ".mysql_error());
+	            
+	            while ($row=mysql_fetch_array($result)) {
+		            $fname=$row["first_name"];
+		            $empid=$row["employee_id"];
+	                echo "<option value=$empid>$fname </options>";       
                     
                            
-            }
-                
+            	}
             ?>
 
     
@@ -136,11 +135,10 @@
 			$conn=mysqli_connect('localhost','root','Menu6Rainy*guilt') or die('Not connected'); 
 				  
 			$database=mysqli_select_db($conn,'meetrix_database') or die('Database Not connected');
-			if (isset($_POST['submit']))
-{
-	$group_name = $_POST['group_name'];
-	$members = $_POST['members'];
-	$description = $_POST['description'];
+			if (isset($_POST['submit'])){
+				$group_name = $_POST['group_name'];
+				$members = $_POST['members'];
+				$description = $_POST['description'];
 	
 	
 	/*
@@ -164,61 +162,47 @@
 	else
 	{
 	*/
+				echo "You have selected :" .$select; // Displaying Selected Value
 	
-	
-		foreach ($_POST['members'] as $select)
-{
-echo "You have selected :" .$select; // Displaying Selected Value
-
-		$sql = "INSERT INTO `group`(`group_name`,`description`) VALUES 
-('$_POST[group_name]', '$_POST[description]')";
-echo "ID of last inserted record is: " . last_insert_id();
+				$sql = "INSERT INTO `group`(`group_name`,`description`) VALUES 
+				('$_POST[group_name]', '$_POST[description]')";
+				
 		
-
-		if (!mysqli_query($conn, $sql))
-		{
-			die('Error: ' . mysqli_error($conn));
-		}
-		
-		$sql1 = "INSERT INTO `group_employee`(`employee_id`) VALUES 
-('".$select."')";
-
-		if (!mysqli_query($conn, $sql1))
-		{
-			die('Error: ' . mysqli_error($conn));
-		}
-
-
-		echo "<font color='green'> New Group is created!</font>";
+				mysqli_query($conn, $sql);
+				$groupId = mysqli_insert_id($conn);
+				echo "This is what you expect, huh?: ". $groupId. " fasdfafad " ;
+				
+				foreach ($_POST['members'] as $select){
+					$sql1 = "INSERT INTO `group_employee`(`group_id`, `employee_id`) VALUES ('". $groupId ."', '". $select ."')";
+			
+					if (!mysqli_query($conn, $sql1)){
+						die('Error: ' . mysqli_error($conn));
+					}
+					echo "<font color='green'> New Group is created!</font>";
+				}
+				mysqli_close($conn);
+			}
 		
 		
-		
-		
-		}
-		
-		mysqli_close($conn);
-		}
-		
-		
-?>
+	?>
 
 			</div>
-			</div>
+		</div>
 					
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
-  <script src="js/chosen.jquery.js" type="text/javascript"></script>
-  <script src="js/prism.js" type="text/javascript" charset="utf-8"></script>
-  <script type="text/javascript">
-    var config = {
-      '.chosen-select'           : {},
-      '.chosen-select-deselect'  : {allow_single_deselect:true},
-      '.chosen-select-no-single' : {disable_search_threshold:10},
-      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-      '.chosen-select-width'     : {width:"95%"}
-    }
-    for (var selector in config) {
-      $(selector).chosen(config[selector]);
-    }
-  </script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+		<script src="js/chosen.jquery.js" type="text/javascript"></script>
+		<script src="js/prism.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		    var config = {
+		      '.chosen-select'           : {},
+		      '.chosen-select-deselect'  : {allow_single_deselect:true},
+		      '.chosen-select-no-single' : {disable_search_threshold:10},
+		      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+		      '.chosen-select-width'     : {width:"95%"}
+		    }
+    		for (var selector in config) {
+     			 $(selector).chosen(config[selector]);
+   			 }
+ 		 </script>
 	</body>
 </html>

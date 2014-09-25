@@ -85,7 +85,7 @@
 					<li class="account_nav"><a href="#" class="account">Profile</a></li>
 					<li class="account_nav"><a href="#" class="account">Setting</a></li>
 					<li class="account_nav"><a href="#" class="account">Help</a></li>
-				<ul>
+				</ul>
 			</div>
 		</div>
 		<!--main contents comes inside here-->

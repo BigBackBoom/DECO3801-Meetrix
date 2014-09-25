@@ -87,7 +87,7 @@
 			<!--Main contents comes in side here please edit or enter contents in here-->
 			<div id="main" >
 			<h3>Create Groups</h3>
-			<form action="createGroup.php" method="post">
+			<form action="createGroup16.php" method="post">
 
 			<br /> <table>
 			
@@ -135,15 +135,16 @@
         <?php 
 			$conn=mysqli_connect('localhost','root','Menu6Rainy*guilt') or die('Not connected'); 
 				  
-			$database=mysqli_select_db($conn,'meetrix_database') or die('Database Not connected');
+			$database=mysqli_select_db($conn,'test') or die('Database Not connected');
 			if (isset($_POST['submit']))
 {
 	$group_name = $_POST['group_name'];
-	$members = $_POST['members'];
 	$description = $_POST['description'];
+	$members = $_POST['members'];
+	
+
 	
 	
-	/*
 		if (empty($group_name) || empty($members) || empty($description))
 	{
 		if (empty($group_name))
@@ -163,43 +164,19 @@
 	}
 	else
 	{
-	*/
+
+		foreach ($_POST['members'] as $select) {
+		$id = mysqli_real_escape_string($conn,$select);
+		$sql = "INSERT INTO testtable (members) VALUES 
+('".$id."')";
+		if (!mysqli_query($sql)){
+			die('Invalid query:'. mysqli_error());
+			}
+			
+			mysqli_close($conn);
+		}
+		}
 	
-	
-		foreach ($_POST['members'] as $select)
-{
-echo "You have selected :" .$select; // Displaying Selected Value
-
-		$sql = "INSERT INTO `group`(`group_name`,`description`) VALUES 
-('$_POST[group_name]', '$_POST[description]')";
-echo "ID of last inserted record is: " . last_insert_id();
-		
-
-		if (!mysqli_query($conn, $sql))
-		{
-			die('Error: ' . mysqli_error($conn));
-		}
-		
-		$sql1 = "INSERT INTO `group_employee`(`employee_id`) VALUES 
-('".$select."')";
-
-		if (!mysqli_query($conn, $sql1))
-		{
-			die('Error: ' . mysqli_error($conn));
-		}
-
-
-		echo "<font color='green'> New Group is created!</font>";
-		
-		
-		
-		
-		}
-		
-		mysqli_close($conn);
-		}
-		
-		
 ?>
 
 			</div>

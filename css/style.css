@@ -47,7 +47,7 @@ table {	border-collapse: collapse;	border-spacing: 0;}
 			float:left;}
 
 #account_nav	{display: inline-block;
-				width: 300px;
+				width: 400px;
 				height: 50px;
 				float: right;
 				color:white;}
@@ -111,12 +111,35 @@ a.name:hover	{vertical-align: middle;
 
 ul.account_nav			{margin-bottom: 0px;
 						vertical-align: middle;
-						height: 50px}
+						height: 50px;
+						width: 250px;
+						display: inline-block;}
 
 li.account_nav	{display: inline-block;
 				vertical-align: middle;
 				margin:7.5px 15px 15px 7.5px;
 				font-size: 20px;}
+
+
+button.account_nav 	{
+					background-color:#44c767;
+					-moz-border-radius:28px;
+					-webkit-border-radius:28px;
+					border-radius:28px;
+					border:1px solid #18ab29;
+					display:inline-block;
+					cursor:pointer;
+					color:#ffffff;
+					font-family:arial;
+					font-size:15px;
+					padding:1px 32px;
+					text-decoration:none;
+					text-shadow:0px 1px 0px #2f6627;}
+					
+button.account_nav:hover 	{background-color:#5cbf2a;}
+
+button.account_nav:active 	{position:relative;
+							top:1px;}
 
 a.account	{vertical-align: middle;
 			font-family: 'Times New Roman';

@@ -37,26 +37,11 @@
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/jquery-ui.js"></script>
     <style>
-      #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-      #sortable li { margin: 13px 13px 13px 13px; padding: 0.4em; font-size: 1.4em; }
-      #sortable li span { position: absolute; }
+      #sortMe { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+      #sortMe li { margin: 13px 13px 13px 13px; padding: 0.4em; font-size: 1.4em; }
+      #sortMe li span { position: absolute; }
     </style>
-    <script>
-      $('#element').sortable({
-    axis: 'y',
-    update: function (event, ui) {
-        var data = $(this).sortable('serialize');
-
-        // POST to server using $.post or $.ajax
-        $.ajax({
-            data: data,
-            type: 'POST',
-            url: 'changePosition.php'
-        });
-    }
-});
-    </script>
-
+    <script src='js/custom.js'></script>
     <!--Resizable-->
     <style>
       .resizable { width: 1000px; height: 150px; padding: 5px; }
@@ -126,7 +111,7 @@
       <!--Main contents comes in side here please edit or enter contents in here-->
       <div id="main">
         <h4 class="main-header">Meeting Agenda</h4>
-          <ul id="sortable">
+          <ul id="sortMe">
           <?php            
             $mysqlserver="localhost";
             $mysqlusername="root";

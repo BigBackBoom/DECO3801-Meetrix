@@ -4,6 +4,10 @@
 		if(strpos($_SERVER['HTTP_USER_AGENT'], "iPhone") || strpos($_SERVER['HTTP_USER_AGENT'], "Android")){
 			header( 'Location: sp/index.php' ) ;
 		}
+		session_start();
+		if(!isset($_SESSION["user_id"])) {
+			header("Location:login.php");
+		}
 	?>
 	<head>
 		<!--Load the AJAX API-->
@@ -46,7 +50,12 @@
 					<li class="account_nav"><a href="#" class="account">Profile</a></li>
 					<li class="account_nav"><a href="#" class="account">Setting</a></li>
 					<li class="account_nav"><a href="#" class="account">Help</a></li>
-				<ul>
+				</ul>
+				<?php
+					if(isset($_SESSION["user_id"])) {
+						echo "<button type='button' class='account_nav' onclick='location.href = \"php/logout.php\";'>Logout</button>";
+					}
+				?>
 			</div>
 		</div>
 		<!--main contents comes inside here-->
