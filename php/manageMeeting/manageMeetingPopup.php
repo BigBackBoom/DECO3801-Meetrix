@@ -29,7 +29,8 @@
 		/*get all room name, group name and department name from database using corresponding id*/
 		$st1 = $pdo->query("SELECT `meeting`.*, `room`.room_name, `group`.group_name, `department`.department_name
 						FROM `meeting`
-						INNER JOIN `group` ON `meeting`.group_id=`group`.group_id
+						INNER JOIN `meeting_group` ON `meeting`.meeting_id=`meeting_group`.meeting_id
+						INNER JOIN `group` ON `meeting_group`.group_id=`group`.group_id
 						INNER JOIN `room` ON `meeting`.room_id=`room`.room_id
 						INNER JOIN `department` ON `meeting`.department_id=`department`.department_id
 						WHERE `meeting`.meeting_id=". $meetingId . ";");

@@ -69,6 +69,7 @@
 		<script src='js/fullcalendar/lib/moment.min.js'></script>
 		<script src='js/fullcalendar/fullcalendar.js'></script>
 		<script>
+			var user_id = <?php echo $_SESSION["user_id"]; ?>; 
 			$(document).ready(init_cal);
 		</script>
   	</head>

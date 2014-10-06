@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!isset($_SESSION["user_id"])) {
+header("Location:login.php");
+} 
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -47,6 +54,12 @@
 					<li class="account_nav"><a href="#" class="account">Setting</a></li>
 					<li class="account_nav"><a href="#" class="account">Help</a></li>
 				</ul>
+				<?php
+					if(isset($_SESSION["user_id"])) {
+						echo "<button type='button' class='account_nav' onclick='location.href = \"php/logout.php\";'>Logout</button>";
+					}
+				?>
+
 			</div>
 		</div>
 		<!--main contents comes inside here-->
@@ -76,7 +89,7 @@
 				</div>
 			</div>
 			<!--Main contents comes in side here please edit or enter contents in here-->
-			<div id="main">
+			<div id="main" style='height: 700px;'>
 				<h2>Create Meeting</h2>
 				<form action="createMeeting.php" method="post">
 				
@@ -88,7 +101,7 @@
                         <tr><td>Meeting Date :</td><td><input type="date" name="date"/></td></tr>
                         <tr><td>Meeting Time :</td><td><input type="time" name="duration"/></td></tr>
                       
-                        <tr><td>Group : </td><td><select data-placeholder="Choose a Group..." name="group" class="chosen-select" multiple style="width:350px;" tabindex="4">
+                        <tr><td>Group : </td><td><select data-placeholder="Choose a Group..." name="group[]" class="chosen-select" multiple style="width:350px;" tabindex="4">
                  
             <?php
             
@@ -100,14 +113,13 @@
             $dbname = 'meetrix_database';
             mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
             
-            $cdquery="SELECT `group_name` FROM `group`";
+            $cdquery="SELECT `group_name`, `group_id` FROM `group`";
             $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
             
             while ($cdrow=mysql_fetch_array($cdresult)) {
             $cdTitle=$cdrow["group_name"];
-                echo "<option>
-                    $cdTitle
-                </option>";
+            $groupid=$cdrow["group_id"];
+                echo "<option value=$groupid>$cdTitle </options>";
             
             }
                 
@@ -134,7 +146,7 @@
 			    $description=$_POST['description'];
 			    $group=$_POST['group'];  
 			      
-			if(empty($name) || empty($date) || empty($duration) || empty($description) || empty($group)) 
+			/*if(empty($name) || empty($date) || empty($duration) || empty($description) || empty($group)) 
 			    { 
 			          
 			        if(empty($name)) 
@@ -158,19 +170,30 @@
 			            echo "<font color='red'>Group field is empty.</font><br/>"; 
 			        } 
 			
-			    } 
-			else{ 
-			$sql="INSERT INTO `meeting`(`name`, `date`, `duration`, `description`, `group`) VALUES 
-			('$_POST[name]', '$_POST[date]', '$_POST[duration]', '$_POST[description]', '$_POST[group]')"; 
-			if (!mysqli_query($conn,$sql)) 
-			  { 
-			  die('Error: ' . mysqli_error($conn)); 
-			  } 
-			echo "<font color='green'> New Meeting is created!</font>"; 
-			  
-			mysqli_close($conn); 
-			} 
-			} 
+			    } */
+		
+			$sql="INSERT INTO `meeting`(`name`, `date`, `duration`, `description`) VALUES 
+			('$_POST[name]', '$_POST[date]', '$_POST[duration]', '$_POST[description]')"; 
+			
+
+			mysqli_query($conn, $sql);
+			$meetingId = mysqli_insert_id($conn);
+ 
+ 			foreach ($_POST['group'] as $select){
+					$sql1 = "INSERT INTO `meeting_group`(`meeting_id`, `group_id`) VALUES ('". $meetingId ."', '". $select ."')";
+			
+					if (!mysqli_query($conn, $sql1)){
+						die('Error: ' . mysqli_error($conn));
+					}
+					
+				}
+				echo "<font color='green'> New Meeting is created!</font>"; 
+				mysqli_close($conn);
+			}
+
+			
+			  		
+
 			?>
 
 							</div>

@@ -59,7 +59,11 @@
 							SET `name`='". $name ."', `department_id`='". $department ."', 
 							`supervisor_id`='". $super_visor ."', `date`='". $date ."',
 							`duration`='". $duration ."', `description`='". $description ."',
-							`group_id`='". $posts1[0]['group_id'] ."', `room_id`='". $posts2[0]['room_id'] ."'
+							`room_id`='". $posts2[0]['room_id'] ."'
+							WHERE `meeting_id`=$id");
+		
+		$posts3 = $pdo->query("UPDATE `meeting_group` 
+							SET `group_id`='". $posts1[0]['group_id'] ."'
 							WHERE `meeting_id`=$id");
 	?>
 	

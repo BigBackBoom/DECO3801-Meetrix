@@ -70,7 +70,6 @@ function redirect_edit(meetind_id){
 
 function init_cal(){
 	// page is now ready, initialize the calendar...
-
     $('#calendar').fullCalendar({
     // put your options and callbacks here
     	header: {
@@ -83,7 +82,7 @@ function init_cal(){
 		{
 			url: 'php/viewCalendarRelated/init_viewMeeting.php',
         	type: 'POST',
-        	data: {'userId': "1"},
+        	data: {'userId': user_id},
         	error: function() {
             	alert('there was an error while fetching events!');
         	}

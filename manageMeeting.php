@@ -25,6 +25,7 @@
     	<![endif]-->
   	</head>
   	<?php
+  		session_start();
   		/*initial connection to database*/
 		$host="localhost"; // Host name 
 		$username='root'; // Mysql username 
@@ -32,15 +33,15 @@
 		$db_name='meetrix_database'; // Database name 
 		$tbl_name='meeting'; // Table name 
 		$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
-		$userId = $_POST['userId'];
-		
+		$userId = $_SESSION["user_id"];
 		$st = $pdo->query("SELECT `meeting`.*
 					FROM `meeting`
-					INNER JOIN `group` ON `meeting`.group_id=`group`.group_id
-					INNER JOIN `group_employee` ON `group`.group_id=`group_employee`.group_id
-					WHERE `group_employee`.employee_id=1;");
+					INNER JOIN `meeting_group` ON `meeting`.meeting_id=`meeting_group`.meeting_id
+					INNER JOIN `group_employee` ON `meeting_group`.group_id=`group_employee`.group_id
+					WHERE `group_employee`.employee_id=$userId;");
 		
 		$posts = $st->fetchAll();
+		
   	?>
 	<body onload="drawChart_at_home()">
 		<!--Header on top of the page where all user account setting navigation should be done-->
