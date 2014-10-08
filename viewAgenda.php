@@ -6,57 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>View Agenda</title>
   	<link rel="stylesheet" href="css/style.css">
-    <style>
-      #container { width: 1020px; }
-      #container h4 { text-align: center; margin: 0; margin-bottom: 5px; }
-      .main-header {margin-left: 15px;}
-      .resizable { background-position: top left; width: 1000px; height: 100px; background:#99CCFF;}
-      #resizable1 { background-position: top left; width: 1000px; height: 180px; background:#FF99FF;}
-      #resizable2 { background-position: top left; width: 1000px; height: 200px; background:#99FF99; }
-      #resizable3 { background-position: top left; width: 1000px; height: 150px; background:#FFCC66; }
-      #resizable,#resizable1,#resizable2,#resizable3, #container { padding: 0.5em; margin-left: auto; margin-right: auto;}
-    </style>
-    <script>
-      $(function() {
-        $( "#resizable" ).resizable({
-          containment: "#container"
-        });
-      });
-    </script>
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.1-rc2.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="js/sortable.js"></script>
 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!--draggable jquery-->
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <style>
-      #sortMe { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-      #sortMe li { margin: 13px 13px 13px 13px; padding: 0.4em; font-size: 1.4em; }
-      #sortMe li span { position: absolute; }
-    </style>
-    <script src='js/custom.js'></script>
-    <!--Resizable-->
-    <style>
-      .resizable { width: 1000px; height: 150px; padding: 5px; }
-      .resizable h3 { text-align: center; margin: 0; }
-    </style>
-    <script>
-      $(function() {
-        $( ".resizable" ).resizable({          
-          maxHeight: 250,
-          maxWidth: 1000,
-          minHeight: 150,
-          minWidth: 1000
-        });
-      });
-    </script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -67,6 +22,7 @@
   </head>
 
   <body>
+    <?php require_once 'sortable.php'; ?>
     <!--Header on top of the page where all user account setting navigation should be done-->
     <div id ="profile_header">
       <!-- Meetrix typography div-->
@@ -110,35 +66,11 @@
       </div>
       <!--Main contents comes in side here please edit or enter contents in here-->
       <div id="main">
-        <h4 class="main-header">Meeting Agenda</h4>
-          <ul id="sortMe">
-          <?php            
-            $mysqlserver="localhost";
-            $mysqlusername="root";
-            $mysqlpassword="Menu6Rainy*guilt";
-            $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
-            
-            $dbname = 'meetrix_database';
-            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
-            
-            $cdquery="SELECT * FROM `agenda`";
-            $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
-            
-            while ($cdrow=mysql_fetch_array($cdresult)) {
-              $Title=$cdrow["title"];
-              $Contents=$cdrow["content"];
-              $Order=$cdrow["agenda_order"];
-              $it= 'item-'.$Order;
-              echo "<li id=\"$it\">";
-              echo "<div class=\"resizable\">";
-              echo "<h4>$Title</h4>";
-              echo "$Contents";
-              echo "</div>";
-              echo "</li>";            
-            }
-                
-          ?>
-        </ul>                               
+        <h4>Meeting Agenda</h4>
+        <ul id="sortable">
+          <?php foreach($items as $key => $value) echo "<li id='item_$value'>".$value."</li>"; ?>
+        </ul>
+        <button class="save">save</button>                           
       </div>
       <!--Main contents ends here-->
     </div>

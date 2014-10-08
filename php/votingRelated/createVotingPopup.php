@@ -18,7 +18,7 @@
     		var choice = 3;
     		function addChoice(){
     			var div = document.getElementById('voting_form');
-    			var string = "<label for='question'>choice"+ choice +": </label> " + "<input type='text' name='choice " + choice + "'><br/>";
+    			var string = "<label for='question'>choice"+ choice +"\: </label> " + "<input type='text' name='choice " + choice + "'><br/>";
     			var label = document.createElement("label");
     			var input = document.createElement("input");
     			var br = document.createElement("br");
@@ -26,7 +26,7 @@
     			label.setAttribute("for","question");
     			input.setAttribute("type","text");
     			input.setAttribute("name","choice: " + choice);
-    			label.appendChild(document.createTextNode("choice " + choice));
+    			label.appendChild(document.createTextNode("choice " + choice + ": "));
     			div.appendChild(label);
     			div.appendChild(input);
     			div.appendChild(br);
@@ -45,6 +45,8 @@
 				<input type='text' name='meetingID' value="<?php echo $_GET['meetingId']?>" style="display: none;">
 				<label for='title'>Voting Title: </label> 
 				<input type='text' name='title'> <br/>
+				<label for='title'> Duration: </label> 
+				<input type='text' name='duration' placeholder="00:00:00"> <br/>
 				<label for='question'>Question: </label> 
 				<input type='text' name='question'><br/>
 				<label for='question'>choice 1: </label> 

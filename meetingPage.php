@@ -5,9 +5,14 @@
     <script src='js/jquery-1.10.2.min.js'></script>
     <script src='js/timer.js'></script>
     <script>
-    	function redirect(id){
+    	function redirect1(id){
 			var link = "php/votingRelated/createVotingPopup.php?meetingId=" + id ;
 			window.open(link, "createVoting", "height=600,width=800");	
+		}
+		
+		function redirect2(id){
+			var link = "votingPage.php?votingId=" + id ;
+			window.open(link, "vote", "height=600,width=800");	
 		}
     </script>
 	<head>
@@ -87,8 +92,15 @@
 							INNER JOIN `meeting` ON `meeting_group`.meeting_id=`meeting`.meeting_id
 							WHERE `meeting`.meeting_id=". $meetingId . ";");
 			
+			$st3 = $pdo->query("SELECT `votes`.vote_id, `votes`.title
+							FROM `meeting`
+							INNER JOIN `votes_meeting` ON `meeting`.meeting_id=`votes_meeting`.meeting_id
+							INNER JOIN `votes` ON `votes_meeting`.vote_id=`votes`.vote_id
+							WHERE `meeting`.meeting_id=". $meetingId . ";");
+			
 			$posts = $st1->fetchAll();
 			$posts2 = $st2->fetchAll();
+			$posts3 = $st3->fetchAll();
 			
 			$end = endDate($posts[0]['date'], $posts[0]['duration']);
 			date_default_timezone_set('Australia/Brisbane');
@@ -108,7 +120,7 @@
 			<h1 style="height: 33px"><?php echo $posts[0]['name'];?></h1>
 		</div>   
 
-		<div onclick="countDown()" id="timeleft">
+		<div id="timeleft">
 			Time Left: 00:00:00
 		</div>
 	    <div id="section">
@@ -194,11 +206,22 @@
 					echo "</tr>";
 				echo "</table>";
      		?>
-	        Voting 1:<br />
-	        Voting 2:<br />
-	        Voting 3:<br />
+     		<?php
+     			$votingNum = 1;
+				
+				foreach($posts3 as $post){
+					echo "Voting ". $votingNum .": ";
+					echo "<span style='cursor:pointer; color:blue; text-decoration: underline' onclick='redirect2("; 
+					echo $post['vote_id'];
+					echo ")'>";
+					echo $post['title'];
+					echo "</span>";
+					echo "<br/>";
+					$votingNum++;
+				}
+     		?>
 	        <br />
-	        <input id="Button1" type="button" onclick= "redirect(<?php echo $posts[0]['meeting_id']; ?>)" value="Create New Vote" /><br />
+	        <input id="Button1" type="button" onclick= "redirect1(<?php echo $posts[0]['meeting_id']; ?>)" value="Create New Vote" /><br />
 		</div>        
         
 	</body>

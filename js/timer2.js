@@ -75,7 +75,7 @@ function timer(currentTime, endTime){
 	}
 	time = hour + ":" + min + ":" + left;
 	original = originalH + ":" + originalM + ":" + currentTime;
-	document.getElementById("timeleft").innerHTML= "Time Left: " + time;
+	document.getElementById("timeleft").innerHTML= "Time Left: " +  time;
 	
 	//setInterval(function(){timer(currentDate + " " + original, originalEnd)}, 1000);
 }

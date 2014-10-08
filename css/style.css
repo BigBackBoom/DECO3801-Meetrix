@@ -229,3 +229,18 @@ h2	{margin-left: 20px;
 	font-size: 25px;}
 
 }
+
+#sortable ul{
+	padding:0px;
+	margin:0px;
+}
+
+#sortable li{
+	list-style-type: none;
+	padding:10px;
+	background: #16a085;
+	margin:5px;
+	color:white;
+	font-weight: bold;
+	cursor:pointer;
+}
