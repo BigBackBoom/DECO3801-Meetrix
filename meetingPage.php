@@ -59,6 +59,7 @@
 		</style>
 		
 		<?php
+			session_start();
 			function endDate($date, $duration){
 				$startSec = strtotime($date);
 				$durSec = explode(":", $duration);
@@ -77,6 +78,7 @@
 			$tbl_name='meeting'; // Table name 
 			$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
 			$meetingId = $_GET['meetingId'];
+			
 			/*get all room name, group name and department name from database using corresponding id*/
 			$st1 = $pdo->query("SELECT *
 							FROM `meeting`

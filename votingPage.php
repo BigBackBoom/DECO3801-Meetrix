@@ -36,10 +36,11 @@
 			$db_name='meetrix_database'; // Database name 
 			$tbl_name='meeting'; // Table name 
 			$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
-			$votingId = $_POST['answer'];
+			$resultId = $_POST['answer'];
+			$votingId = $_GET['votingId'];
 			
 			if(isset($_POST['answer'])){
-				$st1 = $pdo->query("SELECT EXISTS(SELECT * FROM `vote_log` WHERE `vote_log`.vote_id=". $votingId  ." and `vote_log`.employee_id='" . $_SESSION["user_id"] . "')");
+				$st1 = $pdo->query("SELECT EXISTS(SELECT * FROM `vote_log` WHERE `vote_log`.vote_id=". $_SESSION["votingId"]  ." and `vote_log`.employee_id='" . $_SESSION["user_id"] . "')");
 				/*$st1 = $pdo->query("SELECT *
 								FROM `vote_log`
 								WHERE `vote_log`.vote_id=". $votingId . " and `vote_log`.employee_id=". $_SESSION["user_id"] .";");*/
@@ -48,19 +49,20 @@
 				if($posts[0][0] == 0){
 					$st1 = $pdo->query("UPDATE `result`
 								SET `data`=`data` + 1
-								WHERE result_id=".$votingId);
+								WHERE result_id=".$resultId);
 				
-					$st1 = $pdo->query("INSERT INTO `vote_log`(`vote_id`, `employee_id`) VALUES (". $votingId .", ". $_SESSION["user_id"]  .")");
+					$st1 = $pdo->query("INSERT INTO `vote_log`(`vote_id`, `result_id`, `employee_id`) VALUES (". $_SESSION["votingId"] .", ". $resultId .", ". $_SESSION["user_id"]  .")");
 					
 					echo "you have successfully voted";
+					unset($_SESSION["votingId"]);
 					exit(0);
 				}else{
 					echo "You were arleady voted";
+					unset($_SESSION["votingId"]);
 					exit(1);
 				}
 								
 			} else {
-				$votingId = $_GET['votingId'];
 				
 				/*get all room name, group name and department name from database using corresponding id*/
 				$st1 = $pdo->query("SELECT *
@@ -74,11 +76,11 @@
 				$end = endDate($posts[0]['startDate'], $posts[0]['duration']);
 				date_default_timezone_set('Australia/Brisbane');
 				$current = date('Y-m-d H:i:s');
-				
-				if(strtotime($current) > strtotime($end)){
+				$_SESSION["votingId"] = $votingId;
+				/*if(strtotime($current) > strtotime($end)){
 					$_SESSION["votingId"] = $votingId;
 					header("Location: viewVotingResult.php");
-				}
+				}*/
 			}
 			
 	  	?>
