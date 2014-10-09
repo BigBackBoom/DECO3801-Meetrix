@@ -27,7 +27,7 @@ function countDown(){
 	document.getElementById("timeleft").innerHTML= "Time Left: " + time;
 	
 	if(time == "00:00:00"){
-		window.location="finishedMeeting.php";
+		window.location="finishedVoting.php";
 	}
 }
 

@@ -34,7 +34,7 @@
 	<body>
 		<!--Header on top of the page where all user account setting navigation should be done-->
 		<div id ="window">
-			<p style="text-align: center; font-size: 20px;">The sessions was finished</p>
+			<p style="text-align: center; font-size: 20px;">The Meeting was finished</p>
 			<div id ="buttons" style="margin-right:auto; margin-left:auto; width: 208px;">
 				<button type="button" style="margin:5px;">Close Window</button>
 				<button type="button" style="margin:5px;">View Result</button>

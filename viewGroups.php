@@ -52,6 +52,7 @@
 			</div>
 		</div>
 		<!--main contents comes inside here-->
+		
 		<div id ="contents">
 			<!--left side of the contents such as icon and navigation bar-->
 			<div id ="left">
@@ -79,9 +80,8 @@
 			</div>
 					
 					
-					 <!--start of accordion-->
-	
-                 <!--end of accordion-->
+					 
+	<div id="main">
 		 <div class="accordion vertical">
     <ul>		 
 		<?php            
@@ -93,14 +93,16 @@
             $dbname = 'meetrix_database';
             mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
             
-            $cdquery="SELECT * FROM `group`";
+            $cdquery="SELECT * FROM `employee`";
             $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
             
             while ($cdrow=mysql_fetch_array($cdresult)) {
               $Title=$cdrow["group_name"];
-              $Supervisor=$cdrow["supervisor_id"];
-			  $Employee=$cdrow["employee_id"];
-			  $Email=$cdrow["supervisor_id"];
+              $Supervisor=$cdrow["supervisor"];
+			  $Employee_first=$cdrow["first_name"];
+			  $Employee_last=$cdrow["last_name"];
+			  $Contact_number=$cdrow["contact_number"];
+			  $Email=$cdrow["email"];
 			  $Description=$cdrow["description"];
 			  
 
@@ -109,7 +111,9 @@
             echo "<label for=$int>$Title</label>";
             echo "<div class=\"content\">";
 			echo "<h3>$Supervisor</h3>";
-			echo "<p>$Employee</p>";
+			echo "<p>$Employee_first</p>";
+			echo "<p>$Employee_last</p>";
+			echo "<p>$Contact_number</p>";
 			echo "<p>$Email</p>";
 			echo "<p>$Description</p>";
 			echo "</div>";
@@ -122,7 +126,7 @@
 		  </ul>
 		  </div>
 				 
-				 
+				 </div>
                </div>
 	</body>
 </html>

@@ -77,10 +77,10 @@
 				date_default_timezone_set('Australia/Brisbane');
 				$current = date('Y-m-d H:i:s');
 				$_SESSION["votingId"] = $votingId;
-				/*if(strtotime($current) > strtotime($end)){
+				if(strtotime($current) > strtotime($end)){
 					$_SESSION["votingId"] = $votingId;
 					header("Location: viewVotingResult.php");
-				}*/
+				}
 			}
 			
 	  	?>
