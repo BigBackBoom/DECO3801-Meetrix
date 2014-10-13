@@ -1,6 +1,6 @@
 function clicked_event(event){
 	var link = "php/viewCalendarRelated/meetingPopup.php?id=" + event.id + "&title=" + event.title + 
-				"&department=" + event.department + "&supervisor_id=" + event.supervisor_id + 
+				"&department=" + event.department + "&supervisor_id=" + event.creator_id + 
 				"&start=" + event.start + "&end=" + event.end + "&description=" + event.description + 
 				"&voting_id=" + event.voting_id + "&group_id=" + event.group_id + "&room_id=" + event.room_id;
 	window.open(link, "meetingPopup.php", "height=600,width=800");

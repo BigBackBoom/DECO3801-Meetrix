@@ -10,13 +10,14 @@ class sortable{
 		if(isset($_REQUEST['data']))
 		{
 			$data = $_REQUEST['data'];
-			$this->update($data);
+			$meetingId=$_REQUEST['meetingId'];
+			$this->update($data, $meetingId);
 		}
 
 	}
 
 	// to update the menu in database
-	function update($data){
+	function update($data, $meetingId){
 		$con = $this->connect();
 		parse_str($data,$str);
 		echo $data; echo "/n"; echo $str; echo "/n";
@@ -24,7 +25,7 @@ class sortable{
 		foreach($menu as $key => $value){
 			print_r($menu); echo "/n";
 			$key=$key+1;
-			mysqli_query($con,"update agenda set agenda_order='$key' where id=$value");
+			mysqli_query($con,"update agenda set agenda_order='$key' where id=$value and meeting_id=$meetingId");
 		}
 		echo "Succesfully updated";
 		// how to order the rows in db

@@ -22,10 +22,25 @@
     			window.location.replace("/meetingPage.php?meetingId=" + meetingId);
    				resizeTo(width, height);
 			}
+			
+			function resizeWinTo2(meetingId) {
+    			var height = window.screen.height;
+    			var width = window.screen.width;
+    			window.location.replace("/viewMeetingRecord.php?meetingId=" + meetingId);
+   				resizeTo(width, height);
+			}  
     	</script>
   	</head>
   	
   	<?php
+  	
+  		function endDate($date, $duration){
+			$startSec = strtotime($date);
+			$durSec = explode(":", $duration);
+			$sec =  (intval($durSec[0]) * 3600) + (intval($durSec[1]) * 60) + intval($durSec[2]);
+			$temp = intval($startSec) + $sec;
+			return $temp;
+		}
   		/*initial connection to database*/
 		$host="localhost"; // Host name 
 		$username='root'; // Mysql username 
@@ -54,7 +69,13 @@
 		$duration = ($_GET["end"] - $_GET["start"])/1000;
 		$duration = date('H:i:s', $duration);
 		$start = $_GET["start"]/1000;
+		$originalStart = $start;
 		$start = new DateTime("@$start");
+		$end = endDate($start->format('Y-m-d H:i:s'), $duration);
+		//echo $end. " " . $originalStart;
+		date_default_timezone_set('Australia/Brisbane');
+		$current = strtotime(date('Y-m-d H:i:s'));
+		//echo $current;
   	?>
   	
 	<body>
@@ -112,7 +133,15 @@
 						echo "<td>". $posts[0]['room_name'] ."</td>";
 					echo "</tr>";
 				echo "</table>";
-				echo "<button type='button' onclick='resizeWinTo(". $_GET["id"] .")'>Start Meeting</button>";
+				if(($originalStart - 300) <= $current && $current < $end){
+					echo "<button type='button' onclick='resizeWinTo(". $_GET["id"] .")'>Start Meeting</button>";
+				} else if ($current < ($originalStart - 300)){
+					echo "<button type='button' onclick='resizeWinTo(". $_GET["id"] .")' disabled>Start Meeting</button>";
+				} else {
+					echo "<button type='button' onclick='resizeWinTo2(". $_GET["id"] .")'>View Meeting Records</button>";
+				}
+				
+				
 				?>
 		</div>
 		<!--Main contents ends here-->

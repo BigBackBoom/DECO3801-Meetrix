@@ -108,11 +108,6 @@
 			$current = date('Y-m-d H:i:s');
   		?>
 		
-		<script>
-	  		$(document).ready(function(){
-	  			timer('<?php echo $current;?>', '<?php echo $end;?>');
-	  		})
-  		</script>
 	</head>
 	
 	<body onload="count" style="height: 478px">
@@ -121,9 +116,6 @@
 			<h1 style="height: 33px"><?php echo $posts[0]['name'];?></h1>
 		</div>   
 
-		<div id="timeleft">
-			Time Left: 00:00:00
-		</div>
 	    <div id="section">
 	        <table style="width: 131%; height: 330px;" class="auto-style2">
 	            <tr>
@@ -222,7 +214,7 @@
 				}
      		?>
 	        <br />
-	        <input id="Button1" type="button" onclick= "redirect1(<?php echo $posts[0]['meeting_id']; ?>)" value="Create New Vote" /><br />
+	        <!--<input id="Button1" type="button" onclick= "redirect1(<?php echo $posts[0]['meeting_id']; ?>)" value="Create New Vote" /><br />-->
 		</div>        
         
 	</body>

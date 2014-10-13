@@ -174,8 +174,8 @@ header("Location:login.php");
 	*/
 				
 	
-				$sql = "INSERT INTO `group`(`group_name`,`description`) VALUES 
-				('$_POST[group_name]', '$_POST[description]')";
+				$sql = "INSERT INTO `group`(`group_name`,`description`,`creator_id`) VALUES 
+				('$_POST[group_name]', '$_POST[description]','".$_SESSION["user_id"]."')";
 				
 		
 				mysqli_query($conn, $sql);
@@ -183,14 +183,14 @@ header("Location:login.php");
 			
 				
 				foreach ($_POST['members'] as $select){
-					$sql1 = "INSERT INTO `group_employee`(`group_id`, `employee_id`,`supervisor_id`) VALUES ('". $groupId ."', '". $select ."','".$_SESSION["user_id"]."')";
+					$sql1 = "INSERT INTO `group_employee`(`group_id`, `employee_id`) VALUES ('". $groupId ."', '". $select ."')";
 			
 					if (!mysqli_query($conn, $sql1)){
 						die('Error: ' . mysqli_error($conn));
 					}
 					
 				}
-				
+				echo "<font color='green'> New Group is created!</font>"; 
 				mysqli_close($conn);
 			}
 		

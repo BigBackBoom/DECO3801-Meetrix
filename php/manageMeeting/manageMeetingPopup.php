@@ -62,7 +62,7 @@
 					}
 				echo "</select>";
 				echo "<label>Supervisor</label>";
-				echo "<input type='text' name='super_visor' value='". $posts[0]['supervisor_id']. "'>";
+				echo "<input type='text' name='super_visor' value='". $posts[0]['creator_id']. "'>";
 				echo "<label>Start</label>";
 				echo "<input type='text' name='date' value='". $posts[0]['date'] ."'>";
 				echo "<label>Duration</label>";

@@ -103,14 +103,22 @@
 						<li class="navigation"><p class="nav_man">Meetings</p></li>
 							<ul class="sub_navigation">
 								<li class="sub_navigation"><p class="sub_nav_man"><a href="viewMeeting.php">View Meetings</a></p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Create Meeting</p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Delete Meeting</p></li>
+								<?php 
+									if($_SESSION['admin_level'] == 1){
+										echo "<li class='sub_navigation'><p class='sub_nav_man'><a href='createMeeting.php'>Create Meeting</a></p></li>";
+										echo "<li class='sub_navigation'><p class='sub_nav_man'><a href='manageMeeting.php'>Manage Meeting</a></p></li>";
+									}
+								?>
 							</ul>
 						<li class="navigation"><p class="nav_man">Groups</p></li>
 							<ul class="sub_navigation">
-								<li class="sub_navigation"><p class="sub_nav_man">View Groups</p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Create Group</p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Delete Group</p></li>
+								<li class="sub_navigation"><p class="sub_nav_man"><a href="viewGroups.php">View Groups</a></p></li>
+								<?php 
+									if($_SESSION['admin_level'] == 1){
+										echo "<li class='sub_navigation'><p class='sub_nav_man'><a href='createGroup.php'>Create Group</a></p></li>";
+										echo "<li class='sub_navigation'><p class='sub_nav_man'>Delete Group</p></li>";
+									}
+								?>
 							</ul>
 					</ul>
 				</div>

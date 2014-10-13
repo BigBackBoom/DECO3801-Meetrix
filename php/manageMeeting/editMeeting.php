@@ -39,11 +39,11 @@
 		$description = $_POST['description'];
 		$group = $_POST['group'];
 		$room = $_POST['room'];
-	
+		
 		/*search group from group name and supervisor_id*/
 		$posts1 = $pdo->query("SELECT `group`.*
 						FROM `group`
-						WHERE `group`.supervisor_id=$super_visor AND
+						WHERE `group`.creator_id=$super_visor AND
 						`group`.group_name = '$group'");
 		
 		/*search room from room name*/
@@ -57,7 +57,7 @@
 		/*edit data*/
 		$posts3 = $pdo->query("UPDATE `meeting` 
 							SET `name`='". $name ."', `department_id`='". $department ."', 
-							`supervisor_id`='". $super_visor ."', `date`='". $date ."',
+							`creator_id`='". $super_visor ."', `date`='". $date ."',
 							`duration`='". $duration ."', `description`='". $description ."',
 							`room_id`='". $posts2[0]['room_id'] ."'
 							WHERE `meeting_id`=$id");

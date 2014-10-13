@@ -27,7 +27,9 @@
   </head>
 
   <body>
-
+    <?php
+      $meetingId = $_REQUEST['meeting_id'];
+    ?>
     <!--Header on top of the page where all user account setting navigation should be done-->
     <div id ="profile_header">
       <!-- Meetrix typography div-->
@@ -75,19 +77,20 @@
         <ul id="sortable">
           <?php
             $con = mysqli_connect("localhost","root","Menu6Rainy*guilt","meetrix_database"); 
-            $result = mysqli_query($con,"select * from agenda where meeting_id=1 order by agenda_order");
+            $result = mysqli_query($con,"select * from agenda where meeting_id=$meetingId order by agenda_order");
             while($row=mysqli_fetch_array($result)){
               $order=$row['agenda_order'];
+              $title=$row['title'];
               $value=$row['content'];
               $duration=$row['duration'] * 5;
               $agenda_item=$row['id'];
-              echo "<li id='item_$order' data-id='".$agenda_item."'><div style=\"display:block; height:".$duration."px;\" class=\"resizable\">".$value."</div></li>";
+              echo "<li class='".$meetingId."' data-id='".$agenda_item."'>
+                      <div style=\"display:block; height:".$duration."px;\" class=\"resizable\"><h3 class=\"title\">".$title."</h3>".$value."</div>
+                    </li>";
             }
           //foreach($items as $key => $value) echo "<li id='item_$value'>".$value."</li>"; 
           ?>
-        </ul>
-        <button id="save_position">save position</button>
-        <button id="save_height">save height</button>                         
+        </ul>                       
       </div>
       <!--Main contents ends here-->
     </div>

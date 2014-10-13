@@ -85,40 +85,37 @@
 		 <div class="accordion vertical">
     <ul>		 
 		<?php            
-            $mysqlserver="localhost";
-            $mysqlusername="root";
-            $mysqlpassword="Menu6Rainy*guilt";
-            $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
-            $int = 1;
-            $dbname = 'meetrix_database';
-            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
-            
-            $cdquery="SELECT * FROM `employee`";
-            $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
-            
-            while ($cdrow=mysql_fetch_array($cdresult)) {
-              $Title=$cdrow["group_name"];
-              $Supervisor=$cdrow["supervisor"];
-			  $Employee_first=$cdrow["first_name"];
-			  $Employee_last=$cdrow["last_name"];
-			  $Contact_number=$cdrow["contact_number"];
-			  $Email=$cdrow["email"];
-			  $Description=$cdrow["description"];
-			  
-
-			echo "<li>";
-           echo "<input type=\"radio\" id=$int name=\"radio-accordion\">";
-            echo "<label for=$int>$Title</label>";
-            echo "<div class=\"content\">";
-			echo "<h3>$Supervisor</h3>";
-			echo "<p>$Employee_first</p>";
-			echo "<p>$Employee_last</p>";
-			echo "<p>$Contact_number</p>";
-			echo "<p>$Email</p>";
-			echo "<p>$Description</p>";
-			echo "</div>";
-			echo "</li>";
-			$int = $int +1;
+            $con = mysqli_connect("localhost","root","Menu6Rainy*guilt","meetrix_database"); 
+            $result = mysqli_query($con,"SELECT group_name, description, first_name, last_name, group_id, contact_number, email FROM `group`, employee WHERE employee.`employee_id`=`group`.`creator_id`");   
+            $int = 1;          
+            while ($row=mysqli_fetch_array($result)) {
+              	$id = $row['group_id'];       
+            	$group_name = $row['group_name'];
+            	$description = $row['description'];
+            	$first_name = $row['first_name'];
+            	$last_name = $row['last_name'];
+            	$contact_number = $row['contact_number'];
+            	$email = $row['email'];
+				echo "<li>";
+	            echo "<input type=\"radio\" id=$int name=\"radio-accordion\">";
+	            echo "<label for=$int style=\"margin-bottom: 0px\">".$group_name."</label>";
+	            echo "<div class=\"content\">";
+	            echo "<p>Group description: ".$description."</p>";
+				echo "<p>Creator: ".$first_name." ".$last_name."</p>";
+				echo "<p>Creator contact number: ".$contact_number."</p>";
+				echo "<p>Creator email: ".$email."</p>";
+				echo "<p>Group members: </p>";
+				$re = mysqli_query($con,"SELECT first_name, last_name, contact_number, email FROM `group_employee`, employee, `group` WHERE `group_employee`.`group_id`=`group`.`group_id` AND employee.`employee_id`=`group_employee`.`employee_id` AND `group`.`group_id`=$id"); 
+            	while($ro=mysqli_fetch_array($re)){
+            		$efn = $ro['first_name'];
+            		$eln = $ro['last_name'];
+            		$econta = $ro['contact_number'];
+            		$eemail = $ro['email']; 
+            		echo "<p>".$efn." ".$eln." ".$econta." ".$eemail."</p>";
+            	}
+				echo "</div>";
+				echo "</li>";
+				$int = $int +1;
 			  
             }
                 

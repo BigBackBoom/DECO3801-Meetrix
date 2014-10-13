@@ -20,11 +20,12 @@
 	$userId = $_POST['userId'];
 	
 	/*temporary only searching meeting where employee id 1 is in*/			
-	$st = $pdo->query("SELECT `meeting`.*
+	$st = $pdo->query("SELECT *
 					FROM `meeting`
 					INNER JOIN `meeting_group` ON `meeting`.meeting_id=`meeting_group`.meeting_id
+					INNER JOIN `group` ON `meeting_group`.group_id=`group`.group_id
 					INNER JOIN `group_employee` ON `meeting_group`.group_id=`group_employee`.group_id
-					WHERE `group_employee`.employee_id=$userId;");
+					WHERE `group_employee`.employee_id=$userId or `meeting`.creator_id = $userId ");
 	/*feth all data*/
 	$posts = $st->fetchAll();
 	$arr = array();
@@ -33,7 +34,7 @@
 	for($i=0; $i<sizeof($posts); $i++){
 		$end = endDate($posts[$i]['date'], $posts[$i]['duration']);
 		$arr[] = array('id' => $posts[$i]['meeting_id'], 'title' => $posts[$i]['name'],
-					'department' => $posts[$i]['department'], "supervisor_id" => $posts[$i]['supervisor_id'],
+					'department' => $posts[$i]['department'], "creator_id" => $posts[$i]['creator_id'],
 					'start' => $posts[$i]['date'], 'end' =>$end, 
 					'description' => $posts[$i]['description'], 'voting_id' => $posts[$i]['voting_id'], 
 					"group_id" => $posts[$i]['group_id'], 'room_id' => $posts[$i]['room_id'],);
