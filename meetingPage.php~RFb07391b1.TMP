@@ -17,8 +17,16 @@
 	</script>
 	
 	<head>		
-	    <!--Bootstrap-->
-	    <link href="css/bootstrap.min.css" rel="stylesheet">
+		<!-- jQuery-->    
+	    <script src="http://code.jquery.com/jquery-2.1.1-rc2.min.js"></script>
+	    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+	    <!--Sortable-->
+	    <script src="js/sortable.js"></script>
+	    <link rel="stylesheet" href="css/jquery-ui.css">
+	    <!--Resizable-->
+	    <script src="js/resizable.js"></script>
+	    <!--Update/Add agenda content-->
+	    <script src="js/addAgendaContent.js"></script>
 		<style type="text/css">
 			#header {
 			    background-color:green;
@@ -70,10 +78,6 @@
 			.auto-style4 {
 				border: 5px solid #000000;
 				text-align: center;
-			}
-
-			.modal-title{
-				color:black;
 			}
 		</style>
 		<?php
@@ -146,60 +150,21 @@
 	        <ul id="sortable">
 	          	<?php
 	            	$con = mysqli_connect("localhost","root","Menu6Rainy*guilt","meetrix_database"); 
-	           		$result = mysqli_query($con,"select * from agenda where meeting_id=$meetingId order by `agenda_order`");
+	           		$result = mysqli_query($con,"select * from agenda where meeting_id=$meetingId order by agenda_order");
+	            	$count = 0;
 					while($row=mysqli_fetch_array($result)){
 	            		$order=$row['agenda_order'];
 	              		$title=$row['title'];
 	              		$value=$row['content'];
-	              		$duration=$row['duration'] * 10;
-	              		$agenda_time = $row['duration'];
+	              		$duration=$row['duration'] * 5;
 	              		$agenda_item=$row['id'];
-	              		echo "<li class='".$meetingId."' data-id='".$agenda_item."'>";
-	              		echo "<div style=\"display:block; height:".$duration."px;\" class=\"resizable\">";
-	              		echo "<button type=\"button\" class=\"close delete\">";
-	              		echo "<span aria-hidden=\"true\">&times;</span>";
-	              		echo "<span class=\"sr-only\">Close</span></button>";
-	              		echo "<h4 data-toggle=\"modal\" data-target=\"#title".$agenda_item."\" class=\"agendaTitle\">".$title."</h4>";
-	              		echo "<p style=\"font-size:3px; margin:0 0 0px\" class=\"agendaTime\">(Approx. time: ".$agenda_time."min)</p>";
-						echo "<div class=\"modal fade\" id=\"title".$agenda_item."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
- 						echo "<div class=\"modal-dialog\">";
-    					echo "<div class=\"modal-content\">";
-						echo "<div class=\"modal-header\">";
-						echo "<button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>";
-						echo "<h4 class=\"modal-title\" id=\"myModalLabel\">Change the title of the agenda</h4>";
-						echo "</div>";
-						echo "<div class=\"modal-body\">";
-						echo "<textarea class=\"form-control\" id=\"changeTitle".$agenda_item."\" rows=\"3\">".$title."</textarea>";
-						echo "</div>";
-						echo "<div class=\"modal-footer\">";
-						echo "<button type=\"button\" class=\"btn btn-default exitTitle\" data-dismiss=\"modal\">Close</button>";
-						echo "<button type=\"button\" class=\"btn btn-primary saveAgendaTitle\" data-dismiss=\"modal\">Save changes</button>";
-						echo "</div>";
-						echo "</div>";
-						echo "</div>";
-						echo "</div>";
-	              		echo "<p data-toggle=\"modal\" data-target=\"#content".$agenda_item."\" class=\"agendaContent\">".$value."</p>";
-	              		echo "<div class=\"modal fade\" id=\"content".$agenda_item."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
- 						echo "<div class=\"modal-dialog\">";
-    					echo "<div class=\"modal-content\">";
-						echo "<div class=\"modal-header\">";
-						echo "<button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>";
-						echo "<h4 class=\"modal-title\" id=\"myModalLabel\">Change the content of the agenda</h4>";
-						echo "</div>";
-						echo "<div class=\"modal-body\">";
-						echo "<textarea class=\"form-control\" id=\"changeContent".$agenda_item."\" rows=\"3\">".$value."</textarea>";
-						echo "</div>";
-						echo "<div class=\"modal-footer\">";
-						echo "<button type=\"button\" class=\"btn btn-default exitContent\" data-dismiss=\"modal\">Close</button>";
-						echo "<button type=\"button\" class=\"btn btn-primary saveAgendaContent\" data-dismiss=\"modal\">Save changes</button>";
-						echo "</div>";
-						echo "</div>";
-						echo "</div>";
-						echo "</div>";
-	              		echo "</div>";
-	                    echo "</li>";
+	              		echo "<li class='".$meetingId."' data-id='".$agenda_item."'>
+	                    		<div style=\"display:block; height:".$duration."px;\" class=\"resizable\"><h3 class=\"title\">".$title."</h3>".$value."</div>
+	                    		</li>";
+						$count = $count + 1;
 	            	}
 	          		//foreach($items as $key => $value) echo "<li id='item_$value'>".$value."</li>"; 
+					$count = $count + 1;
 	          	?>
         	</ul>
 		</div>
@@ -273,23 +238,7 @@
      		?>
 	        <br />
 	        <input id="Button1" type="button" onclick= "redirect1(<?php echo $posts[0]['meeting_id']; ?>)" value="Create New Vote" /><br />
-		</div>
-		<!-- jQuery-->    
-	    <script src="http://code.jquery.com/jquery-2.1.1-rc2.min.js"></script>
-	    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
-	    <script type="text/javascript">var meetingId = <?php echo $meetingId; ?>;</script>
-	    <!--Sortable-->
-	    <script src="js/sortable.js"></script>
-	    <link rel="stylesheet" href="css/jquery-ui.css">
-	    <!--Resizable-->
-	    <script src="js/resizable.js"></script>
-		<!--Update/Add agenda content-->
-		<script src="js/addAgendaContent.js"></script>
-		<!--Edit Agenda content-->
-		<script src="js/changeAgenda.js"></script>
-		<!--Delete Agenda-->
-		<script src="js/deleteAgenda.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>	
+		</div>	
 	</body>
 	
 </html>

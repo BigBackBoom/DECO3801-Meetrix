@@ -74,7 +74,12 @@
 		$end = endDate($start->format('Y-m-d H:i:s'), $duration);
 		//echo $end. " " . $originalStart;
 		date_default_timezone_set('Australia/Brisbane');
-		$current = strtotime(date('Y-m-d H:i:s'));
+		//date_default_timezone_set("UTC");
+		//echo date_default_timezone_get();
+		$current = date('Y-m-d H:i:s');
+		date_default_timezone_set('UTC');
+		$current = strtotime($current);
+		//date_default_timezone_set("UTC");
 		//echo $current;
   	?>
   	
@@ -133,6 +138,8 @@
 						echo "<td>". $posts[0]['room_name'] ."</td>";
 					echo "</tr>";
 				echo "</table>";
+				
+				//echo "$originalStart <= $current $current < $end";
 				if(($originalStart - 300) <= $current && $current < $end){
 					echo "<button type='button' onclick='resizeWinTo(". $_GET["id"] .")'>Start Meeting</button>";
 				} else if ($current < ($originalStart - 300)){

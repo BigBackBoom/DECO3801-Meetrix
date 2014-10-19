@@ -1,0 +1,339 @@
+/*******styles for divs******/
+#profile_header	{width: 100%;
+				height: 50px;
+				right: 0;
+				left: 0;
+				background-color: #333333;
+				position: fixed;
+				clear: both;
+				display:block;
+				z-index:100;}
+
+#app_name	{display: inline-block;
+			width: 100px;
+			height: 50px;
+			margin-left: 40px;
+			float:left;}
+
+#account_nav	{display: inline-block;
+				width: 400px;
+				height: 50px;
+				float: right;
+				color:white;}
+
+#contents	{display:block;
+			width: 1100px;
+			height: 800px;
+			top: 60px;
+			margin-left: auto;
+			margin-right: auto;
+			position: relative;}
+
+#left		{display:inline-block;
+			width: 200px;
+			height: 500px;
+			overflow: hidden;}
+				
+#icon	{width: 200px;
+		height: 200px;}
+		
+#navigation		{width: 200px;
+				height: 300px;
+				background-color: inherit;
+				border-style: inset;
+				border-width: 2px;
+				border-color: #BBBBBB}
+
+#main {
+	padding-right: 15px;
+	padding-left: 15px;
+	padding-top: 180px;
+	margin: 0 auto; /* center the div */
+	width: 850px;
+
+}
+
+#meetingLists	{width: 800px;
+				height: 550px;
+				display: block;
+				border-style: solid;
+				border-color: rgba(255,255,255);
+				border-width:1px;
+				margin-right: auto;
+				margin-left: auto;}
+/*******end of styles for divs******/
+
+/*******styles with class******/
+
+/*top navigation bar*/
+a.name	{vertical-align: middle;
+		color: #00AA00;
+		font-size: 35px; 
+		text-decoration: none;}
+
+a.name:hover	{vertical-align: middle;
+				color: #00FF00;
+				font-size: 35px; 
+				text-decoration: none;}
+
+ul.account_nav			{margin-bottom: 0px;
+						vertical-align: middle;
+						height: 50px;
+						width: 250px;
+						display: inline-block;}
+
+li.account_nav	{display: inline-block;
+				vertical-align: middle;
+				margin:7.5px 15px 15px 7.5px;
+				font-size: 20px;}
+
+
+button.account_nav 	{
+					background-color:#44c767;
+					-moz-border-radius:28px;
+					-webkit-border-radius:28px;
+					border-radius:28px;
+					border:1px solid #18ab29;
+					display:inline-block;
+					cursor:pointer;
+					color:#ffffff;
+					font-family:arial;
+					font-size:15px;
+					padding:1px 32px;
+					text-decoration:none;
+					text-shadow:0px 1px 0px #2f6627;}
+					
+button.account_nav:hover 	{background-color:#5cbf2a;}
+
+button.account_nav:active 	{position:relative;
+							top:1px;}
+
+a.account	{vertical-align: middle;
+			font-family: 'Times New Roman';
+			color: #999999;
+			font-size: 20px; 
+			text-decoration: none;}
+
+a.account:hover	{vertical-align: middle;
+				font-family: 'Times New Roman';
+				color: #FFFFFF;
+				font-size: 20px; 
+				text-decoration: none;}
+/*End top navigation bar*/
+
+/*side navigation bar*/
+ul.navigation		{margin-bottom: 0px;
+					vertical-align: middle;}
+
+li.navigation	{display: block;
+				height: 80px
+				vertical-align: middle;
+				background-color: #888888;
+				color: white;
+				margin-top: 0px;
+				margin-bottom: 0px
+				margin-right: auto;
+				margin-left: auto;
+				font-size: 20px;}
+
+ul.sub_navigation	{padding-bottom: 10px;
+					padding-top: 10px;
+					background-color: #333333;
+					list-style-type: circle;
+					color:white;}
+
+li.sub_navigation	{margin-top: 5px;
+					margin-bottom: 5px;}
+
+p.nav_man	{display:block;
+			margin:0;
+			margin-left: 30px;}
+
+p.sub_nav_man	{display:block;
+				margin:0;
+				margin-left: 45px;}
+
+/*END side navigation bar*/
+
+/*homepage posts of recent and future */
+div.post	{height: 252px;
+			width:inherit
+			display:block;
+			border-top: ridge;
+			border-bottom: ridge;
+			border-color: #BBBBBB;
+			border-width:1px;}
+
+div.information	{display: inline-block; 
+				width:580px;
+				height: inherit;
+				float:left;
+				margin-left: 10px;}
+
+div.chart		{display: inline-block;
+				border-left: solid;
+				border-color: #BBBBBB;
+				border-width:1px;
+				width: 250px;
+				height: 250px;
+				float:right;}
+
+table.manTable	{border: 1px solid black;
+				margin-right: auto;
+				margin-left:auto;
+				margin-top: 10px;}
+
+tr.meetingRow	{height: 30px;}
+td.meetingRow	{vertical-align: middle;}
+
+/* END homepage posts of recent and future */
+
+img.logo	{height: 200px;
+			width: 200px;}
+
+/*styles without any class*/
+h2	{margin-left: 20px;
+	font-size: 25px;}
+
+/*!
+ * Styles of top navbar and sidebar
+ * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+.navbar-brand img{
+	width: 150px;
+	height:150px;
+}
+
+.nav h3{
+	color:white;
+	margin-top:25px;
+	font-size:50px;
+	font-weight:bold;
+}
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #222;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    padding-top: 180px;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-content{
+    list-style-position:inside;
+    border-top: 1px solid #707070;
+    border-bottom: 1px solid #707070;
+}
+
+.sidebar-content a{
+    font-size: 15px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}

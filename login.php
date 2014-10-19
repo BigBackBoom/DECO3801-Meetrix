@@ -189,7 +189,7 @@
                       <label for="password">Confirmed Password</label>
                       <input type="password" class="form-control" name="c_password" placeholder="Confirmed Password">
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default">Login</button>
                   </form>
                 <!--end of register form-->
                 </div>

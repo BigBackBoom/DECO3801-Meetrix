@@ -104,8 +104,60 @@ header("Location:login.php");
 				<table>
 				
                         <tr><td>Meeting Name :</td><td><input type="text" name="name"/></td></tr>
+                        <tr><td>Department :</td><td><select data-placeholder="Choose a Department..." name="department" class="chosen-select" tabindex="4">
+                 
+            <?php
+            
+            $mysqlserver="localhost";
+            $mysqlusername="root";
+            $mysqlpassword="Menu6Rainy*guilt";
+            $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+            
+            $dbname = 'meetrix_database';
+            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+            
+            $cdquery="SELECT `department_name`, `department_id` FROM `department`";
+            $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
+            
+            while ($cdrow=mysql_fetch_array($cdresult)) {
+            $cdTitle=$cdrow["department_name"];
+            $departmentid=$cdrow["department_id"];
+                echo "<option value=$departmentid>$cdTitle </options>";
+            
+            }
+                
+            ?>
+    
+        </select>
+</td></tr>
                         <tr><td>Meeting Description :</td><td>
 							<textarea name="description" maxlength="400" style="width: 384px; height: 135px" ></textarea></td></tr>
+						<tr><td>Room :</td><td><select data-placeholder="Choose a Room..." name="room" class="chosen-select">
+                 
+            <?php
+            
+            $mysqlserver="localhost";
+            $mysqlusername="root";
+            $mysqlpassword="Menu6Rainy*guilt";
+            $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+            
+            $dbname = 'meetrix_database';
+            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+            
+            $cdquery="SELECT `room_name`, `room_id` FROM `room`";
+            $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
+            
+            while ($cdrow=mysql_fetch_array($cdresult)) {
+            $cdTitle=$cdrow["room_name"];
+            $roomid=$cdrow["room_id"];
+                echo "<option value=$roomid>$cdTitle </options>";
+            
+            }
+                
+            ?>
+    
+        </select>
+</td></tr>
                         <tr><td>Meeting Date :</td><td><input type="date" name="date"/></td></tr>
                         <tr><td>Meeting Time :</td><td><input type="time" name="duration"/></td></tr>
                       
@@ -153,6 +205,9 @@ header("Location:login.php");
 			    $duration=$_POST['duration'];
 			    $description=$_POST['description'];
 			    $group=$_POST['group'];  
+			    $room=$_POST['room'];
+			    $department=$_POST['department'];  
+
 			      
 			/*if(empty($name) || empty($date) || empty($duration) || empty($description) || empty($group)) 
 			    { 
@@ -180,8 +235,8 @@ header("Location:login.php");
 			
 			    } */
 		
-			$sql="INSERT INTO `meeting`(`name`, `date`, `duration`, `description`, `creator_id`) VALUES 
-			('$_POST[name]', '$_POST[date]', '$_POST[duration]', '$_POST[description]','".$_SESSION["user_id"]."')"; 
+			$sql="INSERT INTO `meeting`(`name`, `date`, `duration`, `description`, `creator_id`, `room_id`, `department_id`) VALUES 
+			('$_POST[name]', '$_POST[date]', '$_POST[duration]', '$_POST[description]','".$_SESSION["user_id"]."', '$_POST[room]' , '$_POST[department]')"; 
 			
 
 			mysqli_query($conn, $sql);
