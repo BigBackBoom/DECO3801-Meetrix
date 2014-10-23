@@ -20,16 +20,21 @@
       		// Set a callback to run when the Google Visualization API is loaded.
       		google.setOnLoadCallback(drawChart_at_home);
       	</script>
-   		<meta charset="utf-8">
-    	<!-- default css -->
-    	<link rel="stylesheet" media="all" type="text/css" href="css/style.css" />
+	<script>
+		function startmeeting(url) {
+			window.open(url);
+		}
+	</script>
+   	<meta charset="utf-8">
     	<!-- tablest css -->
     	<link rel="stylesheet" media="all" type="text/css" href="css/tablet.css" />
     	<!-- smartphones css -->
     	<link rel="stylesheet" media="all" type="text/css" href="css/smart.css" />
     	<title>Meetrix "Meeting Management System"</title>
+        <!-- default css -->
+        <link rel="stylesheet" media="all" type="text/css" href="css/s.css" />
     	<!-- Bootstrap -->
-    	<link href="css/bootstrap.min.css" rel="stylesheet">
+    	<link href="css/b.min.css" rel="stylesheet">
     	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     	<!--[if lt IE 9]>
@@ -37,105 +42,118 @@
       		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     	<![endif]-->
   	</head>
+	<?php
+	
+		/*initial connection to database*/
+		$host="localhost"; // Host name 
+		$username='root'; // Mysql username 
+		$password='Menu6Rainy*guilt'; // Mysql password 
+		$db_name='meetrix_database'; // Database name 
+		$tbl_name='meeting'; // Table name
+		date_default_timezone_set('Australia/Brisbane');
+		$start = date("Y-m-d"). " 00:00:00";
+		$end = date("Y-m-d"). " 23:59:59";
+		
+		$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
+		/*temporary only searching meeting where employee id 1 is in*/			
+		$st = $pdo->query("SELECT `meeting`.* 
+					FROM `meeting`
+					INNER JOIN `meeting_group` ON `meeting`.meeting_id=`meeting_group`.meeting_id
+					INNER JOIN `group` ON `meeting_group`.group_id=`group`.group_id
+					INNER JOIN `group_employee` ON `meeting_group`.group_id=`group_employee`.group_id
+					WHERE (`meeting`.date BETWEEN '$start' AND '$end') and
+					(`group_employee`.employee_id=$_SESSION[user_id] or `meeting`.creator_id = $_SESSION[user_id])
+					GROUP BY `meeting`.meeting_id
+					ORDER BY `meeting`.date DESC
+						");
+		
+		/*feth all data*/
+		$posts = $st->fetchAll();
+	?>
 	<body onload="drawChart_at_home()">
-		<!--Header on top of the page where all user account setting navigation should be done-->
-		<div id ="profile_header">
-			<!-- Meetrix typography div-->
-			<div id="app_name"> 
-				<a class="name" href="#">Meetrix</a>
-			</div>
-			<!--Account navigation bars-->
-			<div id="account_nav">
-				<ul class="account_nav">
-					<li class="account_nav"><a href="#" class="account">Profile</a></li>
-					<li class="account_nav"><a href="#" class="account">Setting</a></li>
-					<li class="account_nav"><a href="#" class="account">Help</a></li>
-				</ul>
+		<!--sidebar and content-->
+        <div id="wrapper">
+             <!--sidebar-->
+            <div id="sidebar-wrapper">
+                <!--logo-->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#"><img src="img/logo.jpg" ></a>
+                </div>
+                <ul class="sidebar-nav">
+                    <?php 
+                        if($_SESSION['admin_level'] == 1){
+                            echo "<li class=\"sidebar-content\"><a href=\"createMeeting.php\"><span class=\"glyphicon glyphicon-plus\"></span>CREATE MEETING</a></li>";
+                            echo "<li class=\"sidebar-content\"><a href=\"manageMeeting.php\"><span class=\"glyphicon glyphicon-plus\"></span>MANAGE MEETING</a></li>";
+                        }
+                    ?>
+                    <li class="sidebar-content"><a href="viewMeeting.php"><span class="glyphicon glyphicon-plus"></span>VIEW MEETING</a></li>
+                    <?php 
+                        if($_SESSION['admin_level'] == 1){
+                            echo "<li class=\"sidebar-content\"><a href=\"createGroup.php\"><span class=\"glyphicon glyphicon-plus\"></span>CREATE GROUP</a></li>";
+                            echo "<li class=\"sidebar-content\"><a href=\"manageGroup.php\"><span class=\"glyphicon glyphicon-plus\"></span>MANAGE GROUP</a></li>";
+                        }
+                    ?>
+                    <li class="sidebar-content"><a href="viewGroups.php"><span class="glyphicon glyphicon-plus"></span>VIEW GROUP</a></li>
+                </ul>
+            </div>
+            <!--content-->
+            <div id="page-content-wrapper">
+                <!--top nav bar-->
+                <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <div class="container">
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav left">
+                                <h3>WELCOME TO <span style="color:green">MEETRIX</span></h3>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                            	<li>
+                                    <a href="index.php">HOME</a>
+                                </li>
+                                <li>
+                                    <a href="#">HELP</a>
+                                </li>
+                                <?php
+                                    if(isset($_SESSION["user_id"])) {
+                                        echo "<li><a href=\"php/logout.php\">LOGOUT</a></li>";
+                                        //echo "<button type='button' class='account_nav' onclick='location.href = \"php/logout.php\";'>Logout</button>";
+                                    }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!--Main contents comes in side here please edit or enter contents in here-->
+			<div id="main" style="width:1000px;" >
+				<h2>Meeting Today</h2>
+				<hr style='margin-bottom: 0px;'>
+				<div id="posts" style="margin-top: 10px; padding-top: 10px; ">
 				<?php
-					if(isset($_SESSION["user_id"])) {
-						echo "<button type='button' class='account_nav' onclick='location.href = \"php/logout.php\";'>Logout</button>";
+					if(sizeof($posts) > 0){
+						foreach($posts as $post){
+							echo "<div class='post' style='background-color: rgba(253, 240, 192, 1.0)'>";
+								echo "<div class='information'>";
+									echo "<img style='position: relative; bottom: 15px; display: block; margin-right: auto; margin-left: auto; ' src='img/pin.png' height='32px' width='32px'/>";
+									echo "<h3 style='margin-top: 0px;'>$post[name]</h3>";
+									echo "<p><strong>starts: </strong> $post[date]</p>";
+									echo "<p><strong>duration: </strong> $post[duration]</p>";
+									echo "<strong>description: </strong></br>";
+									echo "<p>$post[description]</p>";
+									//echo "<button type='button' onclick='startmeeting(\"php/viewCalendarRelated/meetingPopup.php?id=$post[meeting_id]\")'> See Detail</button>";
+								echo "</div>";
+							echo "</div>";
+							//echo "<hr>";
+						}
+					} else {
+						echo "<div class='post' style='background-color: rgba(253, 240, 192, 1.0)'>";
+							echo "<div class='information'>";
+								echo "<img style='position: relative; bottom: 15px; display: block; margin-right: auto; margin-left: auto; ' src='img/pin.png' height='32px' width='32px'/>";
+								echo "<h3 style='margin-top: 0px;'>There are no Meetings Today</h3>";
+								//echo "<button type='button' onclick='startmeeting(\"php/viewCalendarRelated/meetingPopup.php?id=$post[meeting_id]\")'> See Detail</button>";
+							echo "</div>";
+						echo "</div>";	
 					}
+					
 				?>
-			</div>
-		</div>
-		<!--main contents comes inside here-->
-		<div id ="contents">
-			<!--left side of the contents such as icon and navigation bar-->
-			<div id ="left">
-				<!--icon img-->
-				<div id="icon">
-					<img class="logo" src="img/testlogo2.png"/>
-				</div>
-				<!--navigation bars-->
-				<div id="navigation">
-					<ul class="navigation">
-						<li class="navigation"><p class="nav_man">Meetings</p></li>
-							<ul class="sub_navigation">
-								<li class="sub_navigation"><p class="sub_nav_man"><a href="viewMeeting.php">View Meetings</a></p></li>
-								<?php 
-									if($_SESSION['admin_level'] == 1){
-										echo "<li class='sub_navigation'><p class='sub_nav_man'><a href='createMeeting.php'>Create Meeting</a></p></li>";
-										echo "<li class='sub_navigation'><p class='sub_nav_man'><a href='manageMeeting.php'>Manage Meeting</a></p></li>";
-									}
-								?>
-							</ul>
-						<li class="navigation"><p class="nav_man">Groups</p></li>
-							<ul class="sub_navigation">
-								<li class="sub_navigation"><p class="sub_nav_man"><a href="viewGroups.php">View Groups</a></p></li>
-								<?php 
-									if($_SESSION['admin_level'] == 1){
-										echo "<li class='sub_navigation'><p class='sub_nav_man'><a href='createGroup.php'>Create Group</a></p></li>";
-										echo "<li class='sub_navigation'><p class='sub_nav_man'>Delete Group</p></li>";
-									}
-								?>
-							</ul>
-					</ul>
-				</div>
-			</div>
-			<!--Main contents comes in side here please edit or enter contents in here-->
-			<div id="main">
-				<h2>Recent Meeting</h2>
-				<hr>
-				<div class="post">
-					<div class="information">
-						<h3>Meetin Trick Studio Meeting 1</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						 Proin mattis porttitor pellentesque. Donec aliquam porta suscipit. 
-						 Proin eu nibh mauris. Aenean quis odio varius, venenatis sem ac, 
-						 rutrum magna. Donec rutrum lectus odio. Donec tempus faucibus nibh 
-						 sit amet volutpat. Sed porta sollicitudin nibh, sed venenatis mauris 
-						 imperdiet et. Nulla lacinia, nisl eget aliquet rutrum, lorem arcu aliquam 
-						 libero, eget auctor enim erat nec nibh. Quisque gravida erat ut nulla dapibus, 
-						 sit amet pretium risus luctus. Nam lacus mi, aliquam scelerisque sagittis sodales, 
-						 ultrices a nisi. Sed quis imperdiet augue. Vestibulum venenatis, mi ut fermentum aliquet, 
-						 odio erat consequat purus, id scelerisque massa tellus eget lacus. Quisque posuere magna 
-						 accumsan pretium egestas. Integer sit amet volutpat diam. Class aptent taciti sociosqu ad 
-						 litora torquent per conubia nostra, per inceptos himenaeos.</p>
-					</div>
-					<div id="recent" class="chart">
-					</div>
-				</div>
-				<h2>Future Meeting</h2>
-				<hr>
-				<div class="post">
-					<div class="information">
-						<h3>Meetin Trick Studio Meeting 2</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						 Proin mattis porttitor pellentesque. Donec aliquam porta suscipit. 
-						 Proin eu nibh mauris. Aenean quis odio varius, venenatis sem ac, 
-						 rutrum magna. Donec rutrum lectus odio. Donec tempus faucibus nibh 
-						 sit amet volutpat. Sed porta sollicitudin nibh, sed venenatis mauris 
-						 imperdiet et. Nulla lacinia, nisl eget aliquet rutrum, lorem arcu aliquam 
-						 libero, eget auctor enim erat nec nibh. Quisque gravida erat ut nulla dapibus, 
-						 sit amet pretium risus luctus. Nam lacus mi, aliquam scelerisque sagittis sodales, 
-						 ultrices a nisi. Sed quis imperdiet augue. Vestibulum venenatis, mi ut fermentum aliquet, 
-						 odio erat consequat purus, id scelerisque massa tellus eget lacus. Quisque posuere magna 
-						 accumsan pretium egestas. Integer sit amet volutpat diam. Class aptent taciti sociosqu ad 
-						 litora torquent per conubia nostra, per inceptos himenaeos.</p>
-					</div>
-					<div id="future" class="chart">
-						<img src="img/Placeholder.jpg" alt="future graph" height="250px" width="250px"/>
-					</div>
 				</div>
 			</div>
 			<!--Main contents ends here-->

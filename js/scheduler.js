@@ -3,7 +3,7 @@ function clicked_event(event){
 				"&department=" + event.department + "&supervisor_id=" + event.creator_id + 
 				"&start=" + event.start + "&end=" + event.end + "&description=" + event.description + 
 				"&voting_id=" + event.voting_id + "&group_id=" + event.group_id + "&room_id=" + event.room_id;
-	window.open(link, "meetingPopup.php", "height=600,width=800");
+	window.open(link, "meetingPopup.php", "height=450,width=600");
 	/*update event after changing value*/
 	$('#calendar').fullCalendar('updateEvent', event);
 }
@@ -57,7 +57,7 @@ function redirect_delete(meetind_id){
 	var r = confirm("Are you sure you want to delete this meeting?");
 	if (r == true) {
     	var link = "php/manageMeeting/deleteMeeting.php?id=" + meetind_id;
-		window.open(link, "deleteMeeting");	
+		window.location.href = link;	
 	} else {
 		
 	}

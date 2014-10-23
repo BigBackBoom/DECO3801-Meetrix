@@ -23,6 +23,7 @@
   	</head>
 
 	<?php
+		session_start();
 		/*initial connection to database*/
 		$host="localhost"; // Host name 
 		$username='root'; // Mysql username 
@@ -33,38 +34,55 @@
 		$id = $_POST['id'];
 		$name = $_POST['meeting_name'];
 		$department = $_POST['department'];
-		$super_visor = $_POST['super_visor'];
 		$date = $_POST['date'];
 		$duration = $_POST['duration'];
 		$description = $_POST['description'];
-		$group = $_POST['group'];
 		$room = $_POST['room'];
 		
 		/*search group from group name and supervisor_id*/
-		$posts1 = $pdo->query("SELECT `group`.*
+		/*$posts1 = $pdo->query("SELECT `group`.*
 						FROM `group`
-						WHERE `group`.creator_id=$super_visor AND
-						`group`.group_name = '$group'");
-		
+						WHERE `group`.creator_id=$_SESSION[user_id] AND
+						`group`.group_name = '$group'");*/
 		/*search room from room name*/
 		$posts2 = $pdo->query("SELECT `room`.*
 						FROM `room`
 						WHERE `room`.room_name ='$room'");
 		
-		$posts1 = $posts1->fetchAll();
+		//$posts1 = $posts1->fetchAll();
 		$posts2 = $posts2->fetchAll();
 		
 		/*edit data*/
 		$posts3 = $pdo->query("UPDATE `meeting` 
 							SET `name`='". $name ."', `department_id`='". $department ."', 
-							`creator_id`='". $super_visor ."', `date`='". $date ."',
+							`date`='". $date ."',
 							`duration`='". $duration ."', `description`='". $description ."',
 							`room_id`='". $posts2[0]['room_id'] ."'
-							WHERE `meeting_id`=$id");
+							WHERE `meeting_id`=$_SESSION[meeting_id]");
 		
-		$posts3 = $pdo->query("UPDATE `meeting_group` 
+		$loop = 1;
+		foreach ($_POST as $key => $value){
+			if($loop > 5){
+				if(strcmp($key, "room") == 0){
+					break;
+				}
+				
+				$posts1 = $pdo->query("SELECT `group`.*
+						FROM `group`
+						WHERE `group`.creator_id=$_SESSION[user_id] AND
+						`group`.group_name ='". $_POST[$key]. "'");
+				
+				$posts1 = $posts1->fetchAll();
+				
+				$posts3 = $pdo->query("UPDATE `meeting_group` 
 							SET `group_id`='". $posts1[0]['group_id'] ."'
-							WHERE `meeting_id`=$id");
+							WHERE `meeting_id`=$_SESSION[meeting_id]");
+			}
+			$loop++;
+			
+		}
+		
+		unset($_SESSION['meeting_id']);
 	?>
 	
 	<body>

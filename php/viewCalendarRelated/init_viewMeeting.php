@@ -20,13 +20,14 @@
 	$userId = $_POST['userId'];
 	
 	/*temporary only searching meeting where employee id 1 is in*/			
-	$st = $pdo->query("SELECT * 
+	$st = $pdo->query("SELECT `meeting`.* 
 					FROM `meeting`
 					INNER JOIN `meeting_group` ON `meeting`.meeting_id=`meeting_group`.meeting_id
 					INNER JOIN `group` ON `meeting_group`.group_id=`group`.group_id
 					INNER JOIN `group_employee` ON `meeting_group`.group_id=`group_employee`.group_id
 					WHERE `group_employee`.employee_id=$userId or `meeting`.creator_id = $userId
-					GROUP BY `meeting`.meeting_id");
+					GROUP BY `meeting`.meeting_id
+					ORDER BY `meeting`.date DESC");
 	/*feth all data*/
 	$posts = $st->fetchAll();
 	$arr = array();

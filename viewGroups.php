@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+
+<?php
+	session_start();
+	
+	if(!isset($_SESSION["user_id"])) {
+		header("Location:login.php");
+	}
+	$user_id = $_SESSION["user_id"];
+?>
+
+
 <html>
 	<?php 
 		if(strpos($_SERVER['HTTP_USER_AGENT'], "iPhone") || strpos($_SERVER['HTTP_USER_AGENT'], "Android")){
@@ -16,9 +27,16 @@
       		// Set a callback to run when the Google Visualization API is loaded.
       		google.setOnLoadCallback(drawChart_at_home);
       	</script>
-   		<meta charset="utf-8">
-    	<!-- default css -->
-    	<link rel="stylesheet" media="all" type="text/css" href="css/style.css" />
+		<script>
+			var user_id = <?php echo $_SESSION["user_id"]; ?>; 
+			$(document).ready(init_cal);
+		</script>
+   		
+		<meta charset="utf-8">
+		<!-- default css -->
+        <link rel="stylesheet" media="all" type="text/css" href="css/s.css" />
+    	<!-- Bootstrap -->
+    	<link href="css/b.min.css" rel="stylesheet">
     	<!-- tablest css -->
     	<link rel="stylesheet" media="all" type="text/css" href="css/tablet.css" />
 		<!-- accordion css -->
@@ -26,8 +44,7 @@
     	<!-- smartphones css -->
     	<link rel="stylesheet" media="all" type="text/css" href="css/smart.css" />
     	<title>Meetrix "Meeting Management System"</title>
-    	<!-- Bootstrap -->
-    	<link href="css/bootstrap.min.css" rel="stylesheet">
+
     	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     	<!--[if lt IE 9]>
@@ -36,94 +53,102 @@
     	<![endif]-->
   	</head>
 	<body onload="drawChart_at_home()">
-		<!--Header on top of the page where all user account setting navigation should be done-->
-		<div id ="profile_header">
-			<!-- Meetrix typography div-->
-			<div id="app_name"> 
-				<a class="name" href="#">Meetrix</a>
-			</div>
-			<!--Account navigation bars-->
-			<div id="account_nav">
-				<ul class="account_nav">
-					<li class="account_nav"><a href="#" class="account">Profile</a></li>
-					<li class="account_nav"><a href="#" class="account">Setting</a></li>
-					<li class="account_nav"><a href="#" class="account">Help</a></li>
-				<ul>
-			</div>
-		</div>
-		<!--main contents comes inside here-->
-		
-		<div id ="contents">
-			<!--left side of the contents such as icon and navigation bar-->
-			<div id ="left">
-				<!--icon img-->
-				<div id="icon">
-					<img class="logo" src="img/testlogo2.png"/>
+		<!--sidebar and content-->
+        <div id="wrapper">
+             <!--sidebar-->
+            <div id="sidebar-wrapper">
+                <!--logo-->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#"><img src="img/logo.jpg" ></a>
+                </div>
+                <ul class="sidebar-nav">                                      
+                    <?php 
+                        if($_SESSION['admin_level'] == 1){
+                            echo "<li class=\"sidebar-content\"><a href=\"createMeeting.php\"><span class=\"glyphicon glyphicon-plus\"></span>CREATE MEETING</a></li>";
+                            echo "<li class=\"sidebar-content\"><a href=\"manageMeeting.php\"><span class=\"glyphicon glyphicon-plus\"></span>MANAGE MEETING</a></li>";
+                        }
+                    ?>
+                    <li class="sidebar-content"><a href="viewMeeting.php"><span class="glyphicon glyphicon-plus"></span>VIEW MEETING</a></li>
+                    <?php 
+                        if($_SESSION['admin_level'] == 1){
+                            echo "<li class=\"sidebar-content\"><a href=\"createGroup.php\"><span class=\"glyphicon glyphicon-plus\"></span>CREATE GROUP</a></li>";
+                            echo "<li class=\"sidebar-content\"><a href=\"manageGroup.php\"><span class=\"glyphicon glyphicon-plus\"></span>MANAGE GROUP</a></li>";
+                        }
+                    ?>
+                    <li class="sidebar-content"><a href="viewGroups.php"><span class="glyphicon glyphicon-plus"></span>VIEW GROUP</a></li>
+                </ul>
+            </div>
+            <!--content-->
+            <div id="page-content-wrapper">
+                <!--top nav bar-->
+                <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <div class="container">
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav left">
+                                <h3>WELCOME TO <span style="color:green">MEETRIX</span></h3>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                            	<li>
+                                    <a href="index.php">HOME</a>
+                                </li>
+                                <li>
+                                    <a href="#">HELP</a>
+                                </li>
+                                <?php
+                                    if(isset($_SESSION["user_id"])) {
+                                        echo "<li><a href=\"php/logout.php\">LOGOUT</a></li>";
+                                        //echo "<button type='button' class='account_nav' onclick='location.href = \"php/logout.php\";'>Logout</button>";
+                                    }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!--Main contents comes in side here please edit or enter contents in here-->
+				<div id="main">
+					<div class="accordion vertical">
+					    <ul>		 
+							<?php            
+					            $con = mysqli_connect("localhost","root","Menu6Rainy*guilt","meetrix_database"); 
+					            $result = mysqli_query($con,"SELECT `group_name`, `description`, `first_name`, `last_name`, `group_id`, 
+					            		`contact_number`, `email` FROM `group`, `employee` WHERE `employee`.`employee_id`=$user_id AND `employee`.`employee_id`=`group`.`creator_id`");   
+					            $int = 1;          
+					            while ($row=mysqli_fetch_array($result)) {
+					              	$id = $row['group_id'];       
+					            	$group_name = $row['group_name'];
+					            	$description = $row['description'];
+					            	$first_name = $row['first_name'];
+					            	$last_name = $row['last_name'];
+					            	$contact_number = $row['contact_number'];
+					            	$email = $row['email'];
+									echo "<li>";
+						            echo "<input type=\"radio\" id=$int name=\"radio-accordion\">";
+						            echo "<label for=$int style=\"margin-bottom: 0px\">".$group_name."</label>";
+						            echo "<div class=\"content\">";
+						            echo "<p>Group description: ".$description."</p>";
+									echo "<p>Creator: ".$first_name." ".$last_name."</p>";
+									echo "<p>Creator contact number: ".$contact_number."</p>";
+									echo "<p>Creator email: ".$email."</p>";
+									echo "<p>Group members: </p>";
+									$re = mysqli_query($con,"SELECT first_name, last_name, contact_number, email FROM `group_employee`, employee, `group` WHERE `group_employee`.`group_id`=`group`.`group_id` AND employee.`employee_id`=`group_employee`.`employee_id` AND `group`.`group_id`=$id"); 
+					            	while($ro=mysqli_fetch_array($re)){
+					            		$efn = $ro['first_name'];
+					            		$eln = $ro['last_name'];
+					            		$econta = $ro['contact_number'];
+					            		$eemail = $ro['email']; 
+					            		echo "<p>".$efn." ".$eln." ".$econta." ".$eemail."</p>";
+					            	}
+									echo "</div>";
+									echo "</li>";
+									$int = $int +1;
+								  
+					            }
+					                
+					        ?>
+						</ul>
+					</div>			 
 				</div>
-				<!--navigation bars-->
-				<div id="navigation">
-					<ul class="navigation">
-						<li class="navigation"><p class="nav_man">Meetings</p></li>
-							<ul class="sub_navigation">
-								<li class="sub_navigation"><p class="sub_nav_man"><a href="viewMeeting.php">View Meetings</a></p></li>
-								<li class="sub_navigation"><p class="sub_nav_man"><a href="createMeeting.php">Create Meeting</a></p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Delete Meeting</p></li>
-							</ul>
-						<li class="navigation"><p class="nav_man">Groups</p></li>
-							<ul class="sub_navigation">
-								<li class="sub_navigation"><p class="sub_nav_man">View Groups</p></li>
-								<li class="sub_navigation"><p class="sub_nav_man"><a href="createGroup.php">Create Group</a></p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Delete Group</p></li>
-							</ul>
-					</ul>
-				</div>
-			</div>
-					
-					
-					 
-	<div id="main">
-		 <div class="accordion vertical">
-    <ul>		 
-		<?php            
-            $con = mysqli_connect("localhost","root","Menu6Rainy*guilt","meetrix_database"); 
-            $result = mysqli_query($con,"SELECT group_name, description, first_name, last_name, group_id, contact_number, email FROM `group`, employee WHERE employee.`employee_id`=`group`.`creator_id`");   
-            $int = 1;          
-            while ($row=mysqli_fetch_array($result)) {
-              	$id = $row['group_id'];       
-            	$group_name = $row['group_name'];
-            	$description = $row['description'];
-            	$first_name = $row['first_name'];
-            	$last_name = $row['last_name'];
-            	$contact_number = $row['contact_number'];
-            	$email = $row['email'];
-				echo "<li>";
-	            echo "<input type=\"radio\" id=$int name=\"radio-accordion\">";
-	            echo "<label for=$int style=\"margin-bottom: 0px\">".$group_name."</label>";
-	            echo "<div class=\"content\">";
-	            echo "<p>Group description: ".$description."</p>";
-				echo "<p>Creator: ".$first_name." ".$last_name."</p>";
-				echo "<p>Creator contact number: ".$contact_number."</p>";
-				echo "<p>Creator email: ".$email."</p>";
-				echo "<p>Group members: </p>";
-				$re = mysqli_query($con,"SELECT first_name, last_name, contact_number, email FROM `group_employee`, employee, `group` WHERE `group_employee`.`group_id`=`group`.`group_id` AND employee.`employee_id`=`group_employee`.`employee_id` AND `group`.`group_id`=$id"); 
-            	while($ro=mysqli_fetch_array($re)){
-            		$efn = $ro['first_name'];
-            		$eln = $ro['last_name'];
-            		$econta = $ro['contact_number'];
-            		$eemail = $ro['email']; 
-            		echo "<p>".$efn." ".$eln." ".$econta." ".$eemail."</p>";
-            	}
-				echo "</div>";
-				echo "</li>";
-				$int = $int +1;
-			  
-            }
-                
-          ?>
-		  </ul>
-		  </div>
-				 
-				 </div>
-               </div>
+            </div>
+        </div>
 	</body>
 </html>

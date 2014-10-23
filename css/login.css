@@ -1,7 +1,6 @@
 body{
 	height: 100%;
 	width:100%;
-	background: url('../img/bg.jpg') no-repeat center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -10,10 +9,8 @@ body{
 
 .Container{
 	width:1300px;
-	padding-right: 15px;
-	padding-left: 15px;
-	margin-right: auto;
-	margin-left: auto;
+	margin-left: 50px;
+	margin-top: 100px;
 }
 
 h1{
@@ -36,6 +33,11 @@ td{
 
 .heading{
 	width: 800px;
+	border-style: solid;
+	border-color: #669933;
+	background-color: white;
+	padding-left:20px;
+	padding-right:20px;
 }
 
 
@@ -50,8 +52,8 @@ td{
 	border-radius: 0px 4px 4px 4px;
 }
 
-.nav > li{
-	background-color: rgb(192,252,211);
+.nav-tabs > li{
+	background-color: grey;
 	border-radius: 4px 4px 0px 0px;
 }
 

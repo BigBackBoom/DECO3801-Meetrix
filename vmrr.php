@@ -18,8 +18,8 @@
 	<head>
 		<!-- default css -->
         <link rel="stylesheet" media="all" type="text/css" href="css/s.css" />
-    	<!-- Bootstrap -->
-    	<link href="css/b.min.css" rel="stylesheet">
+        <!-- Bootstrap -->
+        <link href="css/b.min.css" rel="stylesheet">
 		<style type="text/css">
 			.section {
 			    width:500px;
@@ -41,7 +41,8 @@
 				color:white;
 				font-weight: bold;
 				cursor:pointer;
-			}			
+			}
+			
 			#timeleft {
 			    display:block;
 			    margin-right: auto;
@@ -49,7 +50,7 @@
 			    margin-top: 30px;
 			    height: 30px;
 			    font-size: 20px; 
-                text-align:center; 	 
+                text-align:center;		 
 			}
 			#footer {
 			    background-color:black;
@@ -122,7 +123,7 @@
 		
 	</head>
 	
-	<body onload="count" style="height: 478px">
+	<body onload="count">
 		<!--sidebar and content-->
         <div id="wrapper">
              <!--sidebar-->
@@ -132,7 +133,20 @@
                     <a class="navbar-brand" href="#"><img src="img/logo.jpg" ></a>
                 </div>
                 <ul class="sidebar-nav">                                      
-                    
+                    <?php 
+                        if($_SESSION['admin_level'] == 1){
+                            echo "<li class=\"sidebar-content\"><a href=\"createMeeting.php\"><span class=\"glyphicon glyphicon-plus\"></span>CREATE MEETING</a></li>";
+                            echo "<li class=\"sidebar-content\"><a href=\"manageMeeting.php\"><span class=\"glyphicon glyphicon-plus\"></span>MANAGE MEETING</a></li>";
+                        }
+                    ?>
+                    <li class="sidebar-content"><a href="viewMeeting.php"><span class="glyphicon glyphicon-plus"></span>VIEW MEETING</a></li>
+                    <?php 
+                        if($_SESSION['admin_level'] == 1){
+                            echo "<li class=\"sidebar-content\"><a href=\"createGroup.php\"><span class=\"glyphicon glyphicon-plus\"></span>CREATE GROUP</a></li>";
+                            echo "<li class=\"sidebar-content\"><a href=\"manageGroup.php\"><span class=\"glyphicon glyphicon-plus\"></span>MANAGE GROUP</a></li>";
+                        }
+                    ?>
+                    <li class="sidebar-content"><a href="viewGroups.php"><span class="glyphicon glyphicon-plus"></span>VIEW GROUP</a></li>
                 </ul>
             </div>
             <!--content-->
@@ -162,9 +176,9 @@
                     </div>
                 </nav>
                 <!--Main contents comes in side here please edit or enter contents in here-->
-                <div id="main" style="width:1100px; background-color:inherit; border-style: none; margin:100px auto">
-                	<h1 style="height: 33px; text-align:center; font-weight:bold"><?php echo $posts[0]['name'];?></h1>
-                	<hr>
+				<div id="main" style="width:1100px; background-color:inherit; border-style: none; margin:100px auto">
+					<h1 style="height: 33px; text-align:center; font-weight:bold"><?php echo $posts[0]['name'];?></h1>
+	    			<hr>
 				    <div class="section">
 				        <!--Display Agenda-->
 			            <ul id="sortable">
@@ -295,8 +309,8 @@
 				        <br />
 				        <!--<input id="Button1" type="button" onclick= "redirect1(<?php echo $posts[0]['meeting_id']; ?>)" value="Create New Vote" /><br />-->
 					</div>
-				</div> 
-			</div>
-		</div>               
+				</div>
+			</div>        
+        </div>
 	</body>
 </html>

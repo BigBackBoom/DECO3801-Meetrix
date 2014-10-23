@@ -132,7 +132,20 @@
                     <a class="navbar-brand" href="#"><img src="img/logo.jpg" ></a>
                 </div>
                 <ul class="sidebar-nav">                                      
-                    
+                    <?php 
+                        if($_SESSION['admin_level'] == 1){
+                            echo "<li class=\"sidebar-content\"><a href=\"createMeeting.php\"><span class=\"glyphicon glyphicon-plus\"></span>CREATE MEETING</a></li>";
+                            echo "<li class=\"sidebar-content\"><a href=\"manageMeeting.php\"><span class=\"glyphicon glyphicon-plus\"></span>MANAGE MEETING</a></li>";
+                        }
+                    ?>
+                    <li class="sidebar-content"><a href="viewMeeting.php"><span class="glyphicon glyphicon-plus"></span>VIEW MEETING</a></li>
+                    <?php 
+                        if($_SESSION['admin_level'] == 1){
+                            echo "<li class=\"sidebar-content\"><a href=\"createGroup.php\"><span class=\"glyphicon glyphicon-plus\"></span>CREATE GROUP</a></li>";
+                            echo "<li class=\"sidebar-content\"><a href=\"manageGroup.php\"><span class=\"glyphicon glyphicon-plus\"></span>MANAGE GROUP</a></li>";
+                        }
+                    ?>
+                    <li class="sidebar-content"><a href="viewGroups.php"><span class="glyphicon glyphicon-plus"></span>VIEW GROUP</a></li>
                 </ul>
             </div>
             <!--content-->
