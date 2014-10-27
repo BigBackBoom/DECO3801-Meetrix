@@ -39,11 +39,7 @@
 		$description = $_POST['description'];
 		$room = $_POST['room'];
 		
-		/*search group from group name and supervisor_id*/
-		/*$posts1 = $pdo->query("SELECT `group`.*
-						FROM `group`
-						WHERE `group`.creator_id=$_SESSION[user_id] AND
-						`group`.group_name = '$group'");*/
+		
 		/*search room from room name*/
 		$posts2 = $pdo->query("SELECT `room`.*
 						FROM `room`
@@ -60,6 +56,7 @@
 							`room_id`='". $posts2[0]['room_id'] ."'
 							WHERE `meeting_id`=$_SESSION[meeting_id]");
 		
+		/*loop through the group that assigned and update information*/
 		$loop = 1;
 		foreach ($_POST as $key => $value){
 			if($loop > 5){
@@ -73,7 +70,7 @@
 						`group`.group_name ='". $_POST[$key]. "'");
 				
 				$posts1 = $posts1->fetchAll();
-				
+				echo 
 				$posts3 = $pdo->query("UPDATE `meeting_group` 
 							SET `group_id`='". $posts1[0]['group_id'] ."'
 							WHERE `meeting_id`=$_SESSION[meeting_id]");

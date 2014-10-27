@@ -39,14 +39,18 @@
 			$resultId = $_POST['answer'];
 			$votingId = $_GET['votingId'];
 			
+			/*if answer is set coming in here*/
 			if(isset($_POST['answer'])){
-				$st1 = $pdo->query("SELECT EXISTS(SELECT * FROM `vote_log` WHERE `vote_log`.vote_id=". $_SESSION["votingId"]  ." and `vote_log`.employee_id='" . $_SESSION["user_id"] . "')");
-				/*$st1 = $pdo->query("SELECT *
-								FROM `vote_log`
-								WHERE `vote_log`.vote_id=". $votingId . " and `vote_log`.employee_id=". $_SESSION["user_id"] .";");*/
+				/*check wether user have voted or not*/
+				$st1 = $pdo->query("SELECT EXISTS(SELECT * 
+									FROM `vote_log` 
+									WHERE `vote_log`.vote_id=". $_SESSION["votingId"]  ." and `vote_log`.employee_id='" . $_SESSION["user_id"] . "')");
+				
 				$posts = $st1->fetchAll();
 				
+				/*if they have not*/
 				if($posts[0][0] == 0){
+					/*update result*/
 					$st1 = $pdo->query("UPDATE `result`
 								SET `data`=`data` + 1
 								WHERE result_id=".$resultId);
@@ -57,14 +61,14 @@
 					unset($_SESSION["votingId"]);
 					exit(0);
 				}else{
-					echo "You were arleady voted";
+					/*if they have do not update result*/
+					echo "You were already voted";
 					unset($_SESSION["votingId"]);
 					exit(1);
 				}
 								
 			} else {
-				
-				/*get all room name, group name and department name from database using corresponding id*/
+				/*get all voting options that user have*/
 				$st1 = $pdo->query("SELECT *
 								FROM `vote_result`
 								INNER JOIN `result` ON `vote_result`.result_id=`result`.result_id
@@ -75,6 +79,7 @@
 				
 				$end = endDate($posts[0]['startDate'], $posts[0]['duration']);
 				date_default_timezone_set('Australia/Brisbane');
+				/*set up remmaining voting time*/
 				$current = date('Y-m-d H:i:s');
 				$_SESSION["votingId"] = $votingId;
 				if(strtotime($current) > strtotime($end)){
@@ -94,7 +99,9 @@
 	<body>
 		<!--Main contents comes in side here please edit or enter contents in here-->
 		<div id="votingPopUp">
+			<!-- show time left for this voting-->
 			<p id="timeleft">Time Left: </p> 
+			<!-- a form to left user vote -->
 			<form action="votingPage.php" id="edit" method="post">
 				<?php
 					echo "<p>". $posts[0]['question'] ."</p>";

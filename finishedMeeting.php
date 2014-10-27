@@ -30,14 +30,26 @@
 			    width: 400px;
 			}
 		</style>
+		<script type="text/javascript">
+    		function refreshAndClose() {
+       			 window.opener.location.reload(true);
+       			 window.close();
+    		}
+    		
+    		function redirect(){
+				var link = "viewVotingResult.php";
+				window.open(link, "createVoting", "height=600,width=800");	
+			}
+		</script>
   	</head>
 	<body>
 		<!--Header on top of the page where all user account setting navigation should be done-->
 		<div id ="window">
 			<p style="text-align: center; font-size: 20px;">The Meeting was finished</p>
+			<!--simple page with two buttons-->
 			<div id ="buttons" style="margin-right:auto; margin-left:auto; width: 208px;">
-				<button type="button" style="margin:5px;">Close Window</button>
-				<button type="button" style="margin:5px;">View Result</button>
+				<button type="button" onclick="refreshAndClose()" style="margin:5px;">Close Window</button>
+				<!--<button type="button" style="margin:5px;">View Result</button>-->
 			</div>
 		</div>
 	</body>

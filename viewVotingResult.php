@@ -45,7 +45,7 @@
 			$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
 			$votingId = $_SESSION["votingId"];
 				
-			/*get all room name, group name and department name from database using corresponding id*/
+			/*get voting information by vote id*/
 			$st1 = $pdo->query("SELECT *
 							FROM `vote_result`
 							INNER JOIN `result` ON `vote_result`.result_id=`result`.result_id
@@ -58,6 +58,8 @@
 		    var jArray= <?php echo json_encode($posts); ?>;
 		</script>
   	</head>
+  	
+  	<!-- Display result of voting using google chart API -->
 	<body onload="drawVoting_Result(jArray)">
 		<div class="charts" id="chart_pallet">
 		</div>

@@ -15,6 +15,7 @@
       		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     	<![endif]-->
     	
+    	<!-- Function to open two different voting page -->
     	<script>
     		function resizeWinTo(meetingId) {
     			var height = window.screen.height;
@@ -33,7 +34,7 @@
   	</head>
   	
   	<?php
-  	
+  		/*function to generate end date*/
   		function endDate($date, $duration){
 			$startSec = strtotime($date);
 			$durSec = explode(":", $duration);
@@ -48,6 +49,7 @@
 		$db_name='meetrix_database'; // Database name 
 		$tbl_name='meeting'; // Table name 
 		$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
+		
 		/*get all room name, group name and department name from database using corresponding id*/
 		$st1 = $pdo->query("SELECT `room`.room_name, `department`.department_name
 						FROM `meeting`
@@ -70,59 +72,56 @@
 		$duration = date('H:i:s', $duration);
 		$start = $_GET["start"]/1000;
 		$originalStart = $start;
-		$start = new DateTime("@$start");
+		$start = new DateTime("@$start"); // get start time
 		$end = endDate($start->format('Y-m-d H:i:s'), $duration);
-		//echo $end. " " . $originalStart;
-		date_default_timezone_set('Australia/Brisbane');
-		//date_default_timezone_set("UTC");
-		//echo date_default_timezone_get();
-		$current = date('Y-m-d H:i:s');
+		date_default_timezone_set('Australia/Brisbane'); 
+		$current = date('Y-m-d H:i:s'); //get current time
 		date_default_timezone_set('UTC');
 		$current = strtotime($current);
-		//date_default_timezone_set("UTC");
-		//echo $current;
   	?>
   	
 	<body>
 		<!--Main contents comes in side here please edit or enter contents in here-->
 		<div id="meetingPopUp">
 				<?php
+				/*create tables which shows basic informations of meeting*/
 				echo "<table>";
+					/*meeting id*/
 					echo "<tr>";
 						echo "<td><label for='meeting_title'>Meeting ID</label></td>";
 						echo "<td>". $_GET["id"] ."</td>";
 					echo "</tr>";
-					
+					/*meeting title*/
 					echo "<tr>";
 		  				echo "<td><label for='meeting_title'>Meeting Title</label></td>";
 		  				echo "<td>". $_GET["title"] ."</td>";
 	  				echo "</tr>";
-	  				
+	  				/*Department*/
 	  				echo "<tr>";
 						echo "<td><label for='department'>Department</label></td>";
 						echo "<td>". $posts[0]['department_name'] ."</td>";
 					echo "</tr>";
-					
+					/*who created this meeting*/
 					echo "<tr>";
 						echo "<td><label>Supervisor</label></td>";
 						echo "<td>". $_GET["supervisor_id"]. "</td>";
 					echo "</tr>";
-					
+					/*start date*/
 					echo "<tr>";
 						echo "<td><label>Start</label></td>";
 						echo "<td>". $start->format('Y-m-d H:i:s') ."</td>";
 					echo "</tr>";
-					
+					/*Duration*/
 					echo "<tr>";
 						echo "<td><label>Duration</label></td>";
 						echo "<td>". $duration ."</td>";
 					echo "<tr>";
-					
+					/*brief description of meeting*/
 					echo "<tr>";
 						echo "<td><label>Description</label></td>";
 						echo "<td>". $_GET["description"] ."</td>";
 					echo "</tr>";
-					
+					/*groups involved in the meeting*/
 					echo "<tr>";
 						echo "<td><label>Group</label></td>";
 						echo "<td>";
@@ -132,14 +131,14 @@
 						}
 						echo "</td>";
 					echo "</tr>";
-					
+					/*A room taken place in*/
 					echo "<tr>";
 						echo "<td><label>Room</label></td>";
 						echo "<td>". $posts[0]['room_name'] ."</td>";
 					echo "</tr>";
 				echo "</table>";
 				
-				//echo "$originalStart <= $current $current < $end";
+				/*disable or enable a button depends on current time*/
 				if(($originalStart - 300) <= $current && $current < $end){
 					echo "<button type='button' onclick='resizeWinTo(". $_GET["id"] .")'>Start Meeting</button>";
 				} else if ($current < ($originalStart - 300)){
@@ -147,7 +146,6 @@
 				} else {
 					echo "<button type='button' onclick='resizeWinTo2(". $_GET["id"] .")'>View Meeting Records</button>";
 				}
-				
 				
 				?>
 		</div>

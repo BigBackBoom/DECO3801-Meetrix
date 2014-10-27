@@ -106,6 +106,7 @@
 			<div id="main" >
 				<h2>Manage Meeting</h2>
 				<hr>
+				<!-- Show all voting that user have -->
 				<div id="meetingLists" style="height: 100%">
 					<table style="width:90%; text-align: center;" class="manTable" >
 						<tr style="background-color: rgba(150,150,150,1);">
@@ -115,6 +116,7 @@
 						    <th></th>    
 						</tr>
  						 <?php
+ 						 	/*create edit and delete button for each meeting*/
  						 	for($i = 0; $i<sizeof($posts); $i++){
 		 						echo '<tr class="meetingRow">';
 								echo '<td class="meetingRow">' .$posts[$i]['meeting_id']. '</td>';

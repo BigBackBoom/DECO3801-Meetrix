@@ -55,7 +55,7 @@
 		$end = date("Y-m-d"). " 23:59:59";
 		
 		$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
-		/*temporary only searching meeting where employee id 1 is in*/			
+		/*search meeting that user have today*/			
 		$st = $pdo->query("SELECT `meeting`.* 
 					FROM `meeting`
 					INNER JOIN `meeting_group` ON `meeting`.meeting_id=`meeting_group`.meeting_id
@@ -128,8 +128,10 @@
 				<hr style='margin-bottom: 0px;'>
 				<div id="posts" style="margin-top: 10px; padding-top: 10px; ">
 				<?php
+					/*if at least one meeting exist*/
 					if(sizeof($posts) > 0){
 						foreach($posts as $post){
+							/*foreach meeting, create a posts looks like sticky notes*/
 							echo "<div class='post' style='background-color: rgba(253, 240, 192, 1.0)'>";
 								echo "<div class='information'>";
 									echo "<img style='position: relative; bottom: 15px; display: block; margin-right: auto; margin-left: auto; ' src='img/pin.png' height='32px' width='32px'/>";
@@ -138,17 +140,15 @@
 									echo "<p><strong>duration: </strong> $post[duration]</p>";
 									echo "<strong>description: </strong></br>";
 									echo "<p>$post[description]</p>";
-									//echo "<button type='button' onclick='startmeeting(\"php/viewCalendarRelated/meetingPopup.php?id=$post[meeting_id]\")'> See Detail</button>";
 								echo "</div>";
 							echo "</div>";
-							//echo "<hr>";
 						}
 					} else {
+						/*if there are no meeting, create a sticky note with "no meeting today" on it. */
 						echo "<div class='post' style='background-color: rgba(253, 240, 192, 1.0)'>";
 							echo "<div class='information'>";
 								echo "<img style='position: relative; bottom: 15px; display: block; margin-right: auto; margin-left: auto; ' src='img/pin.png' height='32px' width='32px'/>";
 								echo "<h3 style='margin-top: 0px;'>There are no Meetings Today</h3>";
-								//echo "<button type='button' onclick='startmeeting(\"php/viewCalendarRelated/meetingPopup.php?id=$post[meeting_id]\")'> See Detail</button>";
 							echo "</div>";
 						echo "</div>";	
 					}

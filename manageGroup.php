@@ -83,10 +83,13 @@
                 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                     <div class="container">
                         <div class="navbar-collapse collapse">
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav left">
                                 <h3>WELCOME TO <span style="color:green">MEETRIX</span></h3>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
+								<li>
+                                    <a href="index.php">HOME</a>
+                                </li>
                                 <li>
                                     <a href="#">HELP</a>
                                 </li>

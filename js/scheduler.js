@@ -77,7 +77,7 @@ function init_cal(){
        		center: 'title',
        		right: 'month,agendaWeek,agendaDay'
        	},
-       	editable: true,
+       	editable: editable,
        	events: 
 		{
 			url: 'php/viewCalendarRelated/init_viewMeeting.php',

@@ -33,21 +33,33 @@
 		$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
 		$id = $_POST['id'];
 		$name = $_POST['group_name'];
-		$member = $_POST[0]['first_name']. " " .$_POST[0]['last_name'];
+		//$member = $_POST[0]['first_name']. " " .$_POST[0]['last_name'];
 		$description = $_POST['description'];
-		
-		
-		
-		
-		
-		
-		
+		$members = $_POST['members'];
+		$gid = $_SESSION[group_id];
+				
 		/*edit data*/
 		$posts3 = $pdo->query("UPDATE `group` 
-							SET `name`='". $name ."',  `description`='". $description ."'
+							SET `group_name`='". $name ."',  `description`='". $description ."'
 							WHERE `group_id`=$_SESSION[group_id]");
 		
-		
+		$conn=mysqli_connect('localhost','root','Menu6Rainy*guilt') or die('Not connected'); 						  
+		$database=mysqli_select_db($conn,'meetrix_database') or die('Database Not connected');
+		$sql2 ="DELETE FROM `group_employee` WHERE `group_id`= $gid";
+		if (!mysqli_query($conn, $sql2)){
+			die('Error: ' . mysqli_error($conn));
+		}
+		foreach ($members as $select){
+	
+			$sql1 = "INSERT INTO `group_employee`(`group_id`, `employee_id`) VALUES ('". $gid ."', '". $select ."')";
+			if (!mysqli_query($conn, $sql1)){
+				die('Error: ' . mysqli_error($conn));
+			}
+								
+		}
+		 
+		mysqli_close($conn);
+
 		unset($_SESSION['group_id']);
 	?>
 	

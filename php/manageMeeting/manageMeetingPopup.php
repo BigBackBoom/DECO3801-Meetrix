@@ -25,7 +25,7 @@
 		$db_name='meetrix_database'; // Database name 
 		$tbl_name='meeting'; // Table name 
 		$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
-		$meetingId = $_GET['id'];
+		$meetingId = $_REQUEST['id'];
 		$_SESSION['meeting_id'] = $meetingId;
 		/*get all room name, group name and department name from database using corresponding id*/
 		$st1 = $pdo->query("SELECT `meeting`.*, `room`.room_name, `group`.group_name, `department`.department_name, `employee`.first_name, `employee`.last_name
@@ -45,7 +45,6 @@
 		$posts = $st1->fetchAll();
 		$posts2 = $st2->fetchAll();
 		$i = 1;
-		echo  $posts[0]['meeting_id'];
   	?>
   	
 	<body>
@@ -53,6 +52,7 @@
 		<div id="meetingPopUp">
 			<form action="editMeeting.php" id="edit" method="post">
 				<?php
+				/*create table from retrieved data.*/
 				echo "<table>";
 					echo "<tr style='text-align: left'>";
 						echo "<th><label for='meeting_title'>Meeting ID: </label></th>";
@@ -109,7 +109,7 @@
 						echo "<th></th>";
 						echo "<th><input type='submit' value='Submit'></th>";
 					echo "</tr>";
-				"</table>";
+				echo "</table>";
 				
 				?>
 			</form>	

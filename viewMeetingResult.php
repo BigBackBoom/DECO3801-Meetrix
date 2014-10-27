@@ -72,6 +72,7 @@
 		
 		<?php
 			session_start();
+			/*this function returns end date by using duration and start date*/
 			function endDate($date, $duration){
 				$startSec = strtotime($date);
 				$durSec = explode(":", $duration);
@@ -81,7 +82,7 @@
 				$end = date('Y-m-d H:i:s', strval($temp));
 				return $date->format('Y-m-d H:i:s');
 			}
-			//date_default_timezone_set('Australia/Brisbane');
+			
 	  		/*initial connection to database*/
 			$host="localhost"; // Host name 
 			$username='root'; // Mysql username 
@@ -91,20 +92,22 @@
 			$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
 			$meetingId = $_GET['meetingId'];
 			
-			/*get all room name, group name and department name from database using corresponding id*/
+			/*get meeting from meeting id*/
 			$st1 = $pdo->query("SELECT *
 							FROM `meeting`
 							INNER JOIN `room` ON `meeting`.room_id=`room`.room_id
 							INNER JOIN `employee` ON `meeting`.creator_id=`employee`.employee_id
 							INNER JOIN `department` ON `meeting`.department_id=`department`.department_id
 							WHERE `meeting`.meeting_id=". $meetingId . ";");
-							
+			
+			/*get groups involving in meeting using meeting id*/
 			$st2 = $pdo->query("SELECT `group`.group_name
 							FROM `group`
 							INNER JOIN `meeting_group` ON `group`.group_id=`meeting_group`.group_id
 							INNER JOIN `meeting` ON `meeting_group`.meeting_id=`meeting`.meeting_id
 							WHERE `meeting`.meeting_id=". $meetingId . ";");
-			
+							
+			/*get all voting information by meeting id*/
 			$st3 = $pdo->query("SELECT `votes`.vote_id, `votes`.title
 							FROM `meeting`
 							INNER JOIN `votes_meeting` ON `meeting`.meeting_id=`votes_meeting`.meeting_id
@@ -169,6 +172,7 @@
 				        <!--Display Agenda-->
 			            <ul id="sortable">
 			                <?php
+			                	/*Show all inormations that was done in the meeting*/
 			                    $con = mysqli_connect("localhost","root","Menu6Rainy*guilt","meetrix_database"); 
 			                    $result = mysqli_query($con,"select * from agenda where meeting_id=$meetingId order by `agenda_order`");
 			                    while($row=mysqli_fetch_array($result)){
@@ -220,11 +224,12 @@
 			                        echo "</div>";
 			                        echo "</li>";
 			                    }
-			                    //foreach($items as $key => $value) echo "<li id='item_$value'>".$value."</li>"; 
+			                    
 			                ?>
 			            </ul>
 					</div>
 			     	<div class="section" class="auto-style1">
+			     	<!--Display all meeting information and voting that was created-->
 			     		<?php
 			     			echo "<table>";
 								echo "<tr>";
@@ -279,6 +284,7 @@
 							echo "</table>";
 			     		?>
 			     		<?php
+			     			/*show all the voting that meeting had*/
 			     			$votingNum = 1;
 							
 							foreach($posts3 as $post){

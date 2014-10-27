@@ -70,6 +70,14 @@
 		<script src='js/fullcalendar/fullcalendar.js'></script>
 		<script>
 			var user_id = <?php echo $_SESSION["user_id"]; ?>; 
+			editable = 
+				<?php 
+					if($_SESSION['admin_level'] == 1){
+						echo 'true;';
+					}else{
+						echo 'false;';
+					}
+				?>
 			$(document).ready(init_cal);
 		</script>
   	</head>

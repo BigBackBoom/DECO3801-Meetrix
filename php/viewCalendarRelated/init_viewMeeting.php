@@ -1,5 +1,5 @@
 <?php
-	
+	session_start();
 	function endDate($date, $duration){
 		$startSec = strtotime($date);
 		$durSec = explode(":", $duration);

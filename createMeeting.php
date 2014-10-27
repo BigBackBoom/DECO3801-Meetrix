@@ -11,13 +11,7 @@
 				<!--Load the AJAX API-->
 				<script src="https://www.google.com/jsapi" type="text/javascript"></script>
 				<script src="js/google-chart.js" type="text/javascript"></script>
-				<script type="text/javascript">
-				      		// Load the Visualization API and the piechart package.
-				      		google.load('visualization', '1.0', {'packages':['corechart']});
 				
-				      		// Set a callback to run when the Google Visualization API is loaded.
-				      		google.setOnLoadCallback(drawChart_at_home);
-				      	</script>
 				<meta charset="utf-8">
 				<!-- tablest css -->
 				<link href="css/tablet.css" media="all" rel="stylesheet" type="text/css" />
@@ -38,7 +32,7 @@
 				<![endif]-->
 		</head>
 
-		<body onload="drawChart_at_home()">
+		<body>
 		
 		<!--sidebar and content-->
 		<div id="wrapper">
@@ -196,7 +190,7 @@
 							            $dbname = 'meetrix_database';
 							            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
 							            
-							            $cdquery="SELECT `group_name`, `group_id` FROM `group`";
+							            $cdquery="SELECT `group_name`, `group_id` FROM `group` WHERE `creator_id` =". $_SESSION["user_id"];
 							            $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
 							            
 							            while ($cdrow=mysql_fetch_array($cdresult)) {

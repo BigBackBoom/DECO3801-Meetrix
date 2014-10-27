@@ -1,16 +1,19 @@
-<?php
-session_start();
-if(!isset($_SESSION["user_id"])) {
-header("Location:login.php");
-} 
-?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--redirect to login page if user did not login-->
+<?php
+	session_start();
+	if(!isset($_SESSION["user_id"])) {
+		header("Location:login.php");
+	} 
+?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="js/google-chart.js"></script>
 	<script src='js/jquery-1.10.2.min.js'></script>
 	<script src='js/timer.js'></script>
+	
+	<!--redirect to specific page depending on what user clicked-->
 	<script>
 		function redirect1(id){
 			var link = "php/votingRelated/createVotingPopup.php?meetingId=" + id ;
@@ -75,6 +78,7 @@ header("Location:login.php");
 		</style>
 		<?php
 			session_start();
+			/*this function returns end date by using duration and start date*/
 			function endDate($date, $duration){
 				$startSec = strtotime($date);
 				$durSec = explode(":", $duration);
@@ -84,7 +88,7 @@ header("Location:login.php");
 				$end = date('Y-m-d H:i:s', strval($temp));
 				return $date->format('Y-m-d H:i:s');
 			}
-			//date_default_timezone_set('Australia/Brisbane');
+			
 	  		/*initial connection to database*/
 			$host="localhost"; // Host name 
 			$username='root'; // Mysql username 
@@ -94,20 +98,22 @@ header("Location:login.php");
 			$pdo = new PDO("mysql: host=$host; dbname=$db_name", "$username", "$password");
 			$meetingId = $_GET['meetingId'];
 			
-			/*get all room name, group name and department name from database using corresponding id*/
+			/*get meeting from meeting id*/
 			$st1 = $pdo->query("SELECT *
 							FROM `meeting`
 							INNER JOIN `room` ON `meeting`.room_id=`room`.room_id
 							INNER JOIN `employee` ON `meeting`.creator_id=`employee`.employee_id
 							INNER JOIN `department` ON `meeting`.department_id=`department`.department_id
 							WHERE `meeting`.meeting_id=". $meetingId . ";");
-							
+			
+			/*get groups involving in meeting using meeting id*/			
 			$st2 = $pdo->query("SELECT `group`.group_name
 							FROM `group`
 							INNER JOIN `meeting_group` ON `group`.group_id=`meeting_group`.group_id
 							INNER JOIN `meeting` ON `meeting_group`.meeting_id=`meeting`.meeting_id
 							WHERE `meeting`.meeting_id=". $meetingId . ";");
 			
+			/*get all voting information by meeting id*/
 			$st3 = $pdo->query("SELECT `votes`.vote_id, `votes`.title
 							FROM `meeting`
 							INNER JOIN `votes_meeting` ON `meeting`.meeting_id=`votes_meeting`.meeting_id
@@ -123,6 +129,7 @@ header("Location:login.php");
 			$current = date('Y-m-d H:i:s');
   		?>		
 		<script>
+			/*start timer*/
 	  		$(document).ready(function(){
 	  			timer('<?php echo $current;?>', '<?php echo $end;?>');
 	  		})
@@ -176,7 +183,7 @@ header("Location:login.php");
         </div>
         <hr>
         <div class="section">
-            <button type="button" id="createAgenda">Create a agenda</button>
+            <button type="button" id="createAgenda">Add an agenda</button>
             <!--Display Agenda-->
             <ul id="sortable">
                 <?php
@@ -195,7 +202,7 @@ header("Location:login.php");
                         echo "<span aria-hidden=\"true\">&times;</span>";
                         echo "<span class=\"sr-only\">Close</span></button>";
                         echo "<h4 data-toggle=\"modal\" data-target=\"#title".$agenda_item."\" class=\"agendaTitle\">".$title."</h4>";
-                        echo "<p style=\"font-size:3px; margin:0 0 0px\" class=\"agendaTime\">(Approx. time: ".$agenda_time."min)</p>";
+                        echo "<p style=\"margin:0 0 0px\" class=\"agendaTime\">(Approx. time: ".$agenda_time."min)</p>";
                         echo "<div class=\"modal fade\" id=\"title".$agenda_item."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
                         echo "<div class=\"modal-dialog\">";
                         echo "<div class=\"modal-content\">";
@@ -234,11 +241,12 @@ header("Location:login.php");
                         echo "</div>";
                         echo "</li>";
                     }
-                    //foreach($items as $key => $value) echo "<li id='item_$value'>".$value."</li>"; 
+                     
                 ?>
             </ul>
         </div>
         <div class="section">
+        	<!--Display all meeting information and voting that was created-->
             <?php
                 echo "<table>";
                     echo "<tr>";
@@ -293,6 +301,7 @@ header("Location:login.php");
                 echo "</table>";
             ?>
             <?php
+            	/*show all the voting that meeting have*/
                 $votingNum = 1;
                 
                 foreach($posts3 as $post){
