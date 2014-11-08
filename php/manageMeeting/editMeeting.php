@@ -38,6 +38,7 @@
 		$duration = $_POST['duration'];
 		$description = $_POST['description'];
 		$room = $_POST['room'];
+		$members = $_POST['members'];
 		
 		
 		/*search room from room name*/
@@ -56,29 +57,13 @@
 							`room_id`='". $posts2[0]['room_id'] ."'
 							WHERE `meeting_id`=$_SESSION[meeting_id]");
 		
-		/*loop through the group that assigned and update information*/
-		$loop = 1;
-		foreach ($_POST as $key => $value){
-			if($loop > 5){
-				if(strcmp($key, "room") == 0){
-					break;
-				}
-				
-				$posts1 = $pdo->query("SELECT `group`.*
-						FROM `group`
-						WHERE `group`.creator_id=$_SESSION[user_id] AND
-						`group`.group_name ='". $_POST[$key]. "'");
-				
-				$posts1 = $posts1->fetchAll();
-				echo 
-				$posts3 = $pdo->query("UPDATE `meeting_group` 
-							SET `group_id`='". $posts1[0]['group_id'] ."'
-							WHERE `meeting_id`=$_SESSION[meeting_id]");
-			}
-			$loop++;
-			
-		}
-		
+		/*edit group*/
+		$posts4 = $pdo->query("DELETE FROM `meeting_group` WHERE `meeting_id`= $_SESSION[meeting_id]");
+		foreach ($members as $select){
+			$posts5 = $pdo->query("INSERT INTO `meeting_group`(`meeting_id`, `group_id`) 
+						VALUES ($_SESSION[meeting_id],$select)");							
+		}					
+									
 		unset($_SESSION['meeting_id']);
 	?>
 	

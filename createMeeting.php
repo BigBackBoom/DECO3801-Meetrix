@@ -191,13 +191,20 @@
 							            mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
 							            
 							            $cdquery="SELECT `group_name`, `group_id` FROM `group` WHERE `creator_id` =". $_SESSION["user_id"];
-							            $cdresult=mysql_query($cdquery) or die ("Query to get data from firsttable failed: ".mysql_error());
+							            $cdresult=mysql_query($cdquery) or die ("Query to get data from first table failed: ".mysql_error());
 							            
 							            while ($cdrow=mysql_fetch_array($cdresult)) {
-							            $cdTitle=$cdrow["group_name"];
-							            $groupid=$cdrow["group_id"];
-							                echo "<option value=$groupid>$cdTitle </options>";
-							            
+											$cdTitle=$cdrow["group_name"];
+											$groupid=$cdrow["group_id"];
+							                echo "<option value=$groupid>$cdTitle </options>";							            
+							            }
+										
+										$cdquery2="SELECT `group_name`, `group`.`group_id` FROM `group`, `group_employee` WHERE `group_employee`.`employee_id` =".$_SESSION["user_id"]." AND `group_employee`.`group_id` = `group`.`group_id`";
+										$cdresult2=mysql_query($cdquery2);
+										while ($cdrow2=mysql_fetch_array($cdresult2)) {
+											$cdTitle2=$cdrow2["group_name"];
+											$groupid2=$cdrow2["group_id"];
+							                echo "<option value=$groupid2>$cdTitle2 </options>";							            
 							            }
 							                
 							   ?></select> </td>

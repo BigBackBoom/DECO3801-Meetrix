@@ -19,8 +19,9 @@
       $_SESSION["user_id"] = $row['employee_id'];
       $_SESSION["admin_level"] = $row['admin_group'];
     } else {
-      $message = "Invalid Username or Password!";
+      $_SESSION["message"] = "Invalid Username or Password!";
     }
+	
   }
   if(isset($_SESSION["user_id"])) {
     header("Location:index.php");
@@ -89,7 +90,7 @@
                     </div>
                 </div>
             </nav>
-            <div id="main" style="width:350px; height:450px">                   
+            <div id="main" style="width:350px; height:500px">                   
                       <!--start of login_register-->
                       <div class="login_register">
                         <!-- Nav tabs -->
@@ -97,17 +98,17 @@
                           <?php 
                             if(isset($_SESSION["error_message"])){
                               echo "<li>";
-                    } else {
-                      echo "<li class='active'>";
-                    }
+                            } else {
+                              echo "<li class='active'>";
+                            }
                           ?>
                           <a href="#login" role="tab" data-toggle="tab">Login</a></li>
                           <?php 
                             if(isset($_SESSION["error_message"])){
                               echo "<li class='active'>";
-                    } else {
-                      echo "<li>";
-                    }
+                            } else {
+                              echo "<li>";
+                            }
                           ?>
                           <a href="#register" role="tab" data-toggle="tab">Register</a></li>
                         </ul>
@@ -117,10 +118,19 @@
                           <?php 
                             if(isset($_SESSION["error_message"])){
                               echo "<div class='tab-pane' id='login'>";
-                    } else {
-                      echo "<div class='tab-pane active' id='login'>";
-                    }
+                              } else {
+                                echo "<div class='tab-pane active' id='login'>";
+                              }
                           ?>
+
+                            <?php 
+                              if(isset($_SESSION["message"])) {
+                                echo "<span style='color: red;'>";
+                                echo $_SESSION["message"]; 
+                                echo "</span>";
+                                unset($_SESSION["message"]);
+                              } 
+                            ?>
                             <form role="form" name="form1" method="post" action="">
                               
                   <div class="form-group">
@@ -139,17 +149,19 @@
                           <?php 
                             if(isset($_SESSION["error_message"])){
                               echo "<div class='tab-pane active' id='register'>";
-                    } else {
-                      echo "<div class='tab-pane' id='register'>";
-                    }
+                            } else {
+                              echo "<div class='tab-pane' id='register'>";
+                            }
                           ?>
-                            <?php 
+                            <?php
+															
                               if(isset($_SESSION["error_message"])) {
                                 echo "<span style='color: red;'>";
                                 echo $_SESSION["error_message"]; 
-                      echo "</span>";
-                      unset($_SESSION["error_message"]);
-                      } 
+                                echo "</span>";
+                                unset($_SESSION["error_message"]);
+                              } 
+							  
                             ?>
                             <form role="form" action="php/register.php" method="post">
                               <div class="form-group">

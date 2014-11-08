@@ -1,10 +1,15 @@
 $(function(){
 	$("#createAgenda").click(function() {		
-		var agendaId = 1;
+		var agendaId = 0;
 		var i;
+		console.log($("#sortable").children().length);
 		for (i = 0; i < $("#sortable").children().length; i++) {
-			if($("#sortable").children().eq(i).attr("data-id") > agendaId){
+			if(parseInt($("#sortable").children().eq(i).attr("data-id"), 10) > parseInt(agendaId, 10)){
+				console.log(parseInt($("#sortable").children().eq(i).attr("data-id"), 10));
+				console.log(parseInt(agendaId, 10));
 				agendaId = $("#sortable").children().eq(i).attr("data-id");
+				console.log(agendaId);
+				console.log("ok");
 			}	
 		}
 		agendaId++;

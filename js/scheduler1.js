@@ -2,7 +2,7 @@ function redirect_deleteG(group_id){
 	var r = confirm("Are you sure you want to delete this group?");
 	if (r == true) {
     	var link = "php/manageGroup/deleteGroup.php?id=" + group_id;
-		window.location.href = link;
+		window.open(link, "deleteGroup");	
 	} else {
 		
 	}

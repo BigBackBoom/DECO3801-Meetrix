@@ -6,8 +6,9 @@
     	<link rel="stylesheet" media="all" type="text/css" href="css/style.css" />
     	<title>Meetrix "Meeting Management System"</title>
     	<!-- Bootstrap -->
-    	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" media="all" type="text/css" href="css/s.css" />
+		<link href="../../css/b.min.css" rel="stylesheet">
+		<link href="../../css/chosen.css" media="all" rel="stylesheet" type="text/css" />
+		<link href="../../css/chosen.min.css" media="all" rel="stylesheet" type="text/css" />
     	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     	<!--[if lt IE 9]>
@@ -42,8 +43,11 @@
 						FROM `department` 
 						WHERE 1");
 		
+		$st3 = $pdo->query("SELECT * FROM `room` WHERE 1");
+		
 		$posts = $st1->fetchAll();
 		$posts2 = $st2->fetchAll();
+		$posts3 = $st3->fetchAll();
 		$i = 1;
   	?>
   	
@@ -92,18 +96,73 @@
 						echo "<th><label>Description: </label></th>";
 						echo "<th><input type='text' name='description' value='". $posts[0]['description'] ."'></th>";
 					echo "</tr>";
-					
-					foreach($posts as $post){
-						echo "<tr style='text-align: left'>";
-							echo "<th><label>Group $i: </label></th>";
-							echo "<th><input type='text' name='group$i' value='". $post['group_name']."'></th>";
-						echo "</tr>";
-						$i++;
-					}
-					
+				?>
+					<tr>
+						<th><label>Groups: </label></th>
+						<td>
+						<select class="chosen-select" data-placeholder="Choose a Group..." multiple name="members[]" style="width: 350px;" tabindex="4">
+							<?php			            
+							    $mysqlserver="localhost";
+							    $mysqlusername="root";
+							    $mysqlpassword="Menu6Rainy*guilt";
+							    $link=mysql_connect(localhost, $mysqlusername, $mysqlpassword) or die ("Error connecting to mysql server: ".mysql_error());
+							            
+							    $dbname = 'meetrix_database';
+							    mysql_select_db($dbname, $link) or die ("Error selecting specified database on mysql server: ".mysql_error());
+							    
+								$cdquery3="SELECT `group_name`, `meeting_group`.`group_id` FROM `meeting_group`, `group` WHERE `meeting_group`.`meeting_id` = $meetingId AND `group`.`group_id` = `meeting_group`.`group_id`";
+								$cdresult3=mysql_query($cdquery3);
+								$resultarr = array();
+								while ($cdrow3=mysql_fetch_array($cdresult3)) {
+									$cdTitle3=$cdrow3["group_name"];
+									$groupid3=$cdrow3["group_id"];								
+							        echo "<option selected value=$groupid3>$cdTitle3 </options>";
+									$resultarr[]=$groupid3;									
+							    }
+								
+							    $cdquery="SELECT `group_name`, `group_id` FROM `group` WHERE `creator_id` =". $_SESSION["user_id"];
+							            $cdresult=mysql_query($cdquery) or die ("Query to get data from first table failed: ".mysql_error());
+							            
+							    while ($cdrow=mysql_fetch_array($cdresult)) {
+									
+									$cdTitle=$cdrow["group_name"];
+									$groupid=$cdrow["group_id"];
+									if(!in_array($groupid, $resultarr)) {
+										echo "<option value=$groupid>$cdTitle </options>";
+										$resultarr[]=$groupid;	
+									}							            
+							    }
+										
+								$cdquery2="SELECT `group_name`, `group`.`group_id` FROM `group`, `group_employee` WHERE `group_employee`.`employee_id` =".$_SESSION["user_id"]." AND `group_employee`.`group_id` = `group`.`group_id`";
+								$cdresult2=mysql_query($cdquery2);
+								while ($cdrow2=mysql_fetch_array($cdresult2)) {
+									$cdTitle2=$cdrow2["group_name"];
+									$groupid2=$cdrow2["group_id"];
+									if(!in_array($groupid2, $resultarr)) {
+										echo "<option value=$groupid2>$cdTitle2 </options>";
+										$resultarr[]=$groupid2;	
+									}
+							    }
+							    
+																
+							?>
+						</select> 
+						</td>
+					</tr>
+				<?php	
 					echo "<tr style='text-align: left'>";
 						echo "<th><label>Room: </label></th>";
-						echo "<th><input type='text' name='room' value='". $posts[0]['room_name'] ."'></th>";
+						echo "<th>";
+							echo "<select name='room'>";
+								foreach($posts3 as $post){
+									if(strcmp($posts[0]['room_name'], $post['room_name']) == 0){
+										echo "<option selected='selected' value='". $post['room_name'] ."'>". $post['room_name'] ."</option>";
+									} else {
+										echo "<option value='". $post['room_name'] ."'>". $post['room_name'] ."</option>";
+									}
+								}
+							echo "</select>";
+						echo "</th>";
 					echo "</tr>";
 					echo "<tr style='text-align: left'>";
 						echo "<th></th>";
@@ -112,7 +171,23 @@
 				echo "</table>";
 				
 				?>
-			</form>	
+			</form>
 		</div>
+		<!-- Chosen-select javascript for dropdown selection -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+		<script src="../../js/chosen.jquery.js" type="text/javascript"></script>
+		<script charset="utf-8" src="../../js/prism.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			var config = {
+					'.chosen-select'           : {},
+					'.chosen-select-deselect'  : {allow_single_deselect:true},
+					'.chosen-select-no-single' : {disable_search_threshold:10},
+					'.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+					'.chosen-select-width'     : {width:"95%"}
+			}
+			for (var selector in config) {
+					$(selector).chosen(config[selector]);
+			}
+		</script>
 	</body>
 </html>

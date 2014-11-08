@@ -8,25 +8,24 @@
 	} 
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="js/google-chart.js"></script>
-	<script src='js/jquery-1.10.2.min.js'></script>
-	<script src='js/timer.js'></script>
-	
-	<!--redirect to specific page depending on what user clicked-->
-	<script>
-		function redirect1(id){
-			var link = "php/votingRelated/createVotingPopup.php?meetingId=" + id ;
-			window.open(link, "createVoting", "height=450,width=600");	
-		}
+	<head>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="js/google-chart.js"></script>
+        <script src='js/jquery-1.10.2.min.js'></script>
+        <script src='js/timer.js'></script>
+        
+        <!--redirect to specific page depending on what user clicked-->
+        <script>
+            function redirect1(id){
+                var link = "php/votingRelated/createVotingPopup.php?meetingId=" + id ;
+                window.open(link, "createVoting", "height=450,width=600");  
+            }
 
-		function redirect2(id){
-			var link = "votingPage.php?votingId=" + id ;
-			window.open(link, "vote", "height=450,width=600");	
-		}
-	</script>
-	
-	<head>		
+            function redirect2(id){
+                var link = "votingPage.php?votingId=" + id ;
+                window.open(link, "vote", "height=450,width=600");  
+            }
+        </script>		
 	    <!-- default css -->
         <link rel="stylesheet" media="all" type="text/css" href="css/s.css" />
         <!-- Bootstrap -->

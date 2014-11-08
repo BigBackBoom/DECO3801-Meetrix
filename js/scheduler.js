@@ -12,18 +12,18 @@ function dropped(event, delta, revertFunc){
 	if (!confirm("Are you sure about this change?")) {
             revertFunc();
             return;
-    }
+	}
 	
- 	 if (window.XMLHttpRequest) {
-    // code for IE7+, Firefox, Chrome, Opera, Safari
-    	xmlhttp=new XMLHttpRequest();
+ 	if (window.XMLHttpRequest) {
+		 // code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
   	} else { // code for IE6, IE5
-    	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
   	}
-  	xmlhttp.onreadystatechange=function() {
-    	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-    		alert("Data was stored Successfully!");
-    	}
+	xmlhttp.onreadystatechange=function() {
+		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+			alert("Data was stored Successfully!");
+		}
   	}
   	var link = "php/viewCalendarRelated/dropCal.php?id="+ event.id + "&start="+ event.start + "&end="+ event.end + "&test=abcd";
  	xmlhttp.open("GET",link,true);

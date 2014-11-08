@@ -4,6 +4,7 @@
 	$userId = $_POST["userId"];
 	$username = $_POST["username"];
 	$password = $_POST["password"];
+	$cpassword = $_POST["c_password"];
 	
 	$conn = mysql_connect("localhost","root","Menu6Rainy*guilt");
 	mysql_select_db("meetrix_database",$conn);
@@ -24,6 +25,13 @@
 	
 	if($row[0] == 1){
 		$_SESSION["error_message"] = "Username already exist";
+		header("Location:/login.php");
+		exit();
+	}
+	
+	/*Check password are the same*/
+	if($password != $cpassword) {
+		$_SESSION["error_message"] = "Confirmed password is not the same as password.";
 		header("Location:/login.php");
 		exit();
 	}

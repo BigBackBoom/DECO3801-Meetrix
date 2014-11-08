@@ -108,11 +108,13 @@
 				<div id="main">
 					<div class="accordion vertical">
 					    <ul>		 
-							<?php            
+							<?php
 					            $con = mysqli_connect("localhost","root","Menu6Rainy*guilt","meetrix_database"); 
-					            $result = mysqli_query($con,"SELECT `group_name`, `description`, `first_name`, `last_name`, `group_id`, 
-					            		`contact_number`, `email` FROM `group`, `employee` WHERE `employee`.`employee_id`=$user_id AND `employee`.`employee_id`=`group`.`creator_id`");   
-					            $int = 1;          
+					            $result = mysqli_query($con,"SELECT `group_name`, `description`, `first_name`, `last_name`,
+										`group`.`group_id`, `contact_number`, `email` FROM `group`, `employee`, `group_employee` 
+										WHERE `group_employee`.`group_id` = `group`.`group_id` AND `group_employee`.`employee_id`=$user_id AND `employee`.`employee_id`=`group`.`creator_id`");   
+					            $int = 1;
+								$groupidarr=array();								
 					            while ($row=mysqli_fetch_array($result)) {
 					              	$id = $row['group_id'];       
 					            	$group_name = $row['group_name'];
@@ -120,29 +122,65 @@
 					            	$first_name = $row['first_name'];
 					            	$last_name = $row['last_name'];
 					            	$contact_number = $row['contact_number'];
-					            	$email = $row['email'];
-									echo "<li>";
-						            echo "<input type=\"radio\" id=$int name=\"radio-accordion\">";
-						            echo "<label for=$int style=\"margin-bottom: 0px\">".$group_name."</label>";
-						            echo "<div class=\"content\">";
-						            echo "<p>Group description: ".$description."</p>";
-									echo "<p>Creator: ".$first_name." ".$last_name."</p>";
-									echo "<p>Creator contact number: ".$contact_number."</p>";
-									echo "<p>Creator email: ".$email."</p>";
-									echo "<p>Group members: </p>";
-									$re = mysqli_query($con,"SELECT first_name, last_name, contact_number, email FROM `group_employee`, employee, `group` WHERE `group_employee`.`group_id`=`group`.`group_id` AND employee.`employee_id`=`group_employee`.`employee_id` AND `group`.`group_id`=$id"); 
-					            	while($ro=mysqli_fetch_array($re)){
-					            		$efn = $ro['first_name'];
-					            		$eln = $ro['last_name'];
-					            		$econta = $ro['contact_number'];
-					            		$eemail = $ro['email']; 
-					            		echo "<p>".$efn." ".$eln." ".$econta." ".$eemail."</p>";
-					            	}
-									echo "</div>";
-									echo "</li>";
-									$int = $int +1;
-								  
+					            	$email = $row['email'];									
+									if (!in_array($id, $groupidarr)) {
+										echo "<li>";
+										echo "<input type=\"radio\" id=$int name=\"radio-accordion\">";
+										echo "<label for=$int style=\"margin-bottom: 0px\">".$group_name."</label>";
+										echo "<div class=\"content\">";
+										echo "<p>Group description: ".$description."</p>";
+										echo "<p>Creator: ".$first_name." ".$last_name."</p>";
+										echo "<p>Creator contact number: ".$contact_number."</p>";
+										echo "<p>Creator email: ".$email."</p>";
+										echo "<p>Group members: </p>";
+										$re = mysqli_query($con,"SELECT first_name, last_name, contact_number, email FROM `group_employee`, employee, `group` WHERE `group_employee`.`group_id`=`group`.`group_id` AND employee.`employee_id`=`group_employee`.`employee_id` AND `group`.`group_id`=$id"); 
+										while($ro=mysqli_fetch_array($re)){
+											$efn = $ro['first_name'];
+											$eln = $ro['last_name'];
+											$econta = $ro['contact_number'];
+											$eemail = $ro['email']; 
+											echo "<p>".$efn." ".$eln." ".$econta." ".$eemail."</p>";
+										}
+										echo "</div>";
+										echo "</li>";
+										$groupidarr[] = $id;
+									}
+									$int = $int +1;									
 					            }
+								$result1 = mysqli_query($con,"SELECT `group_name`, `description`, `first_name`, `last_name`, `group`.`group_id`, 
+					            		`contact_number`, `email` FROM `group`, `employee` WHERE `group`.`creator_id` = $user_id");   
+								while($row1=mysqli_fetch_array($result1)) {
+									$id1 = $row1['group_id'];       
+					            	$group_name1 = $row1['group_name'];
+					            	$description1 = $row1['description'];
+					            	$first_name1 = $row1['first_name'];
+					            	$last_name1 = $row1['last_name'];
+					            	$contact_number1 = $row1['contact_number'];
+					            	$email1 = $row1['email'];									
+									if (!in_array($id1, $groupidarr)) {
+										echo "<li>";
+										echo "<input type=\"radio\" id=$int name=\"radio-accordion\">";
+										echo "<label for=$int style=\"margin-bottom: 0px\">".$group_name1."</label>";
+										echo "<div class=\"content\">";
+										echo "<p>Group description: ".$description1."</p>";
+										echo "<p>Creator: ".$first_name1." ".$last_name1."</p>";
+										echo "<p>Creator contact number: ".$contact_number1."</p>";
+										echo "<p>Creator email: ".$email1."</p>";
+										echo "<p>Group members: </p>";
+										$re1 = mysqli_query($con,"SELECT first_name, last_name, contact_number, email FROM `group_employee`, employee, `group` WHERE `group_employee`.`group_id`=`group`.`group_id` AND employee.`employee_id`=`group_employee`.`employee_id` AND `group`.`group_id`=$id1"); 
+										while($ro1=mysqli_fetch_array($re1)){
+											$efn1 = $ro1['first_name'];
+											$eln1 = $ro1['last_name'];
+											$econta1 = $ro1['contact_number'];
+											$eemail1 = $ro1['email']; 
+											echo "<p>".$efn1." ".$eln1." ".$econta1." ".$eemail1."</p>";
+										}
+										echo "</div>";
+										echo "</li>";
+										$groupidarr[] = $id;
+									}
+									$int = $int +1;	
+								}
 					                
 					        ?>
 						</ul>

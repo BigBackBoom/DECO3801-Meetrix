@@ -1,26 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!--Load the AJAX API-->
-    	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    	<script type="text/javascript" src="js/google-chart.js"></script>
-    	<script type="text/javascript">
-      		// Load the Visualization API and the piechart package.
-      		google.load('visualization', '1.0', {'packages':['corechart']});
-
-      		// Set a callback to run when the Google Visualization API is loaded.
-      		google.setOnLoadCallback(drawChart_at_home);
-      	</script>
    		<meta charset="utf-8">
     	<!-- default css -->
-    	<link rel="stylesheet" media="all" type="text/css" href="css/style.css" />
-    	<!-- tablest css -->
-    	<link rel="stylesheet" media="all" type="text/css" href="css/tablet.css" />
-    	<!-- smartphones css -->
-    	<link rel="stylesheet" media="all" type="text/css" href="css/smart.css" />
-    	<title>Meetrix "Meeting Management System"</title>
-    	<!-- Bootstrap -->
-    	<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" media="all" type="text/css" href="../css/s.css" />
+		<!-- Bootstrap -->
+		<link href="../css/b.min.css" rel="stylesheet">
 
     	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,53 +14,48 @@
       		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     	<![endif]-->
   	</head>
-	<body onload="drawChart_at_home()">
-		<!--Header on top of the page where all user account setting navigation should be done-->
-		<div id ="profile_header">
-			<!-- Meetrix typography div-->
-			<div id="app_name"> 
-				<a class="name" href="#">Meetrix</a>
-			</div>
-			<!--Account navigation bars-->
-			<div id="account_nav">
-				<ul class="account_nav">
-					<li class="account_nav"><a href="#" class="account">Profile</a></li>
-					<li class="account_nav"><a href="#" class="account">Setting</a></li>
-					<li class="account_nav"><a href="#" class="account">Help</a></li>
-				<ul>
-			</div>
-		</div>
-		<!--main contents comes inside here-->
-		<div id ="contents">
-			<!--left side of the contents such as icon and navigation bar-->
-			<div id ="left">
-				<!--icon img-->
-				<div id="icon">
-					<img class="logo" src="img/logo.png"/>
+	<body>
+		<!--sidebar and content-->
+		<div id="wrapper">
+			<!--sidebar-->
+			<div id="sidebar-wrapper">
+				<!--logo-->
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><img src="../img/logo.jpg" ></a>
 				</div>
-				<!--navigation bars-->
-				<div id="navigation">
-					<ul class="navigation">
-						<li class="navigation"><p class="nav_man">Meetings</p></li>
-							<ul class="sub_navigation">
-								<li class="sub_navigation"><p class="sub_nav_man">View Meetings</p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Create Meeting</p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Delete Meeting</p></li>
+				<ul class="sidebar-nav">
+					<li class="sidebar-content"><a href="#"><span class="glyphicon glyphicon-plus"></span>CREATE MEETING</a></li>
+					<li class="sidebar-content"><a href="#"><span class="glyphicon glyphicon-plus"></span>MANAGE MEETING</a></li>
+					<li class="sidebar-content"><a href="#"><span class="glyphicon glyphicon-plus"></span>VIEW MEETING</a></li>
+					<li class="sidebar-content"><a href="#"><span class="glyphicon glyphicon-plus"></span>CREATE GROUP</a></li>
+					<li class="sidebar-content"><a href="#"><span class="glyphicon glyphicon-plus"></span>MANAGE GROUP</a></li>
+					<li class="sidebar-content"><a href="#"><span class="glyphicon glyphicon-plus"></span>VIEW GROUP</a></li>
+				</ul>
+			</div>
+			<!--content-->
+			<div id="page-content-wrapper">
+				<!--top nav bar-->
+				<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+					<div class="container">
+						<div class="navbar-collapse collapse">
+							<ul class="nav navbar-nav left">
+								<h3>WELCOME TO <span style="color:green">MEETRIX</span></h3>
 							</ul>
-						<li class="navigation"><p class="nav_man">Groups</p></li>
-							<ul class="sub_navigation">
-								<li class="sub_navigation"><p class="sub_nav_man">View Groups</p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Create Group</p></li>
-								<li class="sub_navigation"><p class="sub_nav_man">Delete Group</p></li>
+							<ul class="nav navbar-nav navbar-right">
+								<li>
+									<a href="#">HOME</a>
+								</li>
+								<li>
+									<a href="#">HELP</a>
+								</li>
 							</ul>
-					</ul>
+						</div>
+					</div>
+				</nav>
+				<div id="main">
+					<p>This is a template.</p>
 				</div>
 			</div>
-			<!--Main contents comes in side here please edit or enter contents in here-->
-			<div id="main">
-				
-			</div>
-			<!--Main contents ends here-->
 		</div>
 	</body>
 </html>

@@ -3,16 +3,11 @@
 	<head>
    		<meta charset="utf-8">
     	<title>Meetrix "Meeting Management System"</title>
-    	<!-- Bootstrap -->
-    	<link href="../../css/bootstrap.min.css" rel="stylesheet">
-		<!-- tablest css -->
-		<link href="../../css/tablet.css" media="all" rel="stylesheet" type="text/css" />
-		<!-- smartphones css -->
-		<link href="../../css/smart.css" media="all" rel="stylesheet" type="text/css" />
-		<title>Meetrix "Meeting Management System"</title>
 		<!-- Chosen -->
 		<link href="../../css/chosen.css" media="all" rel="stylesheet" type="text/css" />
 		<link href="../../css/chosen.min.css" media="all" rel="stylesheet" type="text/css" />
+		<!--bootstrap-->
+		<link href="../../css/b.min.css" rel="stylesheet">
     	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     	<!--[if lt IE 9]>
